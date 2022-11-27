@@ -1,71 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { DataSchema, DataSchemaBe } from 'components/chat/chat';
 import { FormEmail } from 'components/forgotPassword/forgotPassword';
 import { IMessage } from 'components/inviteTalent/interfaces';
-import { io, Socket } from 'socket.io-client';
-
-type FormData = {
-	email: string;
-	password?: string;
-	role?: string;
-};
-
-interface ISignUpResponse {
-	email: string;
-	password: string;
-	googleId: string;
-	id: number;
-	role?: string;
-}
-
-interface ISignInResponse {
-	access_token: string;
-	userId: number;
-	role: string;
-}
-
-type FormPass = {
-	password: string;
-	token: string;
-};
-
-type FormChangePasswordPass = {
-	oldPassword: string;
-	newPassword: string;
-	email: string;
-};
-
-type FormPassSingleProfile = {
-	id: number;
-	saved: boolean;
-};
-
-interface IContactInfoForm {
-	firstName: string;
-	lastName: string;
-	email: string;
-	phone: string;
-	id: number | undefined;
-}
-type FormDataGoogle = {
-	email: string;
-	role?: string;
-};
-interface ISignUpResponseGoogle {
-	email: string;
-	googleId?: string;
-	id: number;
-	role?: string;
-}
-
-let socketConnection: Socket;
-
-function getSocket() {
-	if (!socketConnection) {
-		socketConnection = io(String(process.env.REACT_APP_API_URL));
-	}
-	return socketConnection;
-}
+import {
+	ISignUpResponse,
+	ISignInResponse,
+	FormPass,
+	FormChangePasswordPass,
+	IContactInfoForm,
+	FormDataGoogle,
+	ISignUpResponseGoogle,
+	FormData,
+	FormPassSingleProfile,
+} from './interfaces';
 
 const BASE_URL = `${process.env.REACT_APP_API_URL}`;
 // Define a service using a base URL and expected endpoints
@@ -85,7 +31,7 @@ export const authApi = createApi({
 		}),
 		signUpUpdate: build.mutation<ISignUpResponseGoogle, FormDataGoogle>({
 			query: body => ({
-				url: `auth/sign-up/update`,
+				url: `auth/sign-up`,
 				method: 'put',
 				body,
 				headers: {
@@ -188,10 +134,10 @@ export const profileApi = createApi({
 			}),
 		}),
 		updateSingleProfile: build.mutation<{ saved?: boolean }, FormPassSingleProfile>({
-			query: ({ id, saved }) => ({
+			query: ({ id, saved, clientId }) => ({
 				url: `profile/${id}`,
 				method: 'put',
-				body: { saved },
+				body: { saved, clientId },
 				headers: {
 					'Content-type': 'application/json; charset=UTF-8',
 				},
@@ -199,10 +145,14 @@ export const profileApi = createApi({
 			invalidatesTags: ['Profile'],
 		}),
 		getTalentProfile: build.query({
-			query: page => `/profile/savedTalent?page=${page}`,
+			query: savedProfile => `/profile/${savedProfile.id}/savedTalent?page=${savedProfile.page}`,
 			providesTags: ['Profile'],
 		}),
 		getUserProfile: build.query({
+			query: profile => `/profile/${profile.id}/${profile.clientId}`,
+			providesTags: ['Profile'],
+		}),
+		getFreelancerInfo: build.query({
 			query: id => `/profile/${id}`,
 			providesTags: ['Profile'],
 		}),
@@ -215,6 +165,7 @@ export const {
 	useGetFilterProfileQuery,
 	useGetUserProfileQuery,
 	useGetTalentProfileQuery,
+	useGetFreelancerInfoQuery,
 } = profileApi;
 
 export const jobPostApi = createApi({
@@ -222,6 +173,20 @@ export const jobPostApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	tagTypes: ['JobPost'],
 	endpoints: build => ({
+		getJobPosts: build.query({
+			query: () => ({
+				url: `/jobPost`,
+			}),
+			providesTags: ['JobPost'],
+		}),
+		getJobsDetail: build.query({
+			query: id => `/jobPost/${id}`,
+			providesTags: ['JobPost'],
+		}),
+		getPostJob: build.query({
+			query: id => `/jobPost/user/${id}`,
+			providesTags: ['JobPost'],
+		}),
 		postJob: build.mutation({
 			query: body => ({
 				url: '/jobPost',
@@ -232,18 +197,6 @@ export const jobPostApi = createApi({
 				},
 			}),
 			invalidatesTags: ['JobPost'],
-		}),
-		getJobPosts: build.query({
-			query: () => ({
-				url: `/jobPost`,
-			}),
-			providesTags: ['JobPost'],
-		}),
-		getJobsDetail: build.query({
-			query: id => `/jobPost/${id}`,
-		}),
-		getPostJob: build.query({
-			query: id => `/jobPost/user/${id}`,
 		}),
 		updateJobPost: build.mutation({
 			query: ({ data, postId }) => ({
@@ -334,20 +287,24 @@ export const invitationPostApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	endpoints: build => ({
 		postInvitation: build.mutation<
-			{ message: string; userId: number | undefined; jobTitle: string },
+			{
+				message: string;
+				clientId?: number;
+				freelancerId?: number;
+				profileId?: number;
+				jobPostId?: number;
+				jobTitle: string;
+			},
 			IMessage
 		>({
-			query: ({ message, userId, jobTitle }) => (
-				console.log(message, userId, jobTitle),
-				{
-					url: '/invite-talent',
-					method: 'POST',
-					body: { message, userId, jobTitle },
-					headers: {
-						'Content-type': 'application/json; charset=UTF-8',
-					},
-				}
-			),
+			query: ({ message, clientId, freelancerId, profileId, jobPostId, jobTitle }) => ({
+				url: '/invite-talent',
+				method: 'POST',
+				body: { message, clientId, freelancerId, profileId, jobPostId, jobTitle },
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+			}),
 		}),
 	}),
 });
@@ -357,6 +314,7 @@ export const { usePostInvitationMutation } = invitationPostApi;
 export const messagesApi = createApi({
 	reducerPath: 'message',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+	tagTypes: ['message'],
 	endpoints: build => ({
 		postMessage: build.mutation({
 			query: body => ({
@@ -368,21 +326,122 @@ export const messagesApi = createApi({
 				},
 			}),
 		}),
+		createRoom: build.mutation({
+			query: body => ({
+				url: '/chat-room',
+				method: 'POST',
+				body,
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+			}),
+		}),
 		getMessagesByRoom: build.query({
 			query: id => `/message/${id}`,
 		}),
-		sendMessage: build.mutation<DataSchema, DataSchemaBe>({
-			queryFn: data => {
-				const socket = getSocket();
-				return new Promise(resolve => {
-					socket.emit('sendMessage', data, (message: DataSchema) => {
-						resolve({ data: message });
-					});
-				});
-			},
+		getRoomsByUser: build.query({
+			query: id => ({
+				url: `/chat-room/${id}`,
+				responseHandler: response => response.json(),
+			}),
+		}),
+		getRoomsByTwoUsers: build.query({
+			query: data => `/chat-room/${data.senderId}/${data.receiverId}/${data.jobPostId}`,
+		}),
+		updateChatRoom: build.mutation({
+			query: data => ({
+				url: `/chat-room/${data.chatRoomId}`,
+				method: 'PATCH',
+				body: data,
+			}),
+			invalidatesTags: ['message'],
+		}),
+		updateDeletingStatus: build.mutation({
+			query: data => ({
+				url: `/chat-room/delete/${data.id}`,
+				method: 'PATCH',
+				body: data,
+			}),
+			invalidatesTags: ['message'],
 		}),
 	}),
 });
 
-export const { usePostMessageMutation, useGetMessagesByRoomQuery, useSendMessageMutation } =
-	messagesApi;
+export const {
+	usePostMessageMutation,
+	useGetMessagesByRoomQuery,
+	useCreateRoomMutation,
+	useGetRoomsByUserQuery,
+	useGetRoomsByTwoUsersQuery,
+	useUpdateChatRoomMutation,
+	useUpdateDeletingStatusMutation,
+} = messagesApi;
+
+export const JobOfferApi = createApi({
+	reducerPath: 'jobOffer',
+	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+	tagTypes: ['jobOffer', 'jobContract'],
+	endpoints: build => ({
+		postOffer: build.mutation({
+			query: body => ({
+				url: '/jobOffer/offer',
+				method: 'POST',
+				body,
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+			}),
+			invalidatesTags: ['jobOffer'],
+		}),
+		updateOfferStatus: build.mutation({
+			query: body => ({
+				url: `/jobOffer/offer`,
+				method: 'PUT',
+				body,
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+			}),
+			invalidatesTags: ['jobOffer'],
+		}),
+		getJobOffer: build.query({
+			query: currentChatId =>
+				`/jobOffer/job/${currentChatId.jobPostId}/${currentChatId.freelancerId}/${currentChatId.clientId}`,
+			providesTags: ['jobOffer'],
+		}),
+		getAcceptedJobOffer: build.query({
+			query: sendData =>
+				`/jobOffer/offer/${sendData.userId}/${sendData.role}?date=${sendData.date ?? ''}&status=${
+					sendData.status ?? ''
+				}`,
+			providesTags: ['jobOffer'],
+		}),
+		updateOfferStatusExpired: build.mutation({
+			query: ({ id, status }) => ({
+				url: `/jobOffer`,
+				method: 'PUT',
+				body: { status, id },
+			}),
+			invalidatesTags: ['jobOffer'],
+		}),
+		updateJobOffer: build.mutation({
+			query: ({ jobPostId, freelancerId, status, clientId }) => ({
+				url: `/jobOffer/${jobPostId}/${freelancerId}/${clientId}`,
+				method: 'PUT',
+				body: { status },
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+			}),
+		}),
+	}),
+});
+
+export const {
+	useGetJobOfferQuery,
+	useUpdateOfferStatusMutation,
+	useUpdateJobOfferMutation,
+	useGetAcceptedJobOfferQuery,
+	useUpdateOfferStatusExpiredMutation,
+	usePostOfferMutation,
+} = JobOfferApi;

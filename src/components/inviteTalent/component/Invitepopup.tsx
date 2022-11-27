@@ -19,40 +19,77 @@ import { BLUE } from 'constants/colors';
 import TextArea from 'antd/lib/input/TextArea';
 import { CreateJobPost } from 'constants/routes';
 import { useNavigate } from 'react-router-dom';
-import { usePostInvitationMutation } from 'service/httpService';
+import {
+	usePostInvitationMutation,
+	useCreateRoomMutation,
+	usePostMessageMutation,
+} from 'service/httpService';
 import { IMessage, IProps, Alert } from 'components/inviteTalent/interfaces';
 import { notification } from 'antd';
+import { ALERT_SUCCESS } from 'constants/links';
 
 const TEXTAREA_ROWS_MAX = 16;
 const TEXTAREA_ROWS_MIN = 8;
 const BORDER_RADIUS = 6;
 
 const InvitePopup = (props: IProps) => {
-	const { isDisabled, setIsDisabled, open, setOpen, post, handleSelect, data } = props.Context;
+	const {
+		isDisabled,
+		setIsDisabled,
+		open,
+		setOpen,
+		post,
+		handleSelect,
+		data,
+		defaultTitle,
+		clientInfos,
+	} = props.Context;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const [postInvitation] = usePostInvitationMutation();
+	const [createRoom] = useCreateRoomMutation();
+	const [sendMessage] = usePostMessageMutation();
 	const { control, handleSubmit } = useForm<IMessage>();
 
 	const alert = (type: Alert) => {
 		notification[type]({
-			message: type === 'success' ? `${t('InvitePopup.success')}` : `${t('InvitePopup.error')}`,
+			message: type === ALERT_SUCCESS ? `${t('InvitePopup.success')}` : `${t('InvitePopup.error')}`,
 		});
 	};
 
 	const onSubmit: SubmitHandler<IMessage> = async (payload: IMessage) => {
 		const { message, jobTitle } = payload;
-		const {
-			profile: { userId },
-		} = data;
+		const { userId, id } = data.profile;
+		const { clientId, jobPostId } = clientInfos;
 
 		if (isDisabled) {
 			setIsDisabled(false);
 		} else {
 			if (message && jobTitle) {
-				await postInvitation({ message, userId, jobTitle }).unwrap();
+				await postInvitation({
+					message,
+					clientId,
+					freelancerId: userId,
+					profileId: id,
+					jobPostId,
+					jobTitle,
+				}).unwrap();
+				setOpen(false);
 				alert('success');
 				setIsDisabled(true);
+				const room = await createRoom({
+					jobPostId: jobPostId,
+					senderId: clientId,
+					receiverId: userId,
+				}).unwrap();
+				const chatRoomId = room?.id;
+				await sendMessage({
+					chatRoomId,
+					text: message,
+					jobLink: `/post-job/${jobPostId}`,
+					userId: clientId,
+				});
+				setOpen(false);
 			} else {
 				alert('error');
 			}
@@ -90,6 +127,7 @@ const InvitePopup = (props: IProps) => {
 									render={({ field }) => <Select {...field}>{handleSelect()}</Select>}
 									name="jobTitle"
 									control={control}
+									defaultValue={`${defaultTitle.jobTitle}`}
 								/>
 								<SendMessage
 									onClick={handleSubmit(onSubmit)}

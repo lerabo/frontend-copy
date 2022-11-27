@@ -11,6 +11,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from 'config/theme';
 import TalentPage from 'pages/TalentPage';
 import SingleProfilePage from 'pages/SingleProfilePage';
+import MyContractPage from 'pages/MyContractPage';
 
 const WelcomePage = lazy(() => import('./pages/WelcomePage/WelcomePage'));
 
@@ -30,7 +31,6 @@ const RestorePassword = lazy(() => import('components/restorePassword/restorePas
 const PostJobPage = lazy(() => import('pages/PostJobPage'));
 const JobDescriptionPage = lazy(() => import('pages/JobDescriptionPage'));
 const JobDescriptionEditPage = lazy(() => import('pages/JobDescriptionEditPage'));
-// const InviteTalent = lazy(() => import('pages/InviteTalentPage'));
 const ClientSettings = lazy(() => import('pages/ClientSettingsPage'));
 
 const Chat = lazy(() => import('components/chat/chat'));
@@ -61,6 +61,7 @@ const App: FC = () => {
 							<Route path="post-job" element={<PostJobPage />} />
 							<Route path="/talent" element={<TalentPage />} />
 							<Route path="/chat" element={<Chat />} />
+							<Route path="/contracts" element={<MyContractPage />} />
 							<Route path="/client-settings" element={<ClientSettings />} />
 							<Route path="profile/:id" element={<SingleProfilePage />} />
 							<Route path="settings/" element={<SettingsPage />}>

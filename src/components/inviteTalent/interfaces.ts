@@ -1,8 +1,9 @@
 import { ReactI18NextChild } from 'react-i18next';
 
 export interface IPost {
+	id: number;
 	jobTitle: string;
-	jobDescription: string;
+	userId: number;
 }
 
 export interface IProps {
@@ -14,13 +15,21 @@ export interface IProps {
 		post: IPost[];
 		handleSelect: () => ReactI18NextChild | Iterable<ReactI18NextChild>;
 		data: {
-			profile: { userId: number };
+			profile: { userId: number; id: number };
+		};
+		defaultTitle: IPost;
+		clientInfos: {
+			clientId: number;
+			jobPostId: number;
 		};
 	};
 }
 export interface IMessage {
 	message: string;
-	userId: number | undefined;
+	clientId?: number;
+	freelancerId?: number;
+	profileId?: number;
+	jobPostId?: number;
 	jobTitle: string;
 }
 

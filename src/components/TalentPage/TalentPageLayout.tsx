@@ -30,7 +30,6 @@ import { useGetFilterProfileQuery } from 'service/httpService';
 import Pagination from './Pagination';
 import Skills from 'components/freelancerJobs/components/skills';
 const discover = 'discover';
-const hires = 'hires';
 const saved = 'save';
 
 const TalentPageLayout: FC = () => {
@@ -180,7 +179,6 @@ const TalentPageLayout: FC = () => {
 								search={search}
 								setSearch={setSearch}
 								placeholder={`${t('TalentCompanyPage.discover')}`}
-								searchSize={'0'}
 							/>
 						</InputContainer>
 						{active?.discover === discover && data?.profile && !isLoading ? (
