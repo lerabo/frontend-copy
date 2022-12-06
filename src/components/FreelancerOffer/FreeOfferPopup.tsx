@@ -1,61 +1,66 @@
-import React from 'react';
 import { t } from 'i18next';
 import {
 	Actions,
-	BtnAccept,
-	BtnDecline,
 	Content,
 	P,
 	Header,
 	Modal,
 	P2,
 } from 'components/FreelancerOffer/FreeOfferPopup.styles';
-import { useUpdateJobOfferMutation } from 'service/httpService';
-import { ISliceState } from 'redux/reducers/userSlice';
-import { Role } from 'pages/RoleSelection';
+import { usePostMessageMutation, useUpdateJobOfferMutation } from 'service/httpService';
+import { ButtonChat } from 'components/chat/chat.styles';
+import { Socket } from 'socket.io-client';
 
 interface IProps {
-	offer: [
-		{
-			name: string;
-			price: number;
-			startDate: string;
-			endDate: string;
-			jobPostId: number;
-			freelancerId: number;
-			clientId: number;
-		},
-	];
-	user: ISliceState;
-	setOfferResponse: (response: string) => void;
-	setStatus: (status: boolean) => void;
+	offer: {
+		name: string;
+		price: number;
+		startDate: string;
+		endDate: string;
+		jobPostId: number;
+		freelancerId: number;
+		clientId: number;
+	};
+	userId?: number;
+	chatRoomId: number;
+	socket?: Socket;
 }
 
 const FreelancerOfferPopup = (props: IProps) => {
-	const { offer, user, setOfferResponse, setStatus } = props;
+	const { offer, userId, chatRoomId, socket } = props;
 	const [updateOffer] = useUpdateJobOfferMutation();
+	const [sendMessage] = usePostMessageMutation();
 	const Accepted = 'Accepted';
 
 	const handleClick = async (status: string) => {
 		try {
 			const obj = {
-				jobPostId: offer?.map(el => el.jobPostId),
-				freelancerId: offer?.map(el => el.freelancerId),
-				clientId: offer?.map(el => el.clientId),
+				jobPostId: offer?.jobPostId,
+				freelancerId: offer?.freelancerId,
+				clientId: offer?.clientId,
 			};
 			const { jobPostId, freelancerId, clientId } = obj;
 			await updateOffer({ jobPostId, freelancerId, clientId, status }).unwrap();
 			if (status === Accepted) {
-				setStatus(true);
-				user.role === Role.Freelancer && setOfferResponse(`${t('FreeOfferPopup.acceptMessage')}`);
-				user.role === Role.Client && setOfferResponse(`${t('FreeOfferPopup.accepted')}`);
+				await sendMessage({
+					chatRoomId,
+					text: `${t('FreeOfferPopup.accepted')}`,
+					userId,
+				});
+				socket?.emit('sendMessage', {
+					text: `${t('FreeOfferPopup.accepted')}`,
+					userId,
+					chatRoomId,
+				});
 			} else {
-				setStatus(false);
-				user.role === Role.Freelancer && setOfferResponse(`${t('FreeOfferPopup.declineMessage')}`);
-				user.role === Role.Client && setOfferResponse(`${t('FreeOfferPopup.declined')}`);
+				await sendMessage({
+					chatRoomId,
+					text: `${t('FreeOfferPopup.declined')}`,
+					userId,
+				});
 			}
 		} catch (error) {
-			console.error(error);
+			// console.error(error);
 		}
 	};
 
@@ -63,25 +68,23 @@ const FreelancerOfferPopup = (props: IProps) => {
 		<div>
 			<Modal>
 				<Header>{`${t('FreeOfferPopup.title')}`}</Header>
-				{offer?.map(el => (
-					<Content>
-						<P>{`${t('FreeOfferPopup.company')}:`}</P>
-						<P2>{el.name}</P2>
-						<P>{`${t('FreeOfferPopup.price')}:`}</P>
-						<P2>{el.price}</P2>
-						<P>{`${t('FreeOfferPopup.start')}:`}</P>
-						<P2>{el.startDate}</P2>
-						<P>{`${t('FreeOfferPopup.end')}:`}</P>
-						<P2>{el.endDate}</P2>
-					</Content>
-				))}
+				<Content>
+					<P>{`${t('FreeOfferPopup.company')}:`}</P>
+					<P2>{offer?.name}</P2>
+					<P>{`${t('FreeOfferPopup.price')}:`}</P>
+					<P2>{offer?.price}</P2>
+					<P>{`${t('FreeOfferPopup.start')}:`}</P>
+					<P2>{offer?.startDate}</P2>
+					<P>{`${t('FreeOfferPopup.end')}:`}</P>
+					<P2>{offer?.endDate}</P2>
+				</Content>
 				<Actions>
-					<BtnAccept type="button" onClick={() => handleClick('Accepted')}>{`${t(
+					<ButtonChat type="button" onClick={() => handleClick('Accepted')}>{`${t(
 						'FreeOfferPopup.btnAccept',
-					)}`}</BtnAccept>
-					<BtnDecline type="button" onClick={() => handleClick('Rejected')}>{`${t(
+					)}`}</ButtonChat>
+					<ButtonChat type="button" onClick={() => handleClick('Rejected')}>{`${t(
 						'FreeOfferPopup.btnDecline',
-					)}`}</BtnDecline>
+					)}`}</ButtonChat>
 				</Actions>
 			</Modal>
 		</div>

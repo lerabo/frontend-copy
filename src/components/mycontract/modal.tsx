@@ -24,7 +24,9 @@ export const ContractModal = (props: ModalProps) => {
 			<Backdrop />
 			<Wrapper>
 				<StyledModal>
-					<CloseButton onClick={hide}>X</CloseButton>
+					<CloseButton type="button" onClick={hide}>
+						X
+					</CloseButton>
 					<ContractDiv>
 						{item.clientId.clientSetting ? (
 							<img src={item?.clientId.clientSetting.photo} />

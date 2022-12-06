@@ -1,26 +1,17 @@
 import styled from 'styled-components';
 
-export const Div = styled.div`
-	height: 150px;
-	width: 150px;
-	display: flex;
-	align-items: center;
-	flex-flow: column wrap;
+export const DropdownMenu = styled.div`
+	transform: translate3d(-45px, 68px, 0px) !important;
+	padding: unset;
 `;
-
-export const Img = styled.img`
-	height: 60px;
-	width: 60px;
-`;
-
-export const BoderNav = styled.div`
-	align-self: flex-start;
-	margin-top: 20px;
-`;
-
 export const Icon = styled.div`
 	display: flex;
 	flex-flow: row;
-	height: 20px;
-	width: 20px;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 3px;
+	& > img {
+		height: 20px;
+		margin: auto 2%;
+	}
 `;

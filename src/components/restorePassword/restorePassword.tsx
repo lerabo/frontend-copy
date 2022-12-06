@@ -1,35 +1,33 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { notification } from 'antd';
-import {
-	Div,
-	Form,
-	Input,
-	Button,
-	ControlStyle,
-	ErrorP,
-	H1,
-} from 'components/restorePassword/restorePassword.style';
+import { Form, H1, DivForm } from 'components/restorePassword/restorePassword.style';
 import { useTranslation } from 'react-i18next';
 import { useResetPasswordMutation } from 'service/httpService';
 import { saveUserId } from 'redux/reducers/userSlice';
 import { useAppDispatch } from 'redux/hooks';
-import { ALERT_SUCCESS } from 'constants/links';
+import { Label } from 'components/Layout/Layout.styles';
+import { Button } from 'components/signIn/Signin.styles';
+import { Input } from 'components/clientSettings/clentSettings.styles';
+import { Div, ErrorP } from 'components/forgotPassword/Forgot.styles';
+import { openNotificationWithIcon } from 'constants/links';
+import { t } from 'i18next';
 
 export type FormPass = {
 	createPassword: string;
 	password: string;
 };
 
-type Alert = 'success' | 'error';
-
 const schema = Yup.object({
-	createPassword: Yup.string().min(8).required(),
-	password: Yup.string().min(8).required(),
-}).required();
+	createPassword: Yup.string()
+		.required(`${t('SignIn.passwordCheck')}`)
+		.min(8),
+	password: Yup.string()
+		.required(`${t('SignIn.passwordCheck')}`)
+		.min(8),
+});
 
 const resetPassword = () => {
 	const [setPassword] = useResetPasswordMutation();
@@ -45,14 +43,6 @@ const resetPassword = () => {
 	});
 
 	const { t } = useTranslation();
-
-	const alert = (type: Alert) => {
-		notification[type]({
-			message:
-				type === ALERT_SUCCESS ? `${t('ResetPassword.success')}` : `${t('ResetPassword.error')}`,
-		});
-	};
-
 	const { token } = useParams<{ token: string }>();
 
 	useEffect(() => {
@@ -67,7 +57,7 @@ const resetPassword = () => {
 	const onSubmit: SubmitHandler<FormPass> = async values => {
 		const { password } = values;
 		if (values.createPassword !== values.password) {
-			alert('error');
+			openNotificationWithIcon('success');
 		} else {
 			try {
 				await setPassword({ password, token: token || '' }).unwrap();
@@ -76,8 +66,7 @@ const resetPassword = () => {
 				navigate('/sign-in');
 			} catch (e) {
 				reset({ createPassword: '', password: '' });
-				alert('error');
-				console.log(e);
+				openNotificationWithIcon('error');
 			}
 		}
 	};
@@ -86,23 +75,25 @@ const resetPassword = () => {
 		<Div>
 			<H1>{`${t('ForgotPassword.title')}`}</H1>
 			<Form onSubmit={handleSubmit(onSubmit)}>
-				<ControlStyle>{`${t('ResetPassword.newPassword')}`}</ControlStyle>
-				<Controller
-					render={({ field }) => <Input type="password" {...field} />}
-					name="createPassword"
-					control={control}
-					defaultValue=""
-				/>
-				<ErrorP>{errors.createPassword?.message}</ErrorP>
-				<ControlStyle>{`${t('ResetPassword.password')}`}</ControlStyle>
-				<Controller
-					render={({ field }) => <Input type="password" {...field} />}
-					name="password"
-					control={control}
-					defaultValue=""
-				/>
-				<ErrorP>{errors.password?.message}</ErrorP>
-				<Button type="submit">{`${t('SignUp.register')}`}</Button>
+				<DivForm>
+					<Label>{`${t('ResetPassword.newPassword')}`}</Label>
+					<Controller
+						render={({ field }) => <Input type="password" {...field} />}
+						name="createPassword"
+						control={control}
+						defaultValue=""
+					/>
+					<ErrorP>{errors.createPassword?.message}</ErrorP>
+					<Label>{`${t('ResetPassword.password')}`}</Label>
+					<Controller
+						render={({ field }) => <Input type="password" {...field} />}
+						name="password"
+						control={control}
+						defaultValue=""
+					/>
+					<ErrorP>{errors.password?.message}</ErrorP>
+					<Button type="submit">{`${t('SignUp.register')}`}</Button>
+				</DivForm>
 			</Form>
 		</Div>
 	);

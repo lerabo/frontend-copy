@@ -1,46 +1,56 @@
-import React from 'react';
-import profileImage from 'image/profile.png';
-import { NavLink } from 'react-router-dom';
 import { SettingsJobOwner, SignIn, Settings } from 'constants/routes';
 import { t } from 'i18next';
-import { Div, Img, BoderNav, Icon } from 'components/PopupSettings/PopupJO.styles';
+import { Icon, DropdownMenu } from 'components/PopupSettings/PopupJO.styles';
+import SettingPerson from 'assets/setting-person.svg';
 import settingsIcon from 'assets/settings.png';
 import logout from 'assets/logout.png';
+import { Role } from 'constants/links';
+import { Li, NavButton, StyledLink, Image } from 'components/Layout/Layout.styles';
+import { useAppDispatch } from 'redux/hooks';
+import { saveEmail, saveToken, saveUserId } from 'redux/reducers/userSlice';
 
 interface IProps {
-	handleClick: () => void;
 	role: string;
 }
-const Role = {
-	Freelancer: 'freelancer',
-	Client: 'client',
-};
 
 const JOPopupSettings = (props: IProps) => {
-	const { handleClick, role } = props;
+	const { role } = props;
+	const dispatch = useAppDispatch();
+
+	const handleClick = () => {
+		dispatch(saveEmail(''));
+		dispatch(saveToken(''));
+		dispatch(saveUserId(undefined));
+		localStorage.clear();
+	};
+
 	return (
-		<Div>
-			<Img src={profileImage} />
-			<BoderNav>
-				<NavLink
-					style={{ color: 'black' }}
-					to={role === Role.Client ? `${SettingsJobOwner}` : `${Settings}`}
-				>
+		<Li className="dropdown">
+			<NavButton
+				className="dropdownButton dropdown-toggle"
+				type="button"
+				id="dropdownMenuButton"
+				data-toggle="dropdown"
+				aria-haspopup="true"
+				aria-expanded="false"
+			>
+				<Image src={SettingPerson} alt="SettingPerson" />
+			</NavButton>
+			<DropdownMenu className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<StyledLink to={role === Role.Client ? `${SettingsJobOwner}` : `${Settings}`}>
 					<Icon>
-						<img style={{ marginRight: 5 }} src={settingsIcon} />
+						<img src={settingsIcon} />
 						{`${t('ClientPage.settings')}`}
 					</Icon>
-				</NavLink>
-			</BoderNav>
-			<BoderNav>
-				<NavLink style={{ color: 'black' }} onClick={handleClick} to={`${SignIn}`}>
+				</StyledLink>
+				<StyledLink onClick={handleClick} to={`${SignIn}`}>
 					<Icon>
-						<img style={{ marginRight: 5 }} src={logout} />
+						<img src={logout} />
 						{`${t('ClientPage.logout')}`}
 					</Icon>
-				</NavLink>
-			</BoderNav>
-		</Div>
+				</StyledLink>
+			</DropdownMenu>
+		</Li>
 	);
 };
 

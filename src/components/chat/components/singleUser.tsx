@@ -2,16 +2,16 @@ import { UserList } from 'components/chat/interfaces';
 import { Btn, ChatImage, LastMessage, SingleUser, Title } from 'components/chat/chat.styles';
 import { useAppSelector } from 'redux/hooks';
 import { RootState } from 'redux/store';
-import { Role } from 'pages/RoleSelection';
+import { Role } from 'constants/links';
 import { useUpdateDeletingStatusMutation } from 'service/httpService';
-import Image from 'image/dots.png';
+import Image from 'assets/dots.png';
 import { t } from 'i18next';
 
 interface Props {
 	item: UserList;
 	changeRoom: (
-		senderId: number,
-		receiverId: number,
+		clientId: number,
+		freelancerId: number,
 		jobPostId: number,
 		roomId: number,
 		activeRoom: string,
@@ -23,38 +23,46 @@ const User = (props: Props) => {
 	const { user } = useAppSelector<RootState>(state => state);
 	const { item, changeRoom, active } = props;
 	const [updateDeletingStatus] = useUpdateDeletingStatusMutation();
-	const deleteHandler = (status: string) => {
+	const deleteHandler = () => {
+		event?.preventDefault();
 		const newObj = {
 			id: item.roomId,
-			deletedFor: status,
+			deletedFor: user.role,
 		};
 		updateDeletingStatus(newObj);
 	};
+
 	return (
 		<SingleUser
 			onClick={() =>
-				changeRoom(item?.senderId, item.receiverId, item.jobPostId, item.roomId, item.activeRoom)
+				changeRoom(
+					item?.clientId,
+					item?.freelancerId,
+					item?.jobPostId,
+					item?.roomId,
+					item?.activeRoom,
+				)
 			}
-			className={item.roomId === active ? 'defaultActive' : ''}
+			className={item?.roomId === active ? 'defaultActive' : ''}
 		>
 			<div>
 				{user?.role === Role.Client && (
 					<>
-						<ChatImage src={item.freelancerPhoto} />
+						<ChatImage src={item?.freelancerPhoto} />
 						<Title>
-							{item.firstName} {item.lastName}
+							{item?.firstName} {item?.lastName}
 							<br />
-							{item.jobTitle}
+							{item?.jobTitle}
 						</Title>
 					</>
 				)}
 				{user?.role === Role.Freelancer && (
 					<>
-						<ChatImage src={item.clientPhoto} />
+						<ChatImage src={item?.clientPhoto} />
 						<Title>
-							{item.clientName}
+							{item?.clientName}
 							<br />
-							{item.jobTitle}
+							{item?.jobTitle}
 						</Title>
 					</>
 				)}
@@ -71,10 +79,10 @@ const User = (props: Props) => {
 					</a>
 
 					<div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<Btn onClick={() => deleteHandler(user.role)}>{`${t('chat.delete')}`}</Btn>
+						<Btn type="button" onClick={deleteHandler}>{`${t('chat.delete')}`}</Btn>
 					</div>
 				</div>
-				<LastMessage>{item.lastMessage}</LastMessage>
+				<LastMessage>{item?.lastMessage}</LastMessage>
 			</div>
 		</SingleUser>
 	);

@@ -1,21 +1,15 @@
-import React from 'react';
 import Popup from 'reactjs-popup';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
-	Actions,
-	Close,
 	Content,
 	Header,
-	JobPost,
 	Modal,
-	SendMessage,
 	Select,
 	JobPopup,
-	ClosePopup,
 	Span,
+	CenterDiv,
 } from 'components/inviteTalent/inviteTalent.styles';
-import { BLUE } from 'constants/colors';
 import TextArea from 'antd/lib/input/TextArea';
 import { CreateJobPost } from 'constants/routes';
 import { useNavigate } from 'react-router-dom';
@@ -24,13 +18,10 @@ import {
 	useCreateRoomMutation,
 	usePostMessageMutation,
 } from 'service/httpService';
-import { IMessage, IProps, Alert } from 'components/inviteTalent/interfaces';
-import { notification } from 'antd';
-import { ALERT_SUCCESS } from 'constants/links';
-
-const TEXTAREA_ROWS_MAX = 16;
-const TEXTAREA_ROWS_MIN = 8;
-const BORDER_RADIUS = 6;
+import { IMessage, IProps } from 'components/inviteTalent/interfaces';
+import { CloseButton } from 'components/PostDetailsPage/components/Modal.styles';
+import { Button } from 'components/signIn/Signin.styles';
+import { openNotificationWithIcon } from 'constants/links';
 
 const InvitePopup = (props: IProps) => {
 	const {
@@ -51,17 +42,10 @@ const InvitePopup = (props: IProps) => {
 	const [sendMessage] = usePostMessageMutation();
 	const { control, handleSubmit } = useForm<IMessage>();
 
-	const alert = (type: Alert) => {
-		notification[type]({
-			message: type === ALERT_SUCCESS ? `${t('InvitePopup.success')}` : `${t('InvitePopup.error')}`,
-		});
-	};
-
-	const onSubmit: SubmitHandler<IMessage> = async (payload: IMessage) => {
+	const onSubmit = async (payload: IMessage) => {
 		const { message, jobTitle } = payload;
 		const { userId, id } = data.profile;
 		const { clientId, jobPostId } = clientInfos;
-
 		if (isDisabled) {
 			setIsDisabled(false);
 		} else {
@@ -75,12 +59,13 @@ const InvitePopup = (props: IProps) => {
 					jobTitle,
 				}).unwrap();
 				setOpen(false);
-				alert('success');
+				openNotificationWithIcon('success');
 				setIsDisabled(true);
 				const room = await createRoom({
 					jobPostId: jobPostId,
-					senderId: clientId,
-					receiverId: userId,
+					clientId,
+					freelancerId: userId,
+					sendedFor: 'forFreelancer',
 				}).unwrap();
 				const chatRoomId = room?.id;
 				await sendMessage({
@@ -91,7 +76,7 @@ const InvitePopup = (props: IProps) => {
 				});
 				setOpen(false);
 			} else {
-				alert('error');
+				openNotificationWithIcon('error');
 			}
 		}
 	};
@@ -102,18 +87,18 @@ const InvitePopup = (props: IProps) => {
 				<Popup open={open} closeOnDocumentClick onClose={() => setOpen(false)}>
 					{open ? (
 						<Modal>
-							<Close type="button" onClick={() => setOpen(false)}>
-								&times;
-							</Close>
+							<CloseButton type="button" onClick={() => setOpen(false)}>
+								X
+							</CloseButton>
 							<Header>{`${t('InvitePopup.title')}`}</Header>
-							<Content>
-								{`${t('InvitePopup.label')}`}
+							<div>
+								<Span>{`${t('InvitePopup.label')}`}</Span>
 								<Controller
 									render={({ field }) => (
 										<TextArea
 											{...field}
-											autoSize={{ minRows: TEXTAREA_ROWS_MIN, maxRows: TEXTAREA_ROWS_MAX }}
-											style={{ borderRadius: BORDER_RADIUS, marginTop: 10, width: 500 }}
+											rows={7}
+											style={{ width: '80%', marginLeft: '10%' }}
 											defaultValue={`${t('InvitePopup.message')}`}
 										/>
 									)}
@@ -121,22 +106,21 @@ const InvitePopup = (props: IProps) => {
 									control={control}
 									defaultValue={`${t('InvitePopup.message')}`}
 								/>
-							</Content>
-							<Actions>
+							</div>
+							<Span>{`${t('InvitePopup.job')}`}</Span>
+							<Content>
 								<Controller
 									render={({ field }) => <Select {...field}>{handleSelect()}</Select>}
 									name="jobTitle"
 									control={control}
 									defaultValue={`${defaultTitle.jobTitle}`}
 								/>
-								<SendMessage
-									onClick={handleSubmit(onSubmit)}
-									className={isDisabled ? 'btn btn-sucess' : BLUE}
-									disabled={isDisabled}
-								>
+							</Content>
+							<CenterDiv>
+								<Button onClick={handleSubmit(onSubmit)} disabled={isDisabled}>
 									{`${t('InvitePopup.button')}`}
-								</SendMessage>
-							</Actions>
+								</Button>
+							</CenterDiv>
 						</Modal>
 					) : null}
 				</Popup>
@@ -144,15 +128,19 @@ const InvitePopup = (props: IProps) => {
 				<Popup open={open} closeOnDocumentClick onClose={() => setOpen(false)}>
 					{open ? (
 						<JobPopup>
-							<ClosePopup type="button" onClick={() => setOpen(false)}>
-								&times;
-							</ClosePopup>
+							<CloseButton type="button" onClick={() => setOpen(false)}>
+								X
+							</CloseButton>
 							<Span>{`${t('InvitePopup.noJobs')}`}</Span>
-							<Actions>
-								<JobPost type="button" onClick={() => navigate(`${CreateJobPost}`)}>{`${t(
-									'InvitePopup.buttonPost',
-								)}`}</JobPost>
-							</Actions>
+							<div>
+								<Button
+									type="button"
+									style={{ display: 'block' }}
+									onClick={() => navigate(`${CreateJobPost}`)}
+								>
+									{`${t('InvitePopup.buttonPost')}`}
+								</Button>
+							</div>
 						</JobPopup>
 					) : null}
 				</Popup>

@@ -5,10 +5,6 @@ export const ValidationSchema = Yup.object().shape({
 	text: Yup.string().required(`${t('JobPostPage.fieldIsRequired')}`),
 });
 
-export type DataSchema = {
-	text: string;
-};
-
 export type MessageFrontend = {
 	text: string;
 	userId: number | undefined;
@@ -34,29 +30,21 @@ export type RoomBackend = {
 	createdAt: Date;
 	activeRoom: string;
 	deletedFor: string;
-	receiverId: {
+	sendedFor: string;
+	freelancerId: {
 		firstName: string;
 		lastName: string;
 		id: number;
 		role: string;
 		profileId: number;
-		clientSetting: {
-			name: string;
-			photo: string;
-		};
 		profileSetting: {
 			photo: string;
 		};
 	};
-	senderId: {
-		firstName: string;
-		lastName: string;
+	clientId: {
 		id: number;
 		role: string;
 		profileId: number;
-		profileSetting: {
-			photo: string;
-		};
 		clientSetting: {
 			name: string;
 			photo: string;
@@ -84,16 +72,17 @@ export type UserList = {
 	jobTitle: string;
 	jobPostId: number;
 	lastMessage: string;
-	senderId: number;
-	receiverId: number;
+	clientId: number;
+	freelancerId: number;
 	roomId: number;
 	activeRoom: string;
 	deletedFor: string;
+	sendedFor: string;
 };
 
 export type initialId = {
-	senderId: number;
-	receiverId: number;
+	clientId: number;
+	freelancerId: number;
 	jobPostId: number;
 	activeRoom: string;
 };

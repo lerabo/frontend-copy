@@ -1,20 +1,14 @@
+import { BLACK_COLOR, GREY, LIGHT_VIOLET, VIOLET } from 'constants/colors';
+import { MEDIUM_FONT_SIZE } from 'constants/fonts';
 import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-  overflow-x: hidden;
-  }
-`;
+import { Link } from 'react-router-dom';
 
 export const MainBlockWrapper = styled.div`
 	display: flex;
-	justify-content: space-between;
-	margin-top: ${props => props.theme.spacing(12.5)};
 `;
 
 export const Wrapper = styled.div`
-	width: 80%;
+	width: 70%;
 
 	@media (max-width: 1000px) {
 		margin: 15px 10px 0 10px;
@@ -22,14 +16,33 @@ export const Wrapper = styled.div`
 	}
 `;
 export const SkillsBlock = styled.div`
-	margin-top: 50px;
+	margin-top: 10px;
 	z-index: 0;
 `;
 
+export const Card = styled.div`
+	background-color: ${LIGHT_VIOLET};
+	box-shadow: 5px 5px 5px gray;
+	border-radius: 10px;
+	padding: 10px;
+`;
+
+export const StyledLink = styled(Link)`
+	text-decoration: none;
+	text-align: center;
+	&:hover {
+		text-decoration: none;
+		color: ${VIOLET};
+	}
+	&:active,
+	&:focus {
+		text-decoration: none;
+	}
+`;
+
 export const WrapperSidePanel = styled.div`
-	margin: ${props => props.theme.spacing(2.5)} auto;
-	margin: ${props => props.theme.spacing(7.5)} ${props => props.theme.spacing(3.75)} 0
-		${props => props.theme.spacing(3.75)};
+	margin: 10px auto;
+	margin: 30px 15px 0 15px;
 	width: 30%;
 	justify-content: flex-start;
 	display: flex;
@@ -42,13 +55,12 @@ export const WrapperSidePanel = styled.div`
 export const Title = styled.div`
 	display: flex;
 	justify-content: center;
-	margin-bottom: ${props => props.theme.spacing(10)};
+	margin: 20px;
 	font-weight: bold;
-	font-size: ${props => props.theme.spacing(6.75)};
+	font-size: ${MEDIUM_FONT_SIZE};
 	align-items: center;
 	&.filterTitle {
-		font-size: ${props => props.theme.spacing(5)};
-		margin: ${props => props.theme.spacing(5)} ${props => props.theme.spacing(5)};
+		margin: 20px;
 	}
 	.arrowRight {
 		display: none;
@@ -62,49 +74,20 @@ export const Title = styled.div`
 	}
 `;
 
-export const Input = styled.input`
-	height: ${props => props.theme.spacing(15)};
-	width: ${props => props.theme.spacing(20)};
-	padding-left: ${props => props.theme.spacing(7.5)};
-	border: 1px solid ${props => props.theme.colors.grayLight};
-	width: 100%;
-	&::placeholder {
-		color: black;
-	}
-`;
-
-export const BorderStyled = styled.div`
-	border: 2px solid ${props => props.theme.colors.grayLight};
-	border-radius: ${props => props.theme.spacing(2)};
-	width: ${props => props.theme.spacing(51)};
-	padding: ${props => props.theme.spacing(3)} ${props => props.theme.spacing(5)};
-	height: ${props => props.theme.spacing(12)};
-	margin: ${props => props.theme.spacing(10)} auto;
-	font-weight: bold;
-	&.borderResults {
-		margin-top: ${props => props.theme.spacing(80)};
-		width: 100%;
-		height: unset;
-	}
-	@media (max-width: 800px) {
-		width: unset;
-	}
-`;
-
 export const SkillsButtonsBlock = styled.div`
 	max-width: 100%;
 `;
 export const Label = styled.label`
-	width: ${props => props.theme.spacing(42.5)};
-	margin: ${props => props.theme.spacing(1.25)};
-	height: ${props => props.theme.spacing(10)};
+	width: 170px;
+	margin: 5px;
+	height: 40px;
 `;
 
 export const Button = styled.div`
-	margin-bottom: ${props => props.theme.spacing(2.5)};
+	margin-bottom: 10px;
 	cursor: pointer;
 	&.defaultActive > span {
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid ${BLACK_COLOR};
 	}
 `;
 export const ButtonBlock = styled.div`
@@ -115,25 +98,23 @@ export const ButtonBlock = styled.div`
 export const InputContainer = styled.div`
 	display: flex;
 	justify-content: center;
-	margin: 0 auto;
-	max-width: 800px;
 `;
 export const IconSearch = styled.div`
 	height: 1.5rem;
 	width: 1.5rem;
-	padding: ${props => props.theme.spacing(1)};
-	margin-left: ${props => props.theme.spacing(1.25)};
+	padding: 5px;
+	margin-left: 5px;
 	cursor: pointer;
 	position: absolute;
 	box-sizing: border-box;
 	top: 34%;
-	left: ${props => props.theme.spacing(0.5)};
+	left: 2px;
 `;
 export const ProfileBlock = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	gap: ${props => props.theme.spacing(10)};
-	padding-bottom: ${props => props.theme.spacing(5)};
+	gap: 40px;
+	padding-bottom: 20px;
 
 	&.notFound {
 		display: flex;
@@ -141,29 +122,28 @@ export const ProfileBlock = styled.div`
 	}
 `;
 export const PaginationBlock = styled.div`
-	width: 60%;
-	margin: ${props => props.theme.spacing(7.5)} auto;
+	width: 90%;
+	margin: 30px auto;
 	@media (max-width: 800px) {
 		width: 95%;
 	}
 `;
 
 export const ProfileData = styled.div`
-	border: 3px solid ${props => props.theme.colors.grayLight};
-	padding: ${props => props.theme.spacing(1.25)} 0 ${props => props.theme.spacing(1.25)}
-		${props => props.theme.spacing(1.25)};
-	& > p {
-		margin: 0;
-	}
+	padding: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: ${MEDIUM_FONT_SIZE};
 `;
 
 export const ProfileImage = styled.img`
-	width: ${props => props.theme.spacing(25)};
-	height: ${props => props.theme.spacing(25)};
+	width: 100px;
+	height: 100px;
 	border-radius: 50%;
 	@media (max-width: 800px) {
-		width: ${props => props.theme.spacing(10)};
-		height: ${props => props.theme.spacing(10)};
+		width: 40px;
+		height: 10px;
 	}
 `;
 
@@ -178,34 +158,21 @@ export const ImageWrapperBlock = styled.div`
 `;
 
 export const ImageWrapper = styled.i`
-	background: gray;
-	border-radius: ${props => props.theme.spacing(5)};
-	font-size: ${props => props.theme.spacing(6.25)};
+	background: ${GREY};
+	border-radius: 20px;
+	font-size: ${MEDIUM_FONT_SIZE};
 	text-align: center;
-	margin-right: ${props => props.theme.spacing(2.5)};
-	border-radius: 50%;
-	display: inline-block;
-	padding: ${props => props.theme.spacing(6.25)};
-`;
-
-export const PhotoWrapper = styled.i`
-	border-radius: ${props => props.theme.spacing(5)};
-	font-size: ${props => props.theme.spacing(6.25)};
-	text-align: center;
-	margin-right: ${props => props.theme.spacing(2.5)};
+	margin-right: 10px;
 	border-radius: 50%;
 	display: inline-block;
 	padding: 25px;
 `;
 
-export const TitleDiv = styled.div`
-	display: flex;
-	margin-top: -100px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-
-	@media (max-width: 1017px) {
-		margin-top: 25px;
-	}
+export const PhotoWrapper = styled.i`
+	border-radius: 20px;
+	font-size: 25px;
+	text-align: center;
+	border-radius: 50%;
+	display: inline-block;
+	margin-bottom: 10px;
 `;

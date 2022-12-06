@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import {
 	Container,
 	Title,
-	CreateButton,
 	Column,
 	Li,
 	CurrencyColumn,
@@ -10,6 +9,7 @@ import {
 	Label,
 	Span,
 	P,
+	BtnDiv,
 } from './JobPost.styles';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -23,6 +23,7 @@ import { RootState } from 'redux/store';
 import { useGetClientInfoByUserQuery } from 'service/httpService';
 import { useNavigate } from 'react-router-dom';
 import { SettingsJobOwner } from 'constants/routes';
+import { SaveButton } from 'components/clientSettings/clentSettings.styles';
 
 const JobPost = () => {
 	const { t } = useTranslation();
@@ -201,11 +202,11 @@ const JobPost = () => {
 					/>
 					{errors.description && <P>{errors.description?.message}</P>}
 				</div>
-				<div style={{ display: 'flex' }}>
-					<CreateButton type="submit" onClick={onSkillsTrue}>
+				<BtnDiv>
+					<SaveButton type="submit" onClick={onSkillsTrue}>
 						{`${t('JobPostPage.buttonTitle')}`}
-					</CreateButton>
-				</div>
+					</SaveButton>
+				</BtnDiv>
 			</form>
 		</Container>
 	);

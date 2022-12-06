@@ -1,7 +1,7 @@
 import { RoomBackend } from 'components/chat/interfaces';
-import profileImage from 'image/profile.png';
-import { TitleChat } from 'components/chat/chat.styles';
-import { Role } from 'pages/RoleSelection';
+import profileImage from 'assets/profile.png';
+import { CenterDiv, TitleChat } from 'components/chat/chat.styles';
+import { Role } from 'constants/links';
 
 interface Props {
 	userRole: string;
@@ -12,33 +12,19 @@ const ChatTitle = (props: Props) => {
 	const { userRole, room } = props;
 	return (
 		<>
-			{userRole === Role.Client && room?.senderId.profileSetting && (
-				<>
-					<img src={room?.senderId?.profileSetting?.photo ?? profileImage} />
+			{userRole === Role.Client && room?.freelancerId.profileSetting && (
+				<CenterDiv>
+					<img src={room?.freelancerId?.profileSetting?.photo ?? profileImage} />
 					<TitleChat>
-						{room?.senderId.firstName} {room?.senderId.lastName}
+						{room?.freelancerId.firstName} {room?.freelancerId.lastName}
 					</TitleChat>
-				</>
+				</CenterDiv>
 			)}
-			{userRole === Role.Client && room?.receiverId.profileSetting && (
-				<>
-					<img src={room?.receiverId?.profileSetting?.photo ?? profileImage} />
-					<TitleChat>
-						{room?.receiverId.firstName} {room?.receiverId.lastName}
-					</TitleChat>
-				</>
-			)}
-			{userRole === Role.Freelancer && room?.receiverId.clientSetting && (
-				<>
-					<img src={room?.receiverId?.clientSetting?.photo ?? profileImage} />
-					<TitleChat>{room?.receiverId?.clientSetting?.name}</TitleChat>
-				</>
-			)}
-			{userRole === Role.Freelancer && room?.senderId.clientSetting && (
-				<>
-					<img src={room?.senderId?.clientSetting?.photo ?? profileImage} />
-					<TitleChat>{room?.senderId?.clientSetting?.name}</TitleChat>
-				</>
+			{userRole === Role.Freelancer && room?.clientId.clientSetting && (
+				<CenterDiv>
+					<img src={room?.clientId?.clientSetting?.photo ?? profileImage} />
+					<TitleChat>{room?.clientId?.clientSetting?.name}</TitleChat>
+				</CenterDiv>
 			)}
 		</>
 	);

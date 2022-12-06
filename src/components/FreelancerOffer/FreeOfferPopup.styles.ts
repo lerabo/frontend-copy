@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BLACK_COLOR, BLUE, WHITE } from 'constants/colors';
+import { BLACK_COLOR, BLUE_PURPLE } from 'constants/colors';
 import { FONT_MEDIUM, MEDIUM_FONT_SIZE } from 'constants/fonts';
 
 export const P2 = styled.h4`
@@ -18,7 +18,7 @@ export const P = styled.p`
 `;
 
 export const Modal = styled.div`
-	background: ${WHITE};
+	background-color: ${BLUE_PURPLE};
 	align-content: center;
 	display: block;
 	position: relative;
@@ -40,44 +40,14 @@ export const Content = styled.div`
 	display: flex;
 	flex-flow: column wrap;
 	width: 100%;
+	align-content: center;
 `;
 
 export const Actions = styled.div`
-	align-content: center;
+	justify-content: center;
 	display: flex;
-	flex-flow: row wrap;
-	margin-left: 100px;
-	margin-top: 25px;
+	margin: 5% auto;
 	width: 100%;
-`;
-
-export const BtnAccept = styled.button`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	background: ${BLUE};
-	border-radius: 3px;
-	color: ${WHITE};
-	font-size: ${FONT_MEDIUM};
-	margin-right: 10px;
-	margin-bottom: 10px;
-	height: 30px;
-	width: 90px;
-`;
-
-export const BtnDecline = styled.button`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	background: ${BLUE};
-	border-radius: 3px;
-	color: ${WHITE};
-	font-size: ${FONT_MEDIUM};
-	margin-bottom: 10px;
-	height: 30px;
-	width: 90px;
 `;
 
 export const Span = styled.span`

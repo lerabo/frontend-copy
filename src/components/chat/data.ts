@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { DataSchema, RoomBackend, ValidationSchema } from './interfaces';
+import { RoomBackend, ValidationSchema } from './interfaces';
 import { useAppSelector } from 'redux/hooks';
 import { RootState } from 'redux/store';
 import { useGetRoomsByUserQuery } from 'service/httpService';
 import { useMemo } from 'react';
-import profileImage from 'image/profile.png';
+import profileImage from 'assets/profile.png';
 
 export const useOnDataChange = () => {
 	const { user } = useAppSelector<RootState>(state => state);
@@ -16,7 +16,7 @@ export const useOnDataChange = () => {
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm<DataSchema>({
+	} = useForm<{ text: string }>({
 		resolver: yupResolver(ValidationSchema),
 	});
 
@@ -34,31 +34,22 @@ export const useOnDataChange = () => {
 					jobTitle: item.jobPostId?.jobTitle,
 					jobPostId: item.jobPostId?.id,
 					lastMessage: item.message[0]?.text,
-					senderId: item?.senderId?.id,
-					receiverId: item.receiverId?.id,
+					clientId: item?.clientId?.id,
+					freelancerId: item.freelancerId?.id,
 					roomId: item?.id,
 					activeRoom: item.activeRoom,
 					date: item.createdAt,
 					deletedFor: item.deletedFor,
+					sendedFor: item.sendedFor,
 				};
-				if (item.receiverId.clientSetting) {
+				if (item.clientId?.clientSetting) {
 					const obj = {
 						...newObj,
-						clientName: item.receiverId.clientSetting?.name,
-						clientPhoto: item.receiverId.clientSetting?.photo ?? profileImage,
-						firstName: item.senderId?.firstName,
-						lastName: item.senderId?.lastName,
-						freelancerPhoto: item.senderId?.profileSetting.photo ?? profileImage,
-					};
-					return obj;
-				} else if (item.senderId?.clientSetting) {
-					const obj = {
-						...newObj,
-						clientName: item.senderId.clientSetting?.name,
-						clientPhoto: item.senderId.clientSetting?.photo ?? profileImage,
-						firstName: item.receiverId?.firstName,
-						lastName: item.receiverId?.lastName,
-						freelancerPhoto: item.receiverId?.profileSetting?.photo ?? profileImage,
+						clientName: item.clientId.clientSetting?.name,
+						clientPhoto: item.clientId.clientSetting?.photo ?? profileImage,
+						firstName: item.freelancerId?.firstName,
+						lastName: item.freelancerId?.lastName,
+						freelancerPhoto: item.freelancerId?.profileSetting?.photo ?? profileImage,
 					};
 					return obj;
 				}

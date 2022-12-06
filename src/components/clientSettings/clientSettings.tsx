@@ -33,8 +33,8 @@ import {
 } from 'components/clientSettings/clentSettings.styles';
 import countryList from 'react-select-country-list';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-import editIcon from 'image/icon-pencil.png';
-import ChangePassword from 'pages/setting-page-client/change-password/ChangePassword';
+import editIcon from 'assets/icon-pencil.png';
+import ChangePassword from 'components/ChangePassword/ChangePassword';
 import RadioButtons from 'components/freelancerJobs/components/radio';
 import { RootState } from 'redux/store';
 import { useAppSelector } from 'redux/hooks';
@@ -164,7 +164,7 @@ const ClientSettings = () => {
 								<Input
 									type="text"
 									{...register('name')}
-									className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+									className={`${errors.name ? 'is-invalid' : ''}`}
 								/>
 								{errors.name && <P>{errors.name?.message}</P>}
 								<Title>{`${t('ClientSettings.email')}`}</Title>
@@ -191,7 +191,9 @@ const ClientSettings = () => {
 									<Title>{`${t('ProfileEdit.profilePhotoTitle')}`}</Title>
 									<Image width={200} src={file || defaultProfilePhoto} />
 									<input type={'file'} accept=".png, .jpg, .jpeg" onChange={onChangePhotoHandler} />
-									<button onClick={onPhotoDelete}>{`${t('ProfileEdit.deletePhotoButton')}`}</button>
+									<button type="button" onClick={onPhotoDelete}>
+										{`${t('ProfileEdit.deletePhotoButton')}`}
+									</button>
 								</ProfilePhoto>
 							</Column>
 						</div>

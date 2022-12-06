@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteJobPostMutation } from 'service/httpService';
-import { Wrapper, Backdrop, StyledModal, Content } from './Modal.styles';
-import { ButtonStyled, ModalWrapper, CloseButton } from './DeleteModal.styled';
+import { Wrapper, Backdrop, StyledModal, Content, CloseButton, Label } from './Modal.styles';
 import { useTranslation } from 'react-i18next';
+import { CancelButton, SaveButton } from 'components/clientSettings/clentSettings.styles';
 
 interface DeleteModalProps {
 	toggleModal: () => void;
@@ -26,15 +26,21 @@ const DeleteModal: FC<DeleteModalProps> = ({ toggleModal, openModal, id }) => {
 			<Backdrop />
 			<Wrapper>
 				<StyledModal>
-					<CloseButton onClick={toggleModal} />
+					<CloseButton type="button" onClick={toggleModal}>
+						X
+					</CloseButton>
 					<Content>
-						<ModalWrapper>
-							<p>{`${t('DeleteModal.warningText')}`}</p>
+						<div style={{ textAlign: 'center' }}>
+							<Label>{`${t('DeleteModal.warningText')}`}</Label>
 							<div>
-								<ButtonStyled onClick={handleRemove}>{`${t('DeleteModal.agree')}`}</ButtonStyled>
-								<ButtonStyled onClick={toggleModal}>{`${t('DeleteModal.disagree')}`}</ButtonStyled>
+								<SaveButton type="submit" onClick={handleRemove}>
+									{`${t('DeleteModal.agree')}`}
+								</SaveButton>
+								<CancelButton type="button" onClick={toggleModal}>
+									{`${t('DeleteModal.disagree')}`}
+								</CancelButton>
 							</div>
-						</ModalWrapper>
+						</div>
 					</Content>
 				</StyledModal>
 			</Wrapper>

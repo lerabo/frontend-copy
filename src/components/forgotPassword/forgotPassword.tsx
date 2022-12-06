@@ -1,14 +1,17 @@
-import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Div, Form, Input, Button, ControlStyle, ErrorP, H1, P } from './Forgot.styles';
+import { Div, ErrorP, P } from './Forgot.styles';
 import { useTranslation } from 'react-i18next';
 import { useForgotPasswordMutation } from 'service/httpService';
 import { t } from 'i18next';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { saveUserId } from 'redux/reducers/userSlice';
 import { RootState } from 'redux/store';
+import { Button } from 'components/signIn/Signin.styles';
+import { Label } from 'components/Layout/Layout.styles';
+import { DivForm, Form, H1 } from 'components/restorePassword/restorePassword.style';
+import { Input } from 'components/clientSettings/clentSettings.styles';
 
 export type FormEmail = {
 	email: string;
@@ -16,8 +19,8 @@ export type FormEmail = {
 
 const schema = Yup.object({
 	email: Yup.string()
-		.email()
-		.required(`${t('ForgotPassword.emailReq')}`),
+		.required(`${t('ForgotPassword.emailReq')}`)
+		.email(),
 }).required();
 
 const forgotPassword = () => {
@@ -44,7 +47,6 @@ const forgotPassword = () => {
 			reset({ email: '' });
 		} catch (e) {
 			reset({ email: '' });
-			// console.log(e);
 		}
 	};
 
@@ -53,15 +55,16 @@ const forgotPassword = () => {
 			<H1>{`${t('ForgotPassword.title')}`}</H1>
 			<P>{`${t('ForgotPassword.instruction')}`}</P>
 			<Form onSubmit={handleSubmit(onSubmit)}>
-				<ControlStyle>{`${t('ForgotPassword.email')}`}</ControlStyle>
-				<Controller
-					render={({ field }) => <Input type="email" {...field} />}
-					name="email"
-					control={control}
-					defaultValue=""
-				/>
-				{<ErrorP>{errors.email?.message}</ErrorP>}
-				<Button type="submit">{`${t('ForgotPassword.sendButton')}`}</Button>
+				<DivForm>
+					<Label>{`${t('ForgotPassword.email')}`}</Label>
+					<Controller
+						render={({ field }) => <Input type="email" {...field} />}
+						name="email"
+						control={control}
+					/>
+					{<ErrorP>{errors.email?.message}</ErrorP>}
+					<Button type="submit">{`${t('ForgotPassword.sendButton')}`}</Button>
+				</DivForm>
 			</Form>
 		</Div>
 	);

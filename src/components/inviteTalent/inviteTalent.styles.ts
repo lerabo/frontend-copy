@@ -1,49 +1,44 @@
 import styled from 'styled-components';
-import { BLACK_COLOR, BLUE, WHITE, GREY } from 'constants/colors';
-import { LARGE_FONT_SIZE, MEDIUM_FONT_SIZE } from 'constants/fonts';
+import { BLACK_COLOR, BLUE_PURPLE, GREEN } from 'constants/colors';
+import { FONT_H1, LARGE_FONT_SIZE, MEDIUM_FONT_SIZE } from 'constants/fonts';
 
 export const Container = styled.div`
-	border: 1px solid ${props => props.theme.colors.black};
-	border-radius: ${props => props.theme.spacing(5)};
-	margin: ${props => props.theme.spacing(5)};
-	padding: ${props => props.theme.spacing(5)};
+	border: 1px solid ${BLACK_COLOR};
+	border-radius: 20px;
+	margin: auto 2% auto 2%;
+	padding: 2%;
 	font-size: ${MEDIUM_FONT_SIZE};
 `;
 
-export const Div1 = styled.div`
-	align-content: center;
+export const Div = styled.div`
+	display: inline-block;
+`;
+
+export const DivCenter = styled.div`
 	display: flex;
-	flex-flow: row wrap;
-`;
-
-export const Div2 = styled.div`
-	order: 0;
-	align-content: center;
-	display: flex;
-	flex-flow: column wrap;
-	margin-left: 50px;
-	margin-top: 50px;
-`;
-
-export const Div3 = styled.div`
-	margin-left: 300px;
-	margin-top: 40px;
-`;
-
-export const H3 = styled.h3`
-	font-weight: bold;
+	justify-content: center;
+	margin: auto;
+	width: 100%;
 `;
 
 export const P = styled.p`
-	font-size: ${MEDIUM_FONT_SIZE};
+	font-size: ${LARGE_FONT_SIZE};
+	font-weight: 500;
+	display: inline-block;
+`;
+
+export const Price = styled.p`
+	font-size: ${FONT_H1};
+	color: ${GREEN};
+	font-weight: bold;
+	display: inline-block;
+	margin: auto 5% auto 5%;
 `;
 
 export const Image = styled.img`
-	order: -1;
-	margin-left: 300px;
-	margin-top: 30px;
-	height: 100px;
-	width: 100px;
+	height: 150px;
+	width: 150px;
+	margin: 30px;
 `;
 
 export const Save = styled.div`
@@ -58,6 +53,7 @@ export const Save = styled.div`
 	margin-left: 100px;
 	height: 40px;
 	width: 40px;
+	display: inline-block;
 `;
 
 export const Img = styled.img`
@@ -66,61 +62,37 @@ export const Img = styled.img`
 	width: 30px;
 `;
 
-export const H5 = styled.h5`
-	margin-left: 300px;
-	margin-top: 60px;
-	font-weight: bold;
-`;
-
-export const Invite = styled.button`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	margin-top: 100px;
-	margin-left: 40%;
-	background: ${BLUE};
-	border-radius: 6px;
-	color: ${WHITE};
-	font-size: ${LARGE_FONT_SIZE};
-	height: 50px;
-	width: 10%;
-`;
-
 export const Modal = styled.div`
-	background: ${WHITE};
+	background: ${BLUE_PURPLE};
 	align-content: center;
-	display: block;
-	position: relative;
+	display: flex;
+	flex-direction: column;
 	border: 1px solid ${BLACK_COLOR};
 	border-radius: 10px;
-	margin-top: 20px;
-	height: 600px;
-	width: 600px;
+	height: 430px;
+	width: 550px;
+	div:last-child {
+		align-items: flex-end;
+	}
 `;
 
 export const Header = styled.header`
-	border-bottom: 1px solid ${GREY};
-	font-size: ${MEDIUM_FONT_SIZE};
+	border-bottom: 1px solid ${BLACK_COLOR};
+	font-size: ${LARGE_FONT_SIZE};
+	font-style: italic;
 	text-align: center;
 	width: 100%;
 `;
 
 export const Content = styled.div`
-	align-content: center;
 	display: flex;
 	flex-flow: column wrap;
-	margin-top: 10px;
-	padding: 10px 5px;
+	margin: auto;
 	width: 100%;
 `;
 
-export const Actions = styled.div`
+export const CenterDiv = styled.div`
 	display: flex;
-	flex-flow: column wrap;
-	text-align: center;
-	margin-top: 5px;
-	width: 100%;
 `;
 
 export const Select = styled.select`
@@ -129,81 +101,26 @@ export const Select = styled.select`
 		outline: 0;
 	}
 	align-self: center;
-	margin-top: 30px;
-	border-radius: 10px;
 	height: 30px;
 	width: 80%;
 `;
 
-export const SendMessage = styled.button`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	align-self: center;
-	margin-top: 120px;
-	background: ${BLUE};
-	border-radius: 6px;
-	color: ${WHITE};
-	font-size: ${MEDIUM_FONT_SIZE};
-	height: 50px;
-	width: 300px;
-`;
-
-export const Close = styled.button`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	cursor: pointer;
-	display: block;
-	padding: 2px 5px;
-	margin-top: 10px;
-	margin-left: 550px;
-	font-size: ${LARGE_FONT_SIZE};
-`;
-
-export const JobPost = styled.button`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	align-self: center;
-	margin-top: 100px;
-	background: ${BLUE};
-	border-radius: 6px;
-	color: ${WHITE};
-	font-size: ${MEDIUM_FONT_SIZE};
-	height: 50px;
-	width: 200px;
-`;
-
 export const JobPopup = styled.div`
-	background: ${WHITE};
+	background: ${BLUE_PURPLE};
 	align-content: center;
 	display: block;
-	position: relative;
+	position: fixed;
 	border: 1px solid ${BLACK_COLOR};
 	border-radius: 10px;
-	margin-top: 20px;
-	height: 300px;
-	width: 400px;
-`;
-
-export const ClosePopup = styled.button`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	cursor: pointer;
-	display: block;
-	padding: 2px 5px;
-	margin-top: 10px;
-	margin-left: 350px;
-	font-size: ${LARGE_FONT_SIZE};
+	transform: translate(-50%, -50%);
+	height: 25%;
+	width: 50%;
 `;
 
 export const Span = styled.span`
-	font-size: ${MEDIUM_FONT_SIZE};
-	margin-left: 50px;
+	font-size: ${LARGE_FONT_SIZE};
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	width: 100%;
 `;

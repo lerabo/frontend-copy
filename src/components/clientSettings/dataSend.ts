@@ -34,7 +34,6 @@ export const useSendData = () => {
 			openNotificationWithIcon('success');
 		} catch (error) {
 			openNotificationWithIcon('error');
-			// console.log(error);
 		}
 	};
 	const sendUpdatedData = async (data: Data, ClientInfoId: number) => {

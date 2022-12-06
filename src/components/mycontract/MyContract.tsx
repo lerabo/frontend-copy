@@ -17,11 +17,10 @@ import {
 	useUpdateOfferStatusExpiredMutation,
 } from 'service/httpService';
 import { Image } from 'components/Layout/Layout.styles';
-import profileImage from 'image/profile.png';
+import profileImage from 'assets/profile.png';
 import Spinner from 'assets/spinner.gif';
 import { H3, H5, Img, ImgSpinner } from 'components/freelancerJobs/freelancerPage.styles';
 import {
-	accepted,
 	client,
 	DataSchema,
 	expired,
@@ -35,7 +34,7 @@ import { IContract, initialContract, ISelect } from 'components/mycontract/inter
 import { RootState } from 'redux/store';
 import { useAppSelector } from 'redux/hooks';
 import ContractModal from 'components/mycontract/modal';
-import ImageNoFound from 'image/no_result.png';
+import ImageNoFound from 'assets/no_result.png';
 
 function MyContract() {
 	const { t } = useTranslation();
@@ -159,9 +158,7 @@ function MyContract() {
 									)}
 									{user.role === freelancer && <P>{item?.name}</P>}
 								</div>
-								<P className={item.status === accepted ? accepted : expired}>
-									Status/{item.status}
-								</P>
+								<P className={item.status}>Status/{item.status}</P>
 								<P>
 									{getDate(new Date(item.startDate))}-{getDate(new Date(item.endDate))}
 								</P>

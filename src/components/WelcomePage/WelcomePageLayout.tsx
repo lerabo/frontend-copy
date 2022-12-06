@@ -7,16 +7,12 @@ import { RootState } from 'redux/store';
 import { useAppSelector } from 'redux/hooks';
 import { useNavigate } from 'react-router-dom';
 import { RoleSelection, Settings, SettingsJobOwner } from 'constants/routes';
+import { Role } from 'constants/links';
 
 const WelcomePageLayout: FC = () => {
 	const { user } = useAppSelector<RootState>(state => state);
 	const { t } = useTranslation();
 	const navigate = useNavigate();
-
-	const Role = {
-		Freelancer: 'freelancer',
-		Client: 'client',
-	};
 
 	useEffect(() => {
 		if (!user.role) {

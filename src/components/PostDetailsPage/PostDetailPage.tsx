@@ -9,7 +9,6 @@ import {
 	SkillsItem,
 	HourRateStyled,
 	WrapperSkillsStyled,
-	SendProposal,
 	MaxColumn,
 	MinColumn,
 	FullColumn,
@@ -35,6 +34,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useAppSelector } from 'redux/hooks';
 import { RootState } from 'redux/store';
 import DeleteModal from './components/DeleteModal';
+import { SaveButton } from 'components/clientSettings/clentSettings.styles';
 
 const Role = {
 	Freelancer: 'freelancer',
@@ -88,7 +88,7 @@ const DescriptionPage: FC = () => {
 		};
 	};
 
-	const { isShown, toggle, setIsShown } = useModal();
+	const { isShown, toggle } = useModal();
 
 	let content;
 	if (isFetching) {
@@ -114,21 +114,16 @@ const DescriptionPage: FC = () => {
 								{disable ? (
 									<div>{`${t('PostDetailPage.proposalSent')}`}</div>
 								) : (
-									<SendProposal
-										onClick={toggle}
-										className={`btn btn-success ${disable ? 'hidden' : 'block'}`}
-									>
+									<SaveButton type="button" onClick={toggle}>
 										{`${t('PostDetailPage.sendPrpBtn')}`}
-									</SendProposal>
+									</SaveButton>
 								)}
 								<Modal
 									isShown={isShown}
 									hide={toggle}
-									setIsShown={setIsShown}
 									clientId={post.userId}
 									setDisable={setDisable}
 									jobPostId={Number(params.id)}
-									receiverId={post.userId}
 								/>
 							</MinColumn>
 							<DescriptionStyled>{post.jobDescription}</DescriptionStyled>

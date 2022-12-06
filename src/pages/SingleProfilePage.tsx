@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import ProfilePage from 'components/TalentPage/singleprofile/ProfilePage';
+import InviteTalent from 'components/inviteTalent/inviteTalent';
+import { FC } from 'react';
 
 const SingleProfilePage: FC = () => {
-	return <ProfilePage />;
+	return <InviteTalent />;
 };
 
 export default SingleProfilePage;

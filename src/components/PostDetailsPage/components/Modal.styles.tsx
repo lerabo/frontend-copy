@@ -1,4 +1,5 @@
-import { RED_COLOR } from 'constants/colors';
+import { RED_COLOR, WHITE_COLOR } from 'constants/colors';
+import { MEDIUM_FONT_SIZE } from 'constants/fonts';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -29,12 +30,12 @@ export const Backdrop = styled.div`
 	top: 0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.3);
-	z-index: 500;
+	z-index: 100;
 `;
 
 export const StyledModal = styled.div`
 	z-index: 100;
-	background: ${props => props.theme.colors.white};
+	background: ${WHITE_COLOR};
 	position: relative;
 	margin: auto;
 	border-radius: 8px;
@@ -49,8 +50,13 @@ export const CloseButton = styled.button`
 	border-radius: 3px;
 	margin-right: 0.5rem;
 	background: none;
-	:hover {
+	&:hover {
 		cursor: pointer;
+	}
+	&:hover,
+	&:active,
+	&:focus {
+		outline: none;
 	}
 `;
 
@@ -63,16 +69,12 @@ export const Content = styled.div`
 
 export const Form = styled.form`
 	width: auto;
-	font-size: 1rem;
+	margin: 5px;
 `;
 
 export const Label = styled.label`
 	text-align: center;
-`;
-
-export const Button = styled.button`
-	display: block;
-	margin: 2% auto;
+	font-size: ${MEDIUM_FONT_SIZE};
 `;
 
 export const P = styled.p`

@@ -13,7 +13,7 @@ import {
 } from 'components/PostDetailsPage/components/Modal.styles';
 import { ButtonBlock, ContainerDate, DateBlock, Title } from './SendOffer.style';
 import { Input } from 'components/clientSettings/clentSettings.styles';
-import { Cancel, Button } from 'pages/setting-page-client/change-password/ChangePassword.styles';
+import { CancelButton, SaveButton } from 'components/clientSettings/clentSettings.styles';
 import { t } from 'i18next';
 import { useGetClientInfoByUserQuery } from 'service/httpService';
 import { useAppSelector } from 'redux/hooks';
@@ -26,10 +26,10 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 	isShown,
 	setIsShown,
 	hide,
-	isError,
 	freelancerId,
 	clientId,
 	jobPostId,
+	isError,
 }) => {
 	const {
 		register,
@@ -64,7 +64,9 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 			<Backdrop />
 			<Wrapper style={{ maxWidth: '50%' }}>
 				<StyledModal>
-					<CloseButton onClick={hide}>X</CloseButton>
+					<CloseButton type="button" onClick={hide}>
+						X
+					</CloseButton>
 					<Content>
 						<Form onSubmit={handleSubmit(handleForm)}>
 							<Title>{`${t('SendOfferPopup.offer')}`}</Title>
@@ -74,7 +76,7 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 									type="text"
 									{...register('name')}
 									defaultValue={clientInfo?.name}
-									className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+									className={`${errors.name ? 'is-invalid' : ''}`}
 								/>
 							</div>
 							<div>
@@ -84,7 +86,7 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 									<Input
 										type="text"
 										{...register('price')}
-										className={`form-control ${errors.price ? 'is-invalid' : ''}`}
+										className={`${errors.price ? 'is-invalid' : ''}`}
 									/>
 								</div>
 								{errors.price && <P>{`${t('SendOfferPopup.priceError')}`}</P>}
@@ -95,7 +97,7 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 									<Input
 										type="date"
 										{...register('startDate')}
-										className={`form-control ${errors.startDate ? 'is-invalid' : ''}`}
+										className={`${errors.startDate ? 'is-invalid' : ''}`}
 									/>
 									{errors.startDate && <P>{errors.startDate?.message}</P>}
 								</DateBlock>
@@ -104,14 +106,16 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 									<Input
 										type="date"
 										{...register('endDate')}
-										className={`form-control ${errors.endDate ? 'is-invalid' : ''}`}
+										className={`${errors.endDate ? 'is-invalid' : ''}`}
 									/>
 									{errors.endDate && <P>{errors.endDate?.message}</P>}
 								</DateBlock>
 							</ContainerDate>
 							<ButtonBlock>
-								<Button type="submit">{`${t('SendOfferPopup.saveButton')}`}</Button>
-								<Cancel onClick={() => reset()}>{`${t('SendOfferPopup.cancel')}`}</Cancel>
+								<SaveButton type="submit">{`${t('SendOfferPopup.saveButton')}`}</SaveButton>
+								<CancelButton onClick={() => reset()}>
+									{`${t('SendOfferPopup.cancel')}`}
+								</CancelButton>
 							</ButtonBlock>
 						</Form>
 					</Content>

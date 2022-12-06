@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 import ReactSelect from 'react-select';
-import { GREY_BLUE_COLOR, GREY_LIGHT_COLOR, LIGHTBLUE_COLOR } from 'constants/colors';
+import {
+	GREY,
+	GREY_BLUE_COLOR,
+	GREY_LIGHT_COLOR,
+	LIGHTBLUE_COLOR,
+	WHITE_COLOR,
+} from 'constants/colors';
 import { LARGE_FONT_SIZE, MEDIUM_FONT_SIZE } from 'constants/fonts';
 
 export const TitleStyled = styled.p`
-	font-weight: ${props => props.theme.font_weight.bold};
+	font-weight: bold;
 	font-size: ${LARGE_FONT_SIZE};
 `;
 
@@ -15,7 +21,7 @@ export const DescriptionDataStyled = styled.p`
 `;
 
 export const DescriptionStyled = styled.p`
-	font-weight: ${props => props.theme.font_weight.bold};
+	font-weight: bold;
 	margin: auto;
 `;
 
@@ -46,14 +52,14 @@ export const Li = styled.li`
 `;
 
 export const FilterLabel = styled.label`
-	background-color: ${props => props.theme.colors.gray};
+	background-color: ${GREY};
 	height: 40px;
 	width: 50%;
 	margin: auto;
 	margin-bottom: 15px;
 	border-radius: 5px;
 	font-size: ${MEDIUM_FONT_SIZE};
-	color: ${props => props.theme.colors.white};
+	color: ${WHITE_COLOR};
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -61,11 +67,10 @@ export const FilterLabel = styled.label`
 `;
 
 export const SkillsLabel = styled.label`
-	border: 1px solid ${props => props.theme.colors.gray};
+	border: 1px solid ${GREY};
 	height: 40px;
 	width: 70%;
-	margin: auto;
-	margin-bottom: 15px;
+	margin: 15px auto;
 	border-radius: 5px;
 	font-size: ${MEDIUM_FONT_SIZE};
 	display: flex;
@@ -85,7 +90,7 @@ export const Label = styled.label`
 `;
 
 export const ClearBtn = styled.button`
-	background-color: ${props => props.theme.colors.white};
+	background-color: ${WHITE_COLOR};
 	color: ${LIGHTBLUE_COLOR};
 	border: 2px solid ${LIGHTBLUE_COLOR};
 	border-radius: 5px;
@@ -100,7 +105,7 @@ export const ClearBtn = styled.button`
 	transition-duration: 0.4s;
 	&:hover {
 		background-color: ${LIGHTBLUE_COLOR};
-		color: white;
+		color: ${WHITE_COLOR};
 		box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 	}
 `;
@@ -120,20 +125,15 @@ export const SearchInput = styled.input`
 	width: 70%;
 	margin: 0% 2% 0% 2%;
 	box-sizing: border-box;
-	border: 1px solid ${props => props.theme.colors.gray};
+	border: 1px solid grey;
 	border-radius: 5px;
-	-webkit-transition: 0.5s;
-	transition: 0.5s;
 	outline: none;
 	font-size: ${MEDIUM_FONT_SIZE};
-	&:focus {
-		border: 3px solid #555;
-	}
 `;
 
 export const CustomSelect = styled(ReactSelect)`
 	font-size: ${MEDIUM_FONT_SIZE};
-	border: 1px solid ${props => props.theme.colors.gray};
+	border: 1px solid ${GREY};
 	border-radius: 5px;
 `;
 

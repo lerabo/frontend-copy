@@ -5,7 +5,7 @@ import FilterProfileUser from '../FilterProfileUser';
 import { Filter } from '../interfaces';
 import { useState } from 'react';
 import Pagination from '../Pagination';
-import { PaginationBlock, ProfileBlock, Title, TitleDiv } from '../TalentPageLayout.style';
+import { PaginationBlock, ProfileBlock, Title } from '../TalentPageLayout.style';
 import { useAppSelector } from 'redux/hooks';
 import { RootState } from 'redux/store';
 
@@ -23,10 +23,8 @@ const MySavedTalent = () => {
 		content = <Suspense fallback={<div>{`${t('TalentPage.loading')}`}</div>}></Suspense>;
 	} else if (isSuccess) {
 		content = (
-			<div>
-				<TitleDiv>
-					<Title>Saved Talents</Title>
-				</TitleDiv>
+			<>
+				<Title>Saved Talents</Title>
 				<PaginationBlock>
 					<ProfileBlock className={talent?.profile.length ? '' : 'notFound'}>
 						{talent?.profile.length ? (
@@ -43,7 +41,7 @@ const MySavedTalent = () => {
 					</ProfileBlock>
 					<Pagination filterPerPage={talent.limit} total={talent.total} paginate={paginate} />
 				</PaginationBlock>
-			</div>
+			</>
 		);
 	}
 	return <div>{content}</div>;

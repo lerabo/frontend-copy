@@ -106,10 +106,10 @@ export const profileApi = createApi({
 	tagTypes: ['Profile'],
 	endpoints: build => ({
 		postProfileInfo: build.mutation<IContactInfoForm, IContactInfoForm>({
-			query: ({ id, email, firstName, lastName, phone }) => ({
-				url: `/contact-info/${id}`,
+			query: body => ({
+				url: `/contact-info/${body.userId}`,
 				method: 'post',
-				body: { email, firstName, lastName, phone },
+				body,
 				headers: {
 					'Content-type': 'application/json; charset=UTF-8',
 				},
@@ -133,11 +133,25 @@ export const profileApi = createApi({
 				method: 'get',
 			}),
 		}),
+		getContactInfo: build.query({
+			query: id => `/contact-info/${id}`,
+		}),
 		updateSingleProfile: build.mutation<{ saved?: boolean }, FormPassSingleProfile>({
 			query: ({ id, saved, clientId }) => ({
 				url: `profile/${id}`,
 				method: 'put',
 				body: { saved, clientId },
+				headers: {
+					'Content-type': 'application/json; charset=UTF-8',
+				},
+			}),
+			invalidatesTags: ['Profile'],
+		}),
+		updateProfile: build.mutation({
+			query: body => ({
+				url: `profile/${body.id}`,
+				method: 'put',
+				body,
 				headers: {
 					'Content-type': 'application/json; charset=UTF-8',
 				},
@@ -166,6 +180,8 @@ export const {
 	useGetUserProfileQuery,
 	useGetTalentProfileQuery,
 	useGetFreelancerInfoQuery,
+	useGetContactInfoQuery,
+	useUpdateProfileMutation,
 } = profileApi;
 
 export const jobPostApi = createApi({
@@ -346,7 +362,7 @@ export const messagesApi = createApi({
 			}),
 		}),
 		getRoomsByTwoUsers: build.query({
-			query: data => `/chat-room/${data.senderId}/${data.receiverId}/${data.jobPostId}`,
+			query: data => `/chat-room/${data.clientId}/${data.freelancerId}/${data.jobPostId}`,
 		}),
 		updateChatRoom: build.mutation({
 			query: data => ({
@@ -405,8 +421,7 @@ export const JobOfferApi = createApi({
 			invalidatesTags: ['jobOffer'],
 		}),
 		getJobOffer: build.query({
-			query: currentChatId =>
-				`/jobOffer/job/${currentChatId.jobPostId}/${currentChatId.freelancerId}/${currentChatId.clientId}`,
+			query: data => `/jobOffer/job/${data.jobPostId}/${data.freelancerId}/${data.clientId}`,
 			providesTags: ['jobOffer'],
 		}),
 		getAcceptedJobOffer: build.query({

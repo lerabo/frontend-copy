@@ -22,27 +22,19 @@ import {
 	Wrapper,
 	ChatWrapper,
 	Message,
-	ArrowBlock,
 	TitleMessage,
 } from 'components/chat/chat.styles';
-import {
-	DataSchema,
-	initialId,
-	MessageBackend,
-	MessageFrontend,
-	RoomBackend,
-	UserList,
-} from './interfaces';
+import { initialId, MessageBackend, MessageFrontend, RoomBackend, UserList } from './interfaces';
 import { Input } from 'components/clientSettings/clentSettings.styles';
 import { t } from 'i18next';
-import Image from 'image/no_result.png';
+import Image from 'assets/no_result.png';
 import { Img, H3, H5, ImgSpinner } from 'components/freelancerJobs/freelancerPage.styles';
 import Spinner from 'assets/spinner.gif';
 import MessageComponent from 'components/chat/components/message';
 import User from 'components/chat/components/singleUser';
 import { useOnDataChange } from 'components/chat/data';
 import ChatTitle from 'components/chat/components/chatTitle';
-import { Role } from 'pages/RoleSelection';
+import { Role } from 'constants/links';
 import SendOfferPopup from 'components/chat/components/sendoffer/SendOffer';
 import { SaveButton } from 'components/clientSettings/clentSettings.styles';
 import FreeOfferPopup from 'components/FreelancerOffer/FreeOfferPopup';
@@ -62,21 +54,14 @@ const Chat = () => {
 	const [roomMessages, setRoomMessages] = useState<MessageBackend[]>();
 	const [active, setActive] = useState<number>(chatRoomId);
 	const [defaultChat, setDefaultChat] = useState<RoomBackend>();
-	const [offerResponse, setOfferResponse] = useState<string>('');
-	const [status, setStatus] = useState<boolean>();
-
-	const data = {
-		jobPostId: currentChatId?.jobPostId,
-		freelancerId: currentChatId?.receiverId,
-		clientId: currentChatId?.senderId,
-	};
 
 	const { data: rooms, isSuccess } = useGetRoomsByUserQuery(userId);
 	const { data: messages, isLoading } = useGetMessagesByRoomQuery(chatRoomId);
 	const { data: room, isFetching } = useGetRoomsByTwoUsersQuery(currentChatId);
 	const [updateChatRoom] = useUpdateChatRoomMutation();
-	const { data: offer } = useGetJobOfferQuery(data);
+	const { data: offer } = useGetJobOfferQuery(currentChatId);
 	const scrollRef = useRef<null | HTMLDivElement>(null);
+
 	useEffect(() => {
 		scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
 	}, [messages]);
@@ -94,7 +79,12 @@ const Chat = () => {
 				const newArray = rooms.filter((item: RoomBackend) => {
 					return (
 						(item.activeRoom === NONE &&
-							user.id === item.receiverId.id &&
+							user.role === Role.Freelancer &&
+							item?.sendedFor === 'forFreelancer' &&
+							item.deletedFor !== user.role) ||
+						(item.activeRoom === NONE &&
+							user.role === Role.Client &&
+							item?.sendedFor === 'forClient' &&
 							item.deletedFor !== user.role) ||
 						(item.activeRoom !== NONE && item.deletedFor !== user.role)
 					);
@@ -102,8 +92,8 @@ const Chat = () => {
 				setDefaultChat(newArray[0]);
 				setChatRoomId(newArray[0]?.id);
 				setCurrentChatId({
-					senderId: newArray[0]?.senderId.id,
-					receiverId: newArray[0]?.receiverId.id,
+					clientId: newArray[0]?.clientId.id,
+					freelancerId: newArray[0]?.freelancerId.id,
 					jobPostId: newArray[0]?.jobPostId.id,
 					activeRoom: newArray[0]?.activeRoom,
 				});
@@ -159,7 +149,7 @@ const Chat = () => {
 	};
 	const { isShown, setIsShown, toggle } = useModal();
 
-	const onSubmit = (data: DataSchema, chatRoomId: number) => {
+	const onSubmit = (data: { text: string }, chatRoomId: number) => {
 		const NewData = {
 			...data,
 			userId,
@@ -169,13 +159,13 @@ const Chat = () => {
 		reset();
 	};
 	const changeRoom = (
-		senderId: number,
-		receiverId: number,
+		clientId: number,
+		freelancerId: number,
 		jobPostId: number,
 		roomId: number,
 		activeRoom: string,
 	) => {
-		setCurrentChatId({ senderId, receiverId, jobPostId, activeRoom });
+		setCurrentChatId({ clientId, freelancerId, jobPostId, activeRoom });
 		setChatRoomId(roomId);
 		setActive(chatRoomId);
 	};
@@ -190,21 +180,20 @@ const Chat = () => {
 			</>
 		);
 	}
+
 	return (
 		<Wrapper onSubmit={handleSubmit(data => onSubmit(data, chatRoomId))}>
 			<UsersList>
 				{userList?.map((item: UserList) => {
 					if (
-						(user.role === Role.Freelancer &&
-							item.activeRoom !== NONE &&
-							user.role !== item.deletedFor) ||
-						(user.role === Role.Freelancer &&
-							user.id === item.receiverId &&
-							user.role !== item.deletedFor) ||
-						(user.role === Role.Client &&
-							user.id === item.receiverId &&
-							user.role !== item.deletedFor) ||
-						(user.role === Role.Client && item.activeRoom !== NONE && user.role !== item.deletedFor)
+						((user.role === Role.Freelancer &&
+							item?.activeRoom === NONE &&
+							item?.sendedFor === 'forFreelancer') ||
+							(user.role === Role.Client &&
+								item?.activeRoom === NONE &&
+								item?.sendedFor === 'forClient') ||
+							item?.activeRoom !== NONE) &&
+						item?.deletedFor !== user.role
 					) {
 						return <User item={item} changeRoom={changeRoom} active={active} />;
 					}
@@ -212,35 +201,21 @@ const Chat = () => {
 			</UsersList>
 			<ChatWrapper>
 				<TitleMessage>
-					<ArrowBlock>
-						<ChatTitle userRole={user.role} room={room} />
-					</ArrowBlock>
+					<ChatTitle userRole={user.role} room={room} />
 					{user.role === Role.Client && currentChatId?.activeRoom && (
 						<div>
-							<SaveButton onClick={toggle} className="btn btn-success">
+							<SaveButton type="button" onClick={toggle}>
 								{`${t('InvitePopup.buttonOffer')}`}
 							</SaveButton>
-							{room?.receiverId.profileSetting ? (
-								<SendOfferPopup
-									hide={toggle}
-									isShown={isShown}
-									setIsShown={setIsShown}
-									freelancerId={currentChatId.receiverId}
-									clientId={currentChatId.senderId}
-									jobPostId={currentChatId.jobPostId}
-									isError={offer?.length}
-								/>
-							) : (
-								<SendOfferPopup
-									hide={toggle}
-									isShown={isShown}
-									setIsShown={setIsShown}
-									freelancerId={currentChatId.senderId}
-									clientId={currentChatId.receiverId}
-									jobPostId={currentChatId.jobPostId}
-									isError={offer?.length}
-								/>
-							)}
+							<SendOfferPopup
+								hide={toggle}
+								isShown={isShown}
+								setIsShown={setIsShown}
+								freelancerId={currentChatId.freelancerId}
+								clientId={currentChatId.clientId}
+								jobPostId={currentChatId.jobPostId}
+								isError={false}
+							/>
 						</div>
 					)}
 				</TitleMessage>
@@ -252,19 +227,6 @@ const Chat = () => {
 								<RightLi>
 									<MessageComponent message={message} className={`message recieved`} />
 									<Message className={`message date recieved`}>{date}</Message>
-									{user?.role === Role.Freelancer ? (
-										<>
-											<FreeOfferPopup
-												offer={offer}
-												user={user}
-												setOfferResponse={setOfferResponse}
-												setStatus={setStatus}
-											/>
-											<Message>{status ? offerResponse : offerResponse}</Message>
-										</>
-									) : (
-										<Message>{status ? offerResponse : offerResponse}</Message>
-									)}
 								</RightLi>
 							);
 						} else {
@@ -277,6 +239,7 @@ const Chat = () => {
 										{defaultChat?.activeRoom === NONE && user.id !== message.userId && (
 											<ButtonBlock>
 												<ButtonChat
+													type="button"
 													onClick={() =>
 														updateRoom(chatRoomId, 'This proposal is accepted', ACCEPTED)
 													}
@@ -284,6 +247,7 @@ const Chat = () => {
 													{`${t('chat.accepted')}`}
 												</ButtonChat>
 												<ButtonChat
+													type="button"
 													onClick={() =>
 														updateRoom(chatRoomId, 'This proposal is declined', DECLINED)
 													}
@@ -314,6 +278,14 @@ const Chat = () => {
 							}
 						}
 					})}
+					{user?.role === Role.Freelancer && offer?.status === '' && (
+						<FreeOfferPopup
+							offer={offer}
+							userId={user.id}
+							chatRoomId={chatRoomId}
+							socket={socket}
+						/>
+					)}
 				</ChatMessages>
 				<InputBlock>
 					<Input

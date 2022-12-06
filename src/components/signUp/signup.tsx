@@ -1,17 +1,19 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Div, Register, Form, ControlStyle, Input, P, ErrorP } from './signup.styled';
+import { Div, P, ErrorP } from './signup.styled';
 import { useTranslation } from 'react-i18next';
 import { useSignUpMutation } from 'service/httpService';
 import GoogleAuth from 'components/GoogleAuth/GoogleAuth';
 import { useAppDispatch } from 'redux/hooks';
 import { saveEmail, savePassword, saveUserId } from 'redux/reducers/userSlice';
-import { notification } from 'antd';
 import { RoleSelection } from 'constants/routes';
-import { ALERT_SUCCESS } from 'constants/links';
+import { Button } from 'components/signIn/Signin.styles';
+import { openNotificationWithIcon } from 'constants/links';
+import { DivForm, Form } from 'components/restorePassword/restorePassword.style';
+import { Input } from 'components/clientSettings/clentSettings.styles';
+import { Label } from 'components/Layout/Layout.styles';
 
 export type FormData = {
 	email: string;
@@ -19,7 +21,6 @@ export type FormData = {
 	password: string;
 	role: string;
 };
-type Alert = 'success' | 'error';
 
 const schema = Yup.object({
 	email: Yup.string().email().required(),
@@ -38,17 +39,11 @@ const signUp = () => {
 	} = useForm<FormData>({
 		resolver: yupResolver(schema),
 	});
-	const alert = (type: Alert) => {
-		notification[type]({
-			message:
-				type === ALERT_SUCCESS ? `${t('SignUp.errorPasswords')}` : `${t('SignUp.errorEmail')}`,
-		});
-	};
 
 	const onSubmit: SubmitHandler<FormData> = async values => {
 		const { email, password } = values;
 		if (values.createPassword !== values.password) {
-			alert('error');
+			openNotificationWithIcon('error');
 		} else {
 			try {
 				const res = await signUp({ email, password }).unwrap();
@@ -56,8 +51,9 @@ const signUp = () => {
 				dispatch(saveEmail(email));
 				dispatch(savePassword(password));
 				navigate(`${RoleSelection}`);
+				openNotificationWithIcon('success');
 			} catch (e) {
-				alert('error');
+				openNotificationWithIcon('error');
 			}
 		}
 	};
@@ -68,31 +64,30 @@ const signUp = () => {
 			<P>{`${t('SignUp.or')}`}</P>
 			<P>{`${t('SignUp.textEmail')}`}</P>
 			<Form onSubmit={handleSubmit(onSubmit)}>
-				<ControlStyle>{`${t('SignUp.email')}`}</ControlStyle>
-				<Controller
-					render={({ field }: any) => <Input type="email" {...field} />}
-					name="email"
-					control={control}
-					defaultValue=""
-				/>
-				<ErrorP>{errors.email?.message}</ErrorP>
-				<ControlStyle>{`${t('SignUp.createPassword')}`}</ControlStyle>
-				<Controller
-					render={({ field }: any) => <Input type="password" {...field} />}
-					name="createPassword"
-					control={control}
-					defaultValue=""
-				/>
-				<ErrorP>{errors.createPassword?.message}</ErrorP>
-				<ControlStyle>{`${t('SignUp.password')}`}</ControlStyle>
-				<Controller
-					render={({ field }: any) => <Input type="password" {...field} />}
-					name="password"
-					control={control}
-					defaultValue=""
-				/>
-				<ErrorP>{errors.password?.message}</ErrorP>
-				<Register type="submit">{`${t('SignUp.register')}`}</Register>
+				<DivForm>
+					<Label>{`${t('SignUp.email')}`}</Label>
+					<Controller
+						render={({ field }: any) => <Input type="email" {...field} />}
+						name="email"
+						control={control}
+					/>
+					<ErrorP>{errors.email?.message}</ErrorP>
+					<Label>{`${t('SignUp.createPassword')}`}</Label>
+					<Controller
+						render={({ field }: any) => <Input type="password" {...field} />}
+						name="createPassword"
+						control={control}
+					/>
+					<ErrorP>{errors.createPassword?.message}</ErrorP>
+					<Label>{`${t('SignUp.password')}`}</Label>
+					<Controller
+						render={({ field }: any) => <Input type="password" {...field} />}
+						name="password"
+						control={control}
+					/>
+					<ErrorP>{errors.password?.message}</ErrorP>
+					<Button type="submit">{`${t('SignUp.register')}`}</Button>
+				</DivForm>
 			</Form>
 		</Div>
 	);

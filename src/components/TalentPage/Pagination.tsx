@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Paginate } from './interfaces';
 
 const Pagination: FC<Paginate> = ({ filterPerPage, total, paginate }: Paginate) => {

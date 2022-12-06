@@ -5,17 +5,13 @@ const GlobalStyle = createGlobalStyle`
   margin: 0;
   padding: 0;
 }
-body {
-height: 100%;
-overflow-x: hidden;
-}
+body,
 html {
   height: 100%;
 }
 img,
 picture,
 svg {
-  display: block;
   max-width: 100%;
   height: auto;
 }
@@ -33,6 +29,8 @@ h4,
 h5,
 h6 {
   overflow-wrap: break-word;
+  padding: 0;
+  margin: 0;
 }
 ul,
 ol {

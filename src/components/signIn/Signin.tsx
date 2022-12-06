@@ -1,40 +1,22 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { notification } from 'antd';
-import {
-	Div,
-	Div2,
-	H1,
-	H2,
-	Form,
-	Input,
-	Button,
-	ControlStyle,
-	LinkStyle,
-	P,
-	ErrorP,
-} from './Signin.styles';
+import { Div, Div2, H1, H2, Button, LinkStyle, P, ErrorP } from './Signin.styles';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'redux/hooks';
 import { saveEmail, saveRole, saveToken, saveUserId } from 'redux/reducers/userSlice';
 import { useSignInMutation } from 'service/httpService';
 import { CreateJobPost, PostJobPage, Welcome } from 'constants/routes';
-import { ALERT_SUCCESS } from 'constants/links';
+import { openNotificationWithIcon, Role } from 'constants/links';
+import { DivForm, Form } from 'components/restorePassword/restorePassword.style';
+import { Input } from 'components/clientSettings/clentSettings.styles';
+import { Label } from 'components/Layout/Layout.styles';
 
 export type FormData = {
 	email: string;
 	password: string;
 	role: string;
-};
-
-type Alert = 'success' | 'error';
-
-const Role = {
-	Freelancer: 'freelancer',
-	Client: 'client',
 };
 
 const schema = Yup.object({
@@ -56,12 +38,6 @@ const signIn = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const alert = (type: Alert) => {
-		notification[type]({
-			message: type === ALERT_SUCCESS ? `${t('SignIn.success')}` : `${t('SignIn.error')}`,
-		});
-	};
-
 	const onSubmit: SubmitHandler<FormData> = async values => {
 		const { email, password, role } = values;
 
@@ -71,7 +47,7 @@ const signIn = () => {
 			dispatch(saveUserId(res.userId));
 			dispatch(saveRole(res.role));
 			dispatch(saveEmail(values.email));
-			alert('success');
+			openNotificationWithIcon('success');
 			reset({ email: '', password: '' });
 			if (res.role === Role.Client) {
 				navigate(`${CreateJobPost}`);
@@ -80,8 +56,7 @@ const signIn = () => {
 			} else navigate(`${Welcome}`);
 		} catch (e) {
 			reset({ email: '', password: '' });
-			alert('error');
-			// console.log(e);
+			openNotificationWithIcon('error');
 		}
 	};
 
@@ -94,26 +69,26 @@ const signIn = () => {
 				<H2>{`${t('SignIn.upperText')}`}</H2>
 			</div>
 			<Form onSubmit={handleSubmit(onSubmit)}>
-				<ControlStyle>{`${t('SignIn.email')}`}</ControlStyle>
-				<Controller
-					render={({ field }) => <Input type="email" {...field} />}
-					name="email"
-					control={control}
-					defaultValue=""
-				/>
-				<ErrorP>{errors.email?.message}</ErrorP>
-				<ControlStyle>{`${t('SignIn.password')}`}</ControlStyle>
-				<Controller
-					render={({ field }) => <Input type="password" {...field} />}
-					name="password"
-					control={control}
-					defaultValue=""
-				/>
-				<ErrorP>{errors.password?.message}</ErrorP>
-				<LinkStyle>
-					<Link to="/forgot-password">{`${t('SignIn.forgotPassword')}`}</Link>
-				</LinkStyle>
-				<Button type="submit">{`${t('SignIn.buttonSignin')}`}</Button>
+				<DivForm>
+					<Label>{`${t('SignIn.email')}`}</Label>
+					<Controller
+						render={({ field }) => <Input type="email" {...field} />}
+						name="email"
+						control={control}
+					/>
+					<ErrorP>{errors.email?.message}</ErrorP>
+					<Label>{`${t('SignIn.password')}`}</Label>
+					<Controller
+						render={({ field }) => <Input type="password" {...field} />}
+						name="password"
+						control={control}
+					/>
+					<ErrorP>{errors.password?.message}</ErrorP>
+					<LinkStyle>
+						<Link to="/forgot-password">{`${t('SignIn.forgotPassword')}`}</Link>
+					</LinkStyle>
+					<Button type="submit">{`${t('SignIn.buttonSignin')}`}</Button>
+				</DivForm>
 			</Form>
 			<Div2>
 				<P>{`${t('SignIn.text')}`}</P>

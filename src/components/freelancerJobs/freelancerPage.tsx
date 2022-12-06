@@ -33,7 +33,7 @@ import {
 	initialPrice,
 	checkList,
 } from 'components/freelancerJobs/constants';
-import Image from 'image/no_result.png';
+import Image from 'assets/no_result.png';
 import Spinner from 'assets/spinner.gif';
 
 const FreelancerPage: FC = () => {
@@ -150,6 +150,7 @@ const FreelancerPage: FC = () => {
 						<CategoryDiv>
 							<CustomSelect
 								options={selection}
+								placeholder="Categories"
 								onChange={choice => setCategoryValue(choice as ICategory)}
 								value={categoryValue}
 							/>

@@ -11,12 +11,14 @@ import {
 	DescriptionStyled,
 	NonPostWrapper,
 	ImageStyled,
+	MainTitle,
 } from './PostJobLayout.styles';
 import { useGetPostJobQuery } from 'service/httpService';
 import { useAppSelector } from 'redux/hooks';
 import { RootState } from 'redux/store';
 import FreelancerPage from 'components/freelancerJobs/freelancerPage';
 import { CreateJobPost } from 'constants/routes';
+import { Role } from 'constants/links';
 
 interface IPost {
 	id: number;
@@ -39,16 +41,18 @@ const PostJobPageLayout: FC = () => {
 		return sortedPosts;
 	}, [post]);
 
-	const Role = {
-		Freelancer: 'freelancer',
-		Client: 'client',
+	const getDate = (date: Date) => {
+		const currentDate =
+			date.toLocaleDateString('en-us', { hour: 'numeric', minute: 'numeric' }) +
+			' ' +
+			date.getFullYear();
+		return currentDate;
 	};
-
 	return (
 		<>
 			{user.role === Role.Client && (
 				<Wrapper>
-					<h1>{`${t('PostJobPage.title')}`}</h1>
+					<MainTitle>{`${t('PostJobPage.title')}`}</MainTitle>
 					{isLoading && <div>Loading..</div>}
 					{post?.length > 0 ? (
 						<ul>
@@ -58,7 +62,7 @@ const PostJobPageLayout: FC = () => {
 										<TitleStyled>{postData.jobTitle}</TitleStyled>
 										<DescriptionDataStyled>{postData.jobDescription}</DescriptionDataStyled>
 										<DateStyled>
-											<span>{postData.dateTime}</span>
+											<span>{getDate(new Date(postData.dateTime))}</span>
 										</DateStyled>
 									</Link>
 								</li>

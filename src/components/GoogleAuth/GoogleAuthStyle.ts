@@ -1,6 +1,6 @@
+import { PURPLE, VIOLET, WHITE_COLOR } from 'constants/colors';
 import { MEDIUM_FONT_SIZE } from 'constants/fonts';
 import styled from 'styled-components';
-import { BLUE, LIGHT_BLUE, WHITE } from './colors';
 
 export const Container = styled.div`
 	display: flex;
@@ -8,12 +8,14 @@ export const Container = styled.div`
 	margin: auto;
 	width: 40%;
 	height: 50px;
-	background: ${BLUE};
+	background: ${VIOLET};
 	padding: 2px;
 	border-radius: 6px;
-
 	&:hover {
-		background: ${LIGHT_BLUE};
+		background: ${PURPLE};
+		& > div {
+			color: ${VIOLET};
+		}
 	}
 `;
 export const Image = styled.img`
@@ -22,10 +24,9 @@ export const Image = styled.img`
 	border-radius: 6px;
 `;
 export const Typography = styled.div`
-	color: ${WHITE};
+	color: ${WHITE_COLOR};
 	width: 70%;
 	font-family: Roboto, sans-serif;
 	margin: auto;
-	font-weight: 400;
 	font-size: ${MEDIUM_FONT_SIZE};
 `;

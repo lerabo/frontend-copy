@@ -1,77 +1,55 @@
 import {
-	BLACK_COLOR,
 	COLOR_GREY,
+	DARK_SKY_BLUE,
 	GREY,
 	LIGHTGREY_COLOR,
 	LIGHT_GREY,
+	ORANGE,
+	PURPLE,
+	SKY_BLUE,
 	WHITE_COLOR,
 } from 'constants/colors';
-import { MEDIUM_FONT_SIZE, SMALL_FONT_SIZE } from 'constants/fonts';
+import { FONT_MEDIUM, MEDIUM_FONT_SIZE, SMALL_FONT_SIZE } from 'constants/fonts';
 import styled from 'styled-components';
 
-export const Column = styled.div`
-	float: left;
-	width: 50%;
-	padding: 10px;
-	@media screen and (max-width: 600px) {
-		width: 100%;
-	}
-`;
 export const UsersList = styled.ul`
 	list-style-type: none;
 	padding-left: 0;
 	overflow-y: auto;
 	width: 30%;
 	background-color: ${WHITE_COLOR};
-	height: 600px;
-	border-right: 1px solid ${GREY};
+	height: calc(100% - 15.2px);
+	border-right: 2px solid ${PURPLE};
 	margin: 0;
-
-	&::-webkit-scrollbar {
-		width: 0.2rem;
-	}
-	&::-webkit-scrollbar-thumb {
-		background-color: ${COLOR_GREY};
-		width: 0.1rem;
-		border-radius: 1rem;
-	}
 `;
 
 export const SingleUser = styled.li`
 	border-bottom: 1px solid ${LIGHTGREY_COLOR};
-	&:last-child {
-		border-bottom: unset;
-	}
 	& > div {
 		display: grid;
-		grid-template-columns: 40px 1fr -webkit-max-content;
-		grid-template-columns: 40px 1fr max-content;
-		grid-gap: 10px;
-		color: black;
-		font-size: 1.3rem;
-		padding: 20px 20px 20px 15px;
+		grid-template-columns: 60px 1fr -webkit-max-content;
+		grid-template-columns: 60px 1fr max-content;
+		padding: 10px;
 		position: relative;
 	}
-
 	& > div:hover {
-		background: ${COLOR_GREY};
+		background: ${SKY_BLUE};
 		cursor: pointer;
 	}
-
 	&.defaultActive {
-		background-color: ${COLOR_GREY};
+		background-color: ${SKY_BLUE};
 	}
 `;
 
 export const ChatImage = styled.img`
 	grid-row: span 2;
-	height: 50px;
-	width: 50px;
+	width: 60px;
 	border-radius: 100%;
 `;
 
 export const Title = styled.div`
 	font-weight: bold;
+	font-size: ${SMALL_FONT_SIZE};
 	padding-left: 15px;
 	white-space: nowrap;
 	overflow-x: hidden;
@@ -80,6 +58,7 @@ export const Title = styled.div`
 
 export const LastMessage = styled.div`
 	grid-column: span 2;
+	font-size: ${SMALL_FONT_SIZE};
 	color: gray;
 	padding-left: 15px;
 	white-space: nowrap;
@@ -88,10 +67,10 @@ export const LastMessage = styled.div`
 `;
 
 export const Wrapper = styled.form`
-	width: 70%;
+	width: 100%;
+	height: 100vh;
 	display: flex;
 	margin: 0 auto;
-	border: 1px solid ${GREY};
 `;
 
 export const DateTime = styled.div`
@@ -101,9 +80,9 @@ export const DateTime = styled.div`
 
 //chat style
 export const ChatWrapper = styled.div`
-	width: 100%;
+	width: 70%;
+	height: calc(100% - 15.2px);
 	position: relative;
-	border: 1px solid ${GREY};
 `;
 
 export const Button = styled.button`
@@ -127,15 +106,13 @@ export const Button = styled.button`
 
 export const ChatMessages = styled.div`
 	width: 100%;
+	height: calc(100% - 142px);
 	position: relative;
 	padding: 1rem 2rem;
 	display: flex;
-	height: 600px;
 	flex-direction: column;
+	overflow-y: auto;
 	background-color: ${WHITE_COLOR};
-	margin-bottom: 100px;
-	overflow-y: scroll;
-	gap: 1rem;
 	&::-webkit-scrollbar {
 		width: 0.2rem;
 		&-thumb {
@@ -153,7 +130,6 @@ export const Message = styled.div`
 	display: flex;
 	align-items: center;
 	&.date {
-		color: ${BLACK_COLOR};
 		padding-top: 8px;
 	}
 
@@ -161,7 +137,7 @@ export const Message = styled.div`
 		overflow-wrap: break-word;
 		padding: 10px;
 		max-width: 70%;
-		font-size: 1.1rem;
+		font-size: ${FONT_MEDIUM};
 		border-radius: 1rem;
 		@media screen and (min-width: 720px) and (max-width: 1080px) {
 			max-width: 70%;
@@ -177,29 +153,16 @@ export const Message = styled.div`
 	&.sended {
 		justify-content: flex-start;
 		& > .content {
-			background-color: ${COLOR_GREY};
-			color: ${BLACK_COLOR};
+			background-color: ${ORANGE};
 		}
 	}
 	&.recieved {
 		justify-content: flex-end;
 		& > .content {
-			background-color: ${LIGHT_GREY};
-			color: ${BLACK_COLOR};
+			background-color: ${DARK_SKY_BLUE};
+			color: ${WHITE_COLOR};
 		}
 	}
-`;
-
-export const Input = styled.input`
-	width: 70%;
-	height: 40px;
-	box-sizing: border-box;
-	border: 1px solid ${LIGHTGREY_COLOR};
-	border-radius: 5px;
-	-webkit-transition: 0.5s;
-	transition: 0.5s;
-	outline: none;
-	font-size: ${MEDIUM_FONT_SIZE};
 `;
 
 export const ButtonChat = styled.button`
@@ -214,7 +177,7 @@ export const ButtonChat = styled.button`
 	font-size: ${SMALL_FONT_SIZE};
 	box-shadow: 3px 2px 2px ${GREY};
 	&:hover {
-		background-color: ${GREY};
+		background-color: ${PURPLE};
 	}
 	&:active {
 		box-shadow: 0 5px;
@@ -244,8 +207,7 @@ export const InputBlock = styled.div`
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	position: absolute;
-	background-color: ${COLOR_GREY};
+	position: sticky;
 
 	& > .ant-btn {
 		height: 40px;
@@ -275,48 +237,28 @@ export const InputBlock = styled.div`
 
 //chatTitle
 export const TitleMessage = styled.div`
-	background-color: ${COLOR_GREY};
 	position: relative;
 	display: flex;
-	justify-content: space-between;
 	align-content: center;
+	justify-content: space-between;
 	align-items: center;
-	color: black;
-	font-weight: bold;
-	font-size: 2rem;
-	padding: 10px 20px;
-	z-index: 1;
-	border-bottom: 1px solid ${BLACK_COLOR};
-`;
-
-export const ArrowBlock = styled.div`
-	display: flex;
-	align-items: center;
-	& > img {
-		grid-row: span 2;
-		height: 50px;
-		width: 50px;
-		border-radius: 100%;
-		margin: 0 15px 0 15px;
-	}
-	&.arrowRight {
-		display: none;
-		padding: 0 10px 0 10px;
-
-		@media (max-width: 1020px) {
-			display: inline;
-			width: 50px;
-			height: 50px;
-			color: ${BLACK_COLOR};
-		}
-	}
+	padding: 2px 20px;
+	border-bottom: 2px solid ${PURPLE};
 `;
 
 export const TitleChat = styled.p`
-	font-size: 20px;
-	color: black;
-	margin: unset;
+	font-size: ${MEDIUM_FONT_SIZE};
+	margin: 10px;
 	font-weight: bold;
+`;
+
+export const CenterDiv = styled.div`
+	display: inline-flex;
+	align-items: center;
+	& > img {
+		border-radius: 100%;
+		width: 50px;
+	}
 `;
 
 //search

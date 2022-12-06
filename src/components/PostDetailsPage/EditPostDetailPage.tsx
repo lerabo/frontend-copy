@@ -1,20 +1,13 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetJobsDetailQuery, useUpdateJobPostMutation } from 'service/httpService';
 import { useTranslation } from 'react-i18next';
-import {
-	Container,
-	Title,
-	CreateButton,
-	Column,
-	Li,
-	CurrencyColumn,
-	P,
-} from '../jobPost/JobPost.styles';
-import React, { FC } from 'react';
+import { Container, Title, Column, Li, CurrencyColumn, P } from '../jobPost/JobPost.styles';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ValidationSchema from './validationSchema';
 import { EditJobSubmitForm } from 'components/jobPost/interfaces';
+import { SaveButton } from 'components/clientSettings/clentSettings.styles';
 
 const EditPostDetailPage: FC = () => {
 	const [updatejobPost, {}] = useUpdateJobPostMutation();
@@ -51,32 +44,36 @@ const EditPostDetailPage: FC = () => {
 				</div>
 				<div>
 					<Title>{`${t('JobPostPage.hourTitle')}`}</Title>
-					<CurrencyColumn>
-						<label>From</label>
-						<div className="input-group-prepend">
-							<span className="input-group-prepend input-group-text">$</span>
-							<input
-								type="number"
-								{...register('fromHourRate')}
-								className={`form-control ${errors.fromHourRate ? 'is-invalid' : ''}`}
-								defaultValue={post.fromHourRate}
-							/>
-						</div>
-						{errors.fromHourRate && <P>{`${t('JobPostPage.priceError')}`}</P>}
-					</CurrencyColumn>
-					<CurrencyColumn>
-						<label>To</label>
-						<div className="input-group-prepend">
-							<span className="input-group-text">$</span>
-							<input
-								type="number"
-								{...register('toHourRate')}
-								className={`form-control ${errors.toHourRate ? 'is-invalid' : ''}`}
-								defaultValue={post.toHourRate}
-							/>
-						</div>
-						{errors.toHourRate && <P>{`${t('JobPostPage.priceError')}`}</P>}
-					</CurrencyColumn>
+					<Column>
+						<CurrencyColumn>
+							<label>From</label>
+							<div className="input-group-prepend">
+								<span className="input-group-prepend input-group-text">$</span>
+								<input
+									type="number"
+									{...register('fromHourRate')}
+									className={`form-control ${errors.fromHourRate ? 'is-invalid' : ''}`}
+									defaultValue={post.fromHourRate}
+								/>
+							</div>
+							{errors.fromHourRate && <P>{`${t('JobPostPage.priceError')}`}</P>}
+						</CurrencyColumn>
+					</Column>
+					<Column>
+						<CurrencyColumn>
+							<label>To</label>
+							<div className="input-group-prepend">
+								<span className="input-group-text">$</span>
+								<input
+									type="number"
+									{...register('toHourRate')}
+									className={`form-control ${errors.toHourRate ? 'is-invalid' : ''}`}
+									defaultValue={post.toHourRate}
+								/>
+							</div>
+							{errors.toHourRate && <P>{`${t('JobPostPage.priceError')}`}</P>}
+						</CurrencyColumn>
+					</Column>
 				</div>
 				<div>
 					<Title>{`${t('JobPostPage.durationTitle')}`}</Title>
@@ -141,7 +138,7 @@ const EditPostDetailPage: FC = () => {
 					{errors.jobDescription && <P>{errors.jobDescription?.message}</P>}
 				</div>
 				<div style={{ display: 'flex' }}>
-					<CreateButton type="submit">{`${t('EditPostDetailPage.updateButton')}`}</CreateButton>
+					<SaveButton type="submit">{`${t('EditPostDetailPage.updateButton')}`}</SaveButton>
 				</div>
 			</form>
 		</Container>

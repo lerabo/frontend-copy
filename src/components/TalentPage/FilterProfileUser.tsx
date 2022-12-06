@@ -1,23 +1,19 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import {
 	ImageWrapper,
 	ImageWrapperBlock,
 	ProfileData,
 	ProfileImage,
 	PhotoWrapper,
+	Card,
 } from './TalentPageLayout.style';
 import { Filter } from './interfaces';
-import { Link } from 'react-router-dom';
 import { t } from 'i18next';
-import Profile from 'image/profile-talent.png';
+import Profile from 'assets/profile-talent.png';
 
-const FilterProfileUser: FC<{ item: Filter; path: boolean }> = ({ item, path }) => {
+const FilterProfileUser: FC<{ item: Filter; path: boolean }> = ({ item }) => {
 	return (
-		<Link
-			to={{
-				pathname: `/profile/${item.id}`,
-			}}
-		>
+		<Card>
 			<ImageWrapperBlock>
 				{item.photo ? (
 					<PhotoWrapper>
@@ -36,7 +32,7 @@ const FilterProfileUser: FC<{ item: Filter; path: boolean }> = ({ item, path }) 
 				<p>{item.position}</p>
 				{`${t('TalentCompanyPage.rate')} ${item.price}$`}
 			</ProfileData>
-		</Link>
+		</Card>
 	);
 };
 

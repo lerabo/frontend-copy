@@ -1,20 +1,22 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { NavLink, Outlet } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { RootState } from 'redux/store';
 import {
 	Navigation,
-	ButtonText,
 	Li,
 	UlNav,
-	BoderNav,
-	Image,
-	BtnMenu,
-	MenuSetting,
 	DropdownMenu,
+	StyledLink,
+	MainHeader,
+	NavButton,
+	Button,
+	Label,
+	MenuButton,
+	MobileNav,
+	MobileUlNav,
 } from './Layout.styles';
 import { t } from 'i18next';
-import { saveEmail, saveToken, saveUserId } from 'redux/reducers/userSlice';
 import {
 	CreateJobPost,
 	PostJobPage,
@@ -25,17 +27,24 @@ import {
 	Home,
 	SignUp,
 } from 'constants/routes';
-import SettingPerson from 'image/setting-person.svg';
 import JOPopupSettings from 'components/PopupSettings/PopUpJOSettings';
+import Logo from 'assets/Logo.png';
+import Menu from 'assets/menu.png';
+import { Backdrop } from 'components/PostDetailsPage/components/Modal.styles';
+import { Role } from 'constants/links';
 
 const Layout: FC = () => {
 	const { user } = useAppSelector<RootState>(state => state);
-	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 	const [toggleMenu, setToggleMenu] = useState(false);
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
 	const toggleNav = () => {
 		setToggleMenu(!toggleMenu);
+	};
+
+	const redirectHandler = () => {
+		navigate(`${Home}`);
 	};
 
 	useEffect(() => {
@@ -50,51 +59,28 @@ const Layout: FC = () => {
 		};
 	}, []);
 
-	const handleClick = () => {
-		dispatch(saveEmail(''));
-		dispatch(saveToken(''));
-		dispatch(saveUserId(undefined));
-		localStorage.clear();
-	};
-
-	const Role = {
-		Freelancer: 'freelancer',
-		Client: 'client',
-	};
-
-	const dropdownItem = (role: string) => {
-		return (
-			<div className="dropdown">
-				<BtnMenu
-					className="dropdownButton dropdown-toggle"
-					type="button"
-					id="dropdownMenuButton"
-					data-toggle="dropdown"
-					aria-haspopup="true"
-					aria-expanded="false"
-				>
-					<Image src={SettingPerson} alt="SettingPerson" />
-				</BtnMenu>
-				<MenuSetting className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<div className="dropdown-item">
-						<JOPopupSettings handleClick={handleClick} role={role} />
-					</div>
-				</MenuSetting>
-			</div>
-		);
-	};
-
 	return (
 		<div>
-			{user.id && user ? (
+			{user.id && (
 				<>
 					{user.role === Role.Client && (
 						<>
-							{(toggleMenu || screenWidth > 650) && (
+							<MainHeader>
+								<div style={{ display: 'flex' }}>
+									<MenuButton onClick={toggleNav}>
+										<img src={Menu}></img>
+									</MenuButton>
+									<Button onClick={redirectHandler}>
+										<Label>
+											<img src={Logo} style={{ margin: '10px' }}></img>
+											{`${t('Layout.logo')}`}
+										</Label>
+									</Button>
+								</div>
 								<Navigation>
 									<UlNav>
 										<Li className="dropdown">
-											<button
+											<NavButton
 												className="dropdownButton dropdown-toggle"
 												type="button"
 												id="dropdownMenuButton"
@@ -103,83 +89,191 @@ const Layout: FC = () => {
 												aria-expanded="false"
 											>
 												{`${t('ClientPage.clientTitleDrop')}`}
-											</button>
+											</NavButton>
 											<DropdownMenu className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												<BoderNav>
-													<NavLink className="dropdown-item" to={`${PostJobPage}`}>{`${t(
-														'ClientPage.clientTitle',
-													)}`}</NavLink>
-												</BoderNav>
-												<BoderNav>
-													<NavLink className="dropdown-item" to={`${CreateJobPost}`}>{`${t(
-														'ClientPage.create',
-													)}`}</NavLink>
-												</BoderNav>
+												<StyledLink to={`${PostJobPage}`}>{`${t(
+													'ClientPage.clientTitle',
+												)}`}</StyledLink>
+												<StyledLink to={`${CreateJobPost}`}>{`${t(
+													'ClientPage.create',
+												)}`}</StyledLink>
 											</DropdownMenu>
 										</Li>
 										<Li>
-											<NavLink to={`${TalentPage}`}>{`${t('ClientPage.talent')}`}</NavLink>
+											<StyledLink to={`${TalentPage}`}>{`${t('ClientPage.talent')}`}</StyledLink>
 										</Li>
 										<Li>
-											<NavLink to={`${Chat}`}>{`${t('ClientPage.chat')}`}</NavLink>
+											<StyledLink to={`${Chat}`}>{`${t('ClientPage.chat')}`}</StyledLink>
 										</Li>
 										<Li>
-											<NavLink to={`${Contracts}`}>{`${t('ClientPage.contracts')}`}</NavLink>
+											<StyledLink to={`${Contracts}`}>{`${t('ClientPage.contracts')}`}</StyledLink>
 										</Li>
-										{dropdownItem(user.role)}
+										<JOPopupSettings role={user.role} />
 									</UlNav>
 								</Navigation>
+							</MainHeader>
+							{toggleMenu && screenWidth < 550 && (
+								<>
+									<Backdrop onClick={toggleNav} />
+									<MobileNav>
+										<MobileUlNav>
+											<Li className="dropdown">
+												<NavButton
+													className="dropdownButton dropdown-toggle"
+													type="button"
+													id="dropdownMenuButton"
+													data-toggle="dropdown"
+													aria-haspopup="true"
+													aria-expanded="false"
+												>
+													{`${t('ClientPage.clientTitleDrop')}`}
+												</NavButton>
+												<DropdownMenu
+													className="dropdown-menu"
+													aria-labelledby="dropdownMenuButton"
+												>
+													<StyledLink to={`${PostJobPage}`}>{`${t(
+														'ClientPage.clientTitle',
+													)}`}</StyledLink>
+													<StyledLink to={`${CreateJobPost}`}>{`${t(
+														'ClientPage.create',
+													)}`}</StyledLink>
+												</DropdownMenu>
+											</Li>
+											<Li>
+												<StyledLink to={`${TalentPage}`}>{`${t('ClientPage.talent')}`}</StyledLink>
+											</Li>
+											<Li>
+												<StyledLink to={`${Chat}`}>{`${t('ClientPage.chat')}`}</StyledLink>
+											</Li>
+											<Li>
+												<StyledLink to={`${Contracts}`}>{`${t(
+													'ClientPage.contracts',
+												)}`}</StyledLink>
+											</Li>
+											<JOPopupSettings role={user.role} />
+										</MobileUlNav>
+									</MobileNav>
+								</>
 							)}
-							<ButtonText onClick={toggleNav} className="btn">
-								{`${t('ClientPage.menu')}`}
-							</ButtonText>
 						</>
 					)}
 					{user.role === Role.Freelancer && (
 						<>
-							{(toggleMenu || screenWidth > 650) && (
-								<Navigation>
-									<UlNav>
-										<>
-											<Li>
-												<NavLink to={`${Contracts}`}>{`${t(
-													'FreelancerLayout.contracts',
-												)}`}</NavLink>
-											</Li>
-											<Li>
-												<NavLink to={`${Chat}`}>{`${t('FreelancerLayout.chat')}`}</NavLink>
-											</Li>
-											<Li>
-												<NavLink to={`${PostJobPage}`}>{`${t('FreelancerLayout.search')}`}</NavLink>
-											</Li>
-											{dropdownItem(user.role)}
-										</>
-									</UlNav>
-								</Navigation>
+							{!toggleMenu && (
+								<>
+									<MainHeader>
+										<div style={{ display: 'flex' }}>
+											<MenuButton onClick={toggleNav}>
+												<img src={Menu}></img>
+											</MenuButton>
+											<Button onClick={redirectHandler}>
+												<Label>
+													<img src={Logo} style={{ margin: '10px' }}></img>
+													{`${t('Layout.logo')}`}
+												</Label>
+											</Button>
+										</div>
+										<Navigation>
+											<UlNav>
+												<Li>
+													<StyledLink to={`${Contracts}`}>{`${t(
+														'FreelancerLayout.contracts',
+													)}`}</StyledLink>
+												</Li>
+												<Li>
+													<StyledLink to={`${Chat}`}>{`${t('FreelancerLayout.chat')}`}</StyledLink>
+												</Li>
+												<Li>
+													<StyledLink to={`${PostJobPage}`}>{`${t(
+														'FreelancerLayout.search',
+													)}`}</StyledLink>
+												</Li>
+												<JOPopupSettings role={user.role} />
+											</UlNav>
+										</Navigation>
+									</MainHeader>
+								</>
 							)}
-							<ButtonText onClick={toggleNav} className="btn">
-								{`${t('ClientPage.menu')}`}
-							</ButtonText>
+							{toggleMenu && screenWidth < 550 && (
+								<>
+									<Backdrop onClick={toggleNav} />
+									<MobileNav>
+										<MobileUlNav>
+											<Li>
+												<StyledLink to={`${Contracts}`}>{`${t(
+													'FreelancerLayout.contracts',
+												)}`}</StyledLink>
+											</Li>
+											<Li>
+												<StyledLink to={`${Chat}`}>{`${t('FreelancerLayout.chat')}`}</StyledLink>
+											</Li>
+											<Li>
+												<StyledLink to={`${PostJobPage}`}>{`${t(
+													'FreelancerLayout.search',
+												)}`}</StyledLink>
+											</Li>
+											<JOPopupSettings role={user.role} />
+										</MobileUlNav>
+									</MobileNav>
+								</>
+							)}
 						</>
 					)}
 					<Outlet />
 				</>
-			) : (
+			)}
+			{!user.id && (
 				<>
-					<Navigation>
-						<UlNav>
-							<Li>
-								<NavLink to={`${Home}`}>{`${t('Layout.home')}`}</NavLink>
-							</Li>
-							<Li>
-								<NavLink to={`${SignUp}`}>{`${t('Layout.signup')}`}</NavLink>
-							</Li>
-							<Li>
-								<NavLink to={`${SignIn}`}>{`${t('Layout.login')}`}</NavLink>
-							</Li>
-						</UlNav>
-					</Navigation>
-					<Outlet />
+					{!toggleMenu && (
+						<>
+							<MainHeader>
+								<div style={{ display: 'flex' }}>
+									<MenuButton onClick={toggleNav}>
+										<img src={Menu}></img>
+									</MenuButton>
+									<Button onClick={redirectHandler}>
+										<Label>
+											<img src={Logo} style={{ margin: '10px' }}></img>
+											{`${t('Layout.logo')}`}
+										</Label>
+									</Button>
+								</div>
+								<Navigation>
+									<UlNav>
+										<Li>
+											<StyledLink to={`${Home}`}>{`${t('Layout.home')}`}</StyledLink>
+										</Li>
+										<Li>
+											<StyledLink to={`${SignUp}`}>{`${t('Layout.signup')}`}</StyledLink>
+										</Li>
+										<Li>
+											<StyledLink to={`${SignIn}`}>{`${t('Layout.login')}`}</StyledLink>
+										</Li>
+									</UlNav>
+								</Navigation>
+							</MainHeader>
+							<Outlet />
+						</>
+					)}
+					{toggleMenu && screenWidth < 550 && (
+						<>
+							<Backdrop onClick={toggleNav} />
+							<MobileNav>
+								<MobileUlNav>
+									<Li>
+										<StyledLink to={`${Home}`}>{`${t('Layout.home')}`}</StyledLink>
+									</Li>
+									<Li>
+										<StyledLink to={`${SignUp}`}>{`${t('Layout.signup')}`}</StyledLink>
+									</Li>
+									<Li>
+										<StyledLink to={`${SignIn}`}>{`${t('Layout.login')}`}</StyledLink>
+									</Li>
+								</MobileUlNav>
+							</MobileNav>
+						</>
+					)}
 				</>
 			)}
 		</div>

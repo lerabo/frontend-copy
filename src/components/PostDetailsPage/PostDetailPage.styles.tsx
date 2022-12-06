@@ -1,30 +1,30 @@
-import { DODGERBLUE_COLOR, GREY, LIGHTBLUE_COLOR, WHITE_COLOR } from 'constants/colors';
-import { FONT_LARGE, MEDIUM_FONT_SIZE } from 'constants/fonts';
+import { BLACK_COLOR, GREEN, GREY, LIGHT_GREEN } from 'constants/colors';
+import { FONT_LARGE, LARGE_FONT_SIZE, MEDIUM_FONT_SIZE } from 'constants/fonts';
 import styled from 'styled-components';
 
 export const TitleStyled = styled.p`
 	font-weight: bold;
-	font-size: ${props => props.theme.spacing(6)};
-	color: ${props => props.theme.colors.black};
+	font-size: ${LARGE_FONT_SIZE};
+	color: ${BLACK_COLOR};
 	display: flex;
 	justify-content: center;
 `;
 
 export const Wrapper = styled.div`
-	margin: ${props => props.theme.spacing(5)};
-	padding: ${props => props.theme.spacing(5)};
-	border-radius: ${props => props.theme.spacing(5)};
+	margin: 20px;
+	padding: 20px;
+	border-radius: 20px;
 `;
 
 export const WrapperWithBorder = styled.div`
-	border: 2px solid ${props => props.color || props.theme.colors.gray};
+	border: 2px solid ${GREY};
 	border-radius: 10px;
 	width: 90%;
 	text-align: center;
 `;
 
 export const CategoryStyled = styled.div`
-	border: 2px solid ${props => props.color || props.theme.colors.gray};
+	border: 2px solid ${GREY};
 	border-radius: 10px;
 	padding: 10px;
 	width: 300px;
@@ -51,13 +51,13 @@ export const Description = styled.div`
 `;
 
 export const BorderStyled = styled.div`
-	border: 1px solid ${props => props.theme.colors.gray};
-	color: ${props => props.theme.colors.gray};
+	border: 1px solid ${GREY};
+	color: ${GREY};
 `;
 
 export const WrapperSkillsStyled = styled.div`
 	display: flex;
-	padding-top: ${props => props.theme.spacing(5)};
+	padding-top: 20px;
 	align-items: flex-start;
 	flex-wrap: wrap;
 
@@ -80,16 +80,16 @@ export const CategorySkillsBlock = styled.div`
 	}
 	@media (max-width: 800px) {
 		width: 100%;
-		margin-left: ${props => props.theme.spacing(0)};
+		margin-left: 0;
 	}
 `;
 
 export const SkillsItem = styled.div`
-	color: ${props => props.theme.colors.green};
-	padding: ${props => props.theme.spacing(1)};
-	background-color: ${props => props.theme.colors.ligntGreen};
+	color: ${GREEN};
+	padding: 5px;
+	background-color: ${LIGHT_GREEN};
 	border-radius: 20px;
-	margin: ${props => props.theme.spacing(2)};
+	margin: 10px;
 	text-transform: capitalize;
 	font-size: ${MEDIUM_FONT_SIZE};
 	text-align: center;
@@ -98,40 +98,15 @@ export const SkillsItem = styled.div`
 `;
 
 export const WorkDurationStyled = styled.div`
-	padding-left: ${props => props.theme.spacing(3)};
+	padding-left: 10px;
 `;
 
 export const HourRateStyled = styled.div`
 	text-align: center;
-	padding: ${props => props.theme.spacing(3)};
+	padding: 10px;
 	margin: 8%;
 `;
 
-export const SendProposal = styled.button`
-	width: 180px;
-	height: 55px;
-	border-radius: 10px;
-	background-color: ${DODGERBLUE_COLOR};
-	color: ${WHITE_COLOR};
-	border-color: ${WHITE_COLOR};
-	margin: auto;
-	text-align: center;
-	font-size: ${FONT_LARGE};
-	box-shadow: 3px 2px 2px ${GREY};
-	&:hover {
-		background-color: ${LIGHTBLUE_COLOR};
-	}
-	& > .hidden {
-		display: none;
-	}
-	& > .block {
-		display: block;
-	}
-	&active {
-		box-shadow: 0 5px;
-		transform: translateY(10px);
-	}
-`;
 export const Column = styled.div`
 	display: flex;
 	float: left;

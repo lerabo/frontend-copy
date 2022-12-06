@@ -11,7 +11,6 @@ import {
 	Backdrop,
 	Form,
 	Label,
-	Button,
 	P,
 } from 'components/PostDetailsPage/components/Modal.styles';
 import { t } from 'i18next';
@@ -20,26 +19,23 @@ import {
 	useCreateRoomMutation,
 	usePostMessageMutation,
 } from 'service/httpService';
-import { notification } from 'antd';
+import { openNotificationWithIcon } from 'constants/links';
 import { useAppSelector } from 'redux/hooks';
 import { RootState } from 'redux/store';
+import { SaveButton } from 'components/clientSettings/clentSettings.styles';
 
 interface ModalProps {
 	isShown: boolean;
 	hide: () => void;
 	setDisable: (disable: boolean) => void;
 	jobPostId: number;
-	receiverId: number;
 	clientId: number;
-	setIsShown: (disable: boolean) => void;
 }
 
 type ProposalForm = {
 	price: number;
 	message: string;
 };
-
-type NotificationType = 'success' | 'error';
 
 const Schema = Yup.object().shape({
 	price: Yup.number().required().positive(),
@@ -54,9 +50,7 @@ export const HandleModal: FunctionComponent<ModalProps> = ({
 	hide,
 	clientId,
 	setDisable,
-	setIsShown,
 	jobPostId,
-	receiverId,
 }) => {
 	const {
 		register,
@@ -70,18 +64,6 @@ export const HandleModal: FunctionComponent<ModalProps> = ({
 	const [sendMessage] = usePostMessageMutation();
 	const { user } = useAppSelector<RootState>(state => state);
 
-	const openNotificationWithIcon = (type: NotificationType) => {
-		notification[type]({
-			message:
-				type === 'success' ? `${t('PostDetailPage.success')}` : `${t('PostDetailPage.error')}`,
-			description:
-				type === 'success'
-					? `${t('PostDetailPage.proposalSent')}`
-					: `${t('PostDetailPage.someErrorOccurred')}`,
-		});
-		setIsShown(false);
-	};
-
 	const handleForm = async (data: ProposalForm) => {
 		await sendForm({ ...data, jobPost: jobPostId, userId: user.id, userIdClient: clientId })
 			.unwrap()
@@ -92,8 +74,9 @@ export const HandleModal: FunctionComponent<ModalProps> = ({
 		setDisable(true);
 		const room = await createRoom({
 			jobPostId: jobPostId,
-			senderId: user.id,
-			receiverId: receiverId,
+			clientId,
+			freelancerId: user.id,
+			sendedFor: 'forClient',
 		}).unwrap();
 		const chatRoomId = room?.id;
 		await sendMessage({
@@ -110,7 +93,9 @@ export const HandleModal: FunctionComponent<ModalProps> = ({
 			<Backdrop />
 			<Wrapper>
 				<StyledModal>
-					<CloseButton onClick={hide}>X</CloseButton>
+					<CloseButton type="button" onClick={hide}>
+						X
+					</CloseButton>
 					<Content>
 						<Form onSubmit={handleSubmit(handleForm)}>
 							<div>
@@ -134,7 +119,9 @@ export const HandleModal: FunctionComponent<ModalProps> = ({
 								/>
 								{errors.message && <P>{errors.message?.message}</P>}
 							</div>
-							<Button className="btn btn-success">{`${t('PostDetailPage.sendBtn')}`}</Button>
+							<SaveButton type="submit" style={{ display: 'block' }}>
+								{`${t('PostDetailPage.sendBtn')}`}
+							</SaveButton>
 						</Form>
 					</Content>
 				</StyledModal>

@@ -1,25 +1,21 @@
 import React, { FC, FormEvent, Suspense, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Controller, useForm } from 'react-hook-form';
 import { useMemo } from 'react';
 import {
 	Wrapper,
 	Title,
-	SkillsBlock,
-	GlobalStyle,
 	MainBlockWrapper,
 	Label,
-	Button,
-	ButtonBlock,
 	WrapperSidePanel,
 	InputContainer,
 	ProfileBlock,
 	PaginationBlock,
+	StyledLink,
 } from './TalentPageLayout.style';
 import Search from 'components/freelancerJobs/components/search';
 import { ISkill } from 'components/jobPost/interfaces';
 import { skillsMock } from 'components/jobPost/dataChanges';
-import { Filter, ICategoryBE, SearchSubmitForm } from './interfaces';
+import { Filter, ICategoryBE } from './interfaces';
 import Select from 'react-select';
 import { selection } from 'components/jobPost/dataChanges';
 import { BsArrowLeftCircle } from 'react-icons/bs';
@@ -29,6 +25,7 @@ import FilterProfileUser from './FilterProfileUser';
 import { useGetFilterProfileQuery } from 'service/httpService';
 import Pagination from './Pagination';
 import Skills from 'components/freelancerJobs/components/skills';
+import { Button, ButtonBlock } from 'components/clientSettings/clentSettings.styles';
 const discover = 'discover';
 const saved = 'save';
 
@@ -41,10 +38,6 @@ const TalentPageLayout: FC = () => {
 	const [active, setActive] = useState<{ [name: string]: string }>({ ['discover']: 'discover' });
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const paginate = (pageNumber: React.SetStateAction<number>) => setCurrentPage(pageNumber);
-	const {
-		control,
-		formState: { errors },
-	} = useForm<SearchSubmitForm>();
 
 	function useMediaQuery(query: string, defaultMatches = window.matchMedia(query).matches) {
 		const [matches, setMatches] = useState(window.matchMedia(defaultMatches.toString()).matches);
@@ -112,7 +105,6 @@ const TalentPageLayout: FC = () => {
 	return (
 		<div>
 			<MainBlockWrapper>
-				<GlobalStyle />
 				{(!showFilterList || matchesQuery) && (
 					<WrapperSidePanel>
 						<ButtonBlock>
@@ -134,32 +126,12 @@ const TalentPageLayout: FC = () => {
 										<BsArrowRightCircle className="arrowRight w-40 h-40" onClick={getFilterList} />
 									</span>
 								</Title>
-								<Controller
-									name="category"
-									control={control}
-									render={({ field }) => {
-										return (
-											<Select
-												{...field}
-												options={selection}
-												placeholder="Categories"
-												onChange={select => select && setSelect({ name: select.label })}
-												theme={theme => ({
-													...theme,
-													borderRadius: 0,
-													colors: {
-														...theme.colors,
-														neutral50: 'black', // Placeholder color
-													},
-												})}
-												className={`${errors.category ? 'is-invalid' : ''}`}
-											/>
-										);
-									}}
+								<Select
+									options={selection}
+									placeholder="Categories"
+									onChange={select => select && setSelect({ name: select.label })}
 								/>
-								<SkillsBlock>
-									<Skills optionButtons={optionButtons} />
-								</SkillsBlock>
+								<Skills optionButtons={optionButtons} />
 							</>
 						)}
 					</WrapperSidePanel>
@@ -174,7 +146,7 @@ const TalentPageLayout: FC = () => {
 								{`${t('TalentCompanyPage.title')}`}
 							</Title>
 						</div>
-						<InputContainer className="input-group rounded">
+						<InputContainer>
 							<Search
 								search={search}
 								setSearch={setSearch}
@@ -185,11 +157,11 @@ const TalentPageLayout: FC = () => {
 							<PaginationBlock>
 								<ProfileBlock>
 									{data?.profile &&
-										data?.profile.map((item: Filter, index: React.Key | null | undefined) => {
+										data?.profile.map((item: Filter) => {
 											return (
-												<div key={index}>
+												<StyledLink to={{ pathname: `/profile/${item.id}` }}>
 													<FilterProfileUser item={item} path={true} />
-												</div>
+												</StyledLink>
 											);
 										})}
 								</ProfileBlock>
@@ -200,8 +172,12 @@ const TalentPageLayout: FC = () => {
 						)}
 					</Wrapper>
 				)}
+				{active?.save === saved && (
+					<Wrapper>
+						<MySavedTalent />
+					</Wrapper>
+				)}
 			</MainBlockWrapper>
-			{active?.save === saved && <MySavedTalent />}
 		</div>
 	);
 };

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { BLUE, GREY, WHITE } from 'constants/colors';
+import { PURPLE, VIOLET, WHITE_COLOR } from 'constants/colors';
 import { RED_COLOR } from 'constants/colors';
-import { LARGE_FONT_SIZE, MEDIUM_FONT_SIZE, SMALL_FONT_SIZE } from 'constants/fonts';
+import { LARGE_FONT_SIZE, SMALL_FONT_SIZE } from 'constants/fonts';
 
 export const Div = styled.div`
 	margin: auto;
@@ -39,47 +39,24 @@ export const ErrorP = styled.p`
 	font-size: ${SMALL_FONT_SIZE};
 `;
 
-export const Form = styled.form`
-	align-content: center;
-	border: solid 1px ${GREY};
-	border-radius: 10px;
-	display: flex;
-	flex-flow: column wrap;
-	margin: auto;
-`;
-
-export const Input = styled.input`
-	&:focus {
-		box-shadow: 0000;
-		outline: 0;
-	}
-	border-radius: 6px;
-	border: solid 1px ${GREY};
-	height: 35px;
-	width: 80%;
-`;
-
-export const ControlStyle = styled.label`
-	display: flex;
-	flex-flow: column wrap;
-	margin-top: 30px;
-	font-size: ${MEDIUM_FONT_SIZE};
-`;
-
 export const LinkStyle = styled.div`
 	margin-top: 10px;
 	margin-left: 55%;
 `;
 
 export const Button = styled.button`
-	background: ${BLUE};
+	background: ${VIOLET};
 	border: none;
 	border-radius: 6px;
-	color: ${WHITE};
+	color: ${WHITE_COLOR};
 	font-size: ${LARGE_FONT_SIZE};
 	margin: auto;
 	margin-top: 2%;
 	margin-bottom: 2%;
 	height: 50px;
 	width: 50%;
+	&:hover {
+		background-color: ${PURPLE};
+		color: ${VIOLET};
+	}
 `;

@@ -11,6 +11,7 @@
 		"buttonSignin": "Sign In",
 		"text": "Don`t have an account yet?",
 		"registerLink": "Register Now",
+		"passwordCheck": "Password must contain at least 8 characters",
 		"success": "You have sucessfully logged in",
 		"error": "Invalid email or username"
 	},
@@ -77,9 +78,9 @@
 		"skillsSubTitle": "You must mark at least 3 skills",
 		"englishLevelTitle": "English level",
 		"englishLevelLabels": {
-			"preIntermediate": "Pre-Intermediate",
-			"intermediate": "Intermediate",
-			"upperIntermediate": "Upper-Intermediate"
+			"Pre_Intermediate": "Pre-Intermediate",
+			"Intermediate": "Intermediate",
+			"Upper_Intermediate": "Upper-Intermediate"
 		},
 		"descriptionTitle": "Description",
 		"descriptionPlaceholder": "Maximum text length <200 characters",
@@ -87,7 +88,7 @@
 		"addEducationButton": "+ Add education",
 		"experienceTitle": "Experience",
 		"addExperienceButton": "+ Add experience",
-		"saveButton": "Save changes",
+		"saveButton": "Save",
 		"startDate": "Start date",
 		"endDate": "End date",
 		"fieldIsRequired": "Field is required",
@@ -195,6 +196,8 @@
 		"clientTitle": "My Jobs",
 		"freelancerTitle": "Jobs",
 		"home": "Home",
+		"logo": "WorkUA",
+		"slogo": "Let's Find Job Together!",
 		"settings": "Settings",
 		"logout": "Log Out",
 		"login": "Sign In",
@@ -209,7 +212,7 @@
 		"filter": "Filters",
 		"results": "Results by Your Search",
 		"skill": "Skills",
-		"rate": "Hourly Rate"
+		"rate": "Hourly rate: "
 	},
 	"FreelancerPage": {
 		"filter": "Filter by",
@@ -231,11 +234,15 @@
 	},
 	"InvitePage": {
 		"button": "Invite",
-		"link": "more"
+		"link": "more",
+		"description": "Description: ",
+		"price": "Price: ",
+		"skills": "Skills: "
 	},
 	"InvitePopup": {
 		"title": "Message to invite to a job",
 		"label": "Message",
+		"job": " Select a Job Post",
 		"button": "Send invitation message",
 		"message": "Hello! \n I'd like to invite you to take a look at the job I've posted. \n Please submit a proposal if you're available and interested.",
 		"noJobs": "First you need to create a job post",
@@ -257,7 +264,8 @@
 		"login": "Sign In",
 		"signup": "Sign Up",
 		"create": "Post a Job",
-		"menu": "Navigation Menu"
+		"menu": "Navigation Menu",
+		"work": "Work"
 	},
 	"TalentPage": {
 		"loading": "Loading...",
@@ -298,6 +306,21 @@
 		"settings": "My info",
 		"password": "Password"
 	},
+	"FreelancerSettings": {
+		"title": "My Info",
+		"profile": "My Profile",
+		"info": "Contact Info",
+		"position": "Position",
+		"category": "Category",
+		"price": "Price",
+		"skills": "Skills",
+		"level": "English level",
+		"description": "Description",
+		"experience": "Experience",
+		"education": "Education",
+		"save": "Save",
+		"cancel": "Cancel"
+	},
 	"FreeOfferPopup": {
 		"title": "Offer",
 		"company": "Company Name",
@@ -306,10 +329,8 @@
 		"end": "End Date",
 		"btnAccept": "Accept",
 		"btnDecline": "Decline",
-		"acceptMessage": "You have accepted the offer",
-		"declineMessage": "You have declined the offer",
-		"accepted": "Your offer has been accepted",
-		"declined": "Your offer has been declined"
+		"accepted": "Job offer has been accepted",
+		"declined": "Job offer has been declined"
 	},
 	"chat": {
 		"accepted": "Accept",

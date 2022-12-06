@@ -1,19 +1,7 @@
-import React, { FC, Suspense, useEffect, useState } from 'react';
+import { FC, Suspense, useEffect, useState } from 'react';
 import { ReactI18NextChild, useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import {
-	Container,
-	Div1,
-	Div2,
-	Div3,
-	H3,
-	Image,
-	P,
-	Save,
-	Img,
-	H5,
-	Invite,
-} from './inviteTalent.styles';
+import { Container, Image, Save, Img, Div, Price, P, DivCenter } from './inviteTalent.styles';
 import blackHeartIcon from 'assets/blackHeartIcon.svg';
 import whiteHeartIcon from 'assets/whiteHeartIcon.svg';
 import { IPost } from 'components/inviteTalent/interfaces';
@@ -25,6 +13,9 @@ import {
 import InvitePopup from 'components/inviteTalent/component/Invitepopup';
 import { useAppSelector } from 'redux/hooks';
 import { RootState } from 'redux/store';
+import { Column, SaveButton } from 'components/clientSettings/clentSettings.styles';
+import { JobSkills } from 'components/PostDetailsPage/interfaces';
+import { SkillsItem } from 'components/PostDetailsPage/PostDetailPage.styles';
 
 const InviteTalent: FC = () => {
 	const { t } = useTranslation();
@@ -109,29 +100,41 @@ const InviteTalent: FC = () => {
 
 	return (
 		<Container>
-			{
-				<>
-					<Div1>
-						<Div2>
-							<H3>{data?.setting?.firstName}</H3>
-							<H3>{data?.setting?.lastName}</H3>
-							<P>{data?.setting?.phone}</P>
-						</Div2>
-						<Image src={data?.profile.photo} />
-						<Save onClick={handleSaveClick}>
-							<Img src={saveBool ? blackHeartIcon : whiteHeartIcon} />
-						</Save>
-					</Div1>
-					<Div1>
-						<H5>{data?.profile.postion}</H5>
-						<H5>Price: {data?.profile.price}</H5>
-					</Div1>
-					<Div3>
-						<P>{data?.profile.description}</P>
-					</Div3>
-				</>
-			}
-			<Invite type="button" onClick={() => handleClick()}>{`${t('InvitePage.button')}`}</Invite>
+			<div>
+				<Image src={data?.profile.photo} />
+				<Div>
+					<h3>
+						{data?.setting?.firstName} {data?.setting?.lastName}
+					</h3>
+					<h5>{data?.profile.position}</h5>
+				</Div>
+				<Save onClick={handleSaveClick}>
+					<Img src={saveBool ? blackHeartIcon : whiteHeartIcon} />
+				</Save>
+			</div>
+			<div>
+				<Column>
+					<div>
+						<P>{`${t('InvitePage.description')}`}</P> <p>{data?.profile.description}</p>
+					</div>
+				</Column>
+				<Column>
+					<div>
+						<P>{`${t('InvitePage.price')}`}</P> <Price>{data?.profile.price}$</Price>
+					</div>
+					<div>
+						<P>{`${t('InvitePage.skills')}`}</P>
+						{data?.profile.skills.map((item: JobSkills) => {
+							return <SkillsItem key={item.id}>{item.name}</SkillsItem>;
+						})}
+					</div>
+				</Column>
+			</div>
+			<DivCenter>
+				<SaveButton type="button" onClick={handleClick}>
+					{`${t('InvitePage.button')}`}
+				</SaveButton>
+			</DivCenter>
 			{showPopup ? <InvitePopup Context={Context} /> : null}
 		</Container>
 	);

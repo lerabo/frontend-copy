@@ -1,11 +1,4 @@
-import {
-	BLACK_COLOR,
-	DEFAULT_COLOR,
-	DODGERBLUE_COLOR,
-	LIGHTBLUE_COLOR,
-	RED_COLOR,
-	WHITE_COLOR,
-} from 'constants/colors';
+import { BLACK_COLOR, DEFAULT_COLOR, RED_COLOR, VIOLET, WHITE_COLOR } from 'constants/colors';
 import { LARGE_FONT_SIZE, MEDIUM_FONT_SIZE } from 'constants/fonts';
 import styled from 'styled-components';
 
@@ -29,7 +22,7 @@ export const SkillButton = styled.button<{ selected: boolean }>`
 	border-radius: 10px;
 	margin: 5px;
 	height: 40px;
-	background-color: ${props => (props.selected ? DODGERBLUE_COLOR : DEFAULT_COLOR)};
+	background-color: ${props => (props.selected ? VIOLET : DEFAULT_COLOR)};
 	color: ${props => (props.selected ? WHITE_COLOR : DEFAULT_COLOR)};
 `;
 
@@ -37,24 +30,6 @@ export const Li = styled.li`
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
-`;
-
-export const CreateButton = styled.button`
-	width: 140px;
-	height: 50px;
-	border-radius: 10px;
-	background-color: ${DODGERBLUE_COLOR};
-	color: ${WHITE_COLOR};
-	border-color: ${WHITE_COLOR};
-	margin: 2% auto;
-	text-align: center;
-	&:hover {
-		background-color: ${LIGHTBLUE_COLOR};
-	}
-	&active {
-		box-shadow: 0 5px;
-		transform: translateY(10px);
-	}
 `;
 
 export const Column = styled.div`
@@ -69,7 +44,6 @@ export const Column = styled.div`
 export const CurrencyColumn = styled.div`
 	float: left;
 	width: 50%;
-	padding: 10px;
 	@media screen and (max-width: 1500px) {
 		width: 100%;
 	}
@@ -87,4 +61,9 @@ export const Span = styled.span<{ value: boolean }>`
 
 export const P = styled.p`
 	color: ${RED_COLOR};
+`;
+
+export const BtnDiv = styled.div`
+	display: flex;
+	justify-content: center;
 `;
