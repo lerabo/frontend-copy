@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { render } from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { store, persistor } from './redux/store';
@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import './localization/i18n';
 import { PersistGate } from 'redux-persist/integration/react';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
+const root = document.getElementById('root');
+render(
 	<Provider store={store}>
 		<PersistGate loading={<div>loading...</div>} persistor={persistor}>
 			<BrowserRouter>
@@ -16,4 +16,5 @@ root.render(
 			</BrowserRouter>
 		</PersistGate>
 	</Provider>,
+	root,
 );
