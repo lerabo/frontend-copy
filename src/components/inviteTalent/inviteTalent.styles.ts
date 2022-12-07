@@ -93,6 +93,7 @@ export const Content = styled.div`
 
 export const CenterDiv = styled.div`
 	display: flex;
+	justify-content: center;
 `;
 
 export const Select = styled.select`

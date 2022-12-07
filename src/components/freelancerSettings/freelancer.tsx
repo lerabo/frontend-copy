@@ -41,6 +41,7 @@ import {
 } from 'components/clientSettings/clentSettings.styles';
 import { AddButton } from './freelancer.styles';
 import EnglishRadio from './components/radioEnglish';
+import { CenterDiv } from 'components/inviteTalent/inviteTalent.styles';
 
 const FreelancerSettings = () => {
 	const { user } = useAppSelector<RootState>(state => state);
@@ -128,7 +129,7 @@ const FreelancerSettings = () => {
 	}, [freelancerSettings]);
 
 	useEffect(() => {
-		if (skills.length < 3 && btn && skill && skill?.length < 3) {
+		if (skills.length < 3 && btn) {
 			setRedColor(true);
 		} else {
 			setRedColor(false);
@@ -177,12 +178,12 @@ const FreelancerSettings = () => {
 	};
 
 	const onSubmit = (data: Data) => {
-		if (skills.length >= 3 || (skill && skill.length >= 3)) {
+		if (skills.length >= 3) {
 			const newData = {
 				...data,
 				englishLevel: selected,
 				userId,
-				skills: skill,
+				skills,
 				photo: file,
 			};
 			sendData(newData);
@@ -394,11 +395,11 @@ const FreelancerSettings = () => {
 							/>
 							{errors.description && <P>{errors.description?.message}</P>}
 						</Div>
-						<div style={{ display: 'flex' }}>
+						<CenterDiv>
 							<SaveButton type="submit" onClick={onSkillsTrue}>
 								{`${t('ClientSettings.save')}`}
 							</SaveButton>
-						</div>
+						</CenterDiv>
 					</form>
 				)}
 				{active?.info && <ContactInfo />}

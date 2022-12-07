@@ -44,6 +44,7 @@ import { ImgSpinner } from 'components/freelancerJobs/freelancerPage.styles';
 import Spinner from 'assets/spinner.gif';
 import { defaultProfilePhoto } from 'constants/links';
 import { Image } from 'antd';
+import { CenterDiv } from 'components/inviteTalent/inviteTalent.styles';
 
 const ClientSettings = () => {
 	const { user } = useAppSelector<RootState>(state => state);
@@ -227,14 +228,14 @@ const ClientSettings = () => {
 							/>
 							{errors.description && <P>{errors.description?.message}</P>}
 						</Div>
-						<div style={{ display: 'flex' }}>
+						<CenterDiv>
 							<SaveButton type="submit">{`${t('ClientSettings.save')}`}</SaveButton>
 							{clientInfo && (
 								<CancelButton type="button" onClick={cancelHandler}>{`${t(
 									'ClientSettings.cancel',
 								)}`}</CancelButton>
 							)}
-						</div>
+						</CenterDiv>
 					</form>
 				)}
 				{active?.password === password && <ChangePassword />}

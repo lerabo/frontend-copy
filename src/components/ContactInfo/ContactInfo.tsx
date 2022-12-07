@@ -11,6 +11,7 @@ import { Input, P, Title } from 'components/clientSettings/clentSettings.styles'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { openNotificationWithIcon } from 'constants/links';
 import { useEffect } from 'react';
+import { CenterDiv } from 'components/inviteTalent/inviteTalent.styles';
 
 export interface IContactInfoForm {
 	firstName: string;
@@ -112,9 +113,9 @@ export const ContactInfo = () => {
 				/>
 				{errors.phone && <P>{errors.phone?.message}</P>}
 			</div>
-			<div style={{ width: '100%' }}>
+			<CenterDiv>
 				<SaveButton type="submit">{`${t('ProfileEdit.saveButton')}`}</SaveButton>
-			</div>
+			</CenterDiv>
 		</form>
 	);
 };
