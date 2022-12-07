@@ -32,6 +32,14 @@ const FreelancerOfferPopup = (props: IProps) => {
 	const [sendMessage] = usePostMessageMutation();
 	const Accepted = 'Accepted';
 
+	const getDate = (date: Date) => {
+		const currentDate =
+			date.toLocaleDateString('en-us', { hour: 'numeric', minute: 'numeric' }) +
+			' ' +
+			date.getFullYear();
+		return currentDate;
+	};
+
 	const handleClick = async (status: string) => {
 		try {
 			const obj = {
@@ -74,9 +82,9 @@ const FreelancerOfferPopup = (props: IProps) => {
 					<P>{`${t('FreeOfferPopup.price')}:`}</P>
 					<P2>{offer?.price}</P2>
 					<P>{`${t('FreeOfferPopup.start')}:`}</P>
-					<P2>{offer?.startDate}</P2>
+					<P2>{getDate(new Date(offer?.startDate))}</P2>
 					<P>{`${t('FreeOfferPopup.end')}:`}</P>
-					<P2>{offer?.endDate}</P2>
+					<P2>{getDate(new Date(offer?.endDate))}</P2>
 				</Content>
 				<Actions>
 					<ButtonChat type="button" onClick={() => handleClick('Accepted')}>{`${t(

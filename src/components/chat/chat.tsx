@@ -42,6 +42,7 @@ import FreeOfferPopup from 'components/FreelancerOffer/FreeOfferPopup';
 export const NONE = 'none';
 export const ACCEPTED = 'accepted';
 export const DECLINED = 'declined';
+export const PENDING = 'Pending';
 
 const Chat = () => {
 	const { user } = useAppSelector<RootState>(state => state);
@@ -61,6 +62,8 @@ const Chat = () => {
 	const [updateChatRoom] = useUpdateChatRoomMutation();
 	const { data: offer } = useGetJobOfferQuery(currentChatId);
 	const scrollRef = useRef<null | HTMLDivElement>(null);
+
+	console.log(offer);
 
 	useEffect(() => {
 		scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -278,7 +281,7 @@ const Chat = () => {
 							}
 						}
 					})}
-					{user?.role === Role.Freelancer && offer?.status === '' && (
+					{user?.role === Role.Freelancer && offer?.status === PENDING && (
 						<FreeOfferPopup
 							offer={offer}
 							userId={user.id}
