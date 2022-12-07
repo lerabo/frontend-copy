@@ -42,7 +42,6 @@ export const BoderNav = styled.div`
 
 export const Label = styled.label`
 	font-size: ${MEDIUM_FONT_SIZE};
-	font-weight: bold;
 	display: flex;
 	align-items: center;
 	margin: 0 !important;

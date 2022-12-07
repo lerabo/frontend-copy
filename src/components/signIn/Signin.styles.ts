@@ -31,7 +31,6 @@ export const P = styled.p`
 	font-size: ${SMALL_FONT_SIZE};
 	font-weight: bold;
 	margin-top: 2px;
-	margin-left: 70px;
 `;
 
 export const ErrorP = styled.p`
@@ -41,7 +40,8 @@ export const ErrorP = styled.p`
 
 export const LinkStyle = styled.div`
 	margin-top: 10px;
-	margin-left: 55%;
+	display: flex;
+	justify-content: right;
 `;
 
 export const Button = styled.button`
