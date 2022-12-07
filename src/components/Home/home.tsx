@@ -13,28 +13,52 @@ const Div = styled.div`
 	position: absolute;
 	font-family: 'Typold';
 	& > img {
-		width: 20%;
+		width: 30%;
 	}
 	@media (max-width: 550px) {
 		& > img {
-			width: 30%;
-		}
-		& > img:last-child {
-			left: 100px;
+			width: 40%;
 		}
 		& > #blue {
 			left: 0px;
 		}
 		& > #purple {
-			left: 100px;
+			left: 50px;
 		}
 	}
-	@media (max-width: 800px) {
+	@media (min-width: 550px) and (max-width: 800px) {
+		& > img {
+			width: 30%;
+		}
+		& > #blue {
+			bottom: -50px;
+		}
+		& > #purple {
+			left: 150px;
+		}
+	}
+	@media (min-width: 800px) and (max-width: 1300px) {
 		& > img {
 			width: 25%;
 		}
-		& > img:last-child {
-			left: 100px;
+		& > #purple {
+			left: 200px;
+		}
+	}
+	@media (min-width: 1300px) and (max-width: 2000px) {
+		& > img {
+			width: 25%;
+		}
+		& > #purple {
+			left: 200px;
+		}
+	}
+	@media (min-width: 2000px) {
+		& > img {
+			width: 25%;
+		}
+		& > #purple {
+			left: 500px;
 		}
 	}
 `;
@@ -115,10 +139,10 @@ const PurpleImg = styled.img`
 const Home = () => {
 	return (
 		<Div>
-			<PinkImg src={Pink} />
-			<YellowImg src={Yellow} />
+			<PinkImg id="pink" src={Pink} />
+			<YellowImg id="yellow" src={Yellow} />
 			<BlueImg id="blue" src={Blue} />
-			<GreenImg src={Green} />
+			<GreenImg id="green" src={Green} />
 			<PurpleImg id="purple" src={Purple} />
 			<CenterDiv>
 				<p>{`${t('Layout.logo')}.`}</p>
