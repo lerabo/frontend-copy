@@ -66,6 +66,11 @@ const FreelancerOfferPopup = (props: IProps) => {
 					text: `${t('FreeOfferPopup.declined')}`,
 					userId,
 				});
+				socket?.emit('sendMessage', {
+					text: `${t('FreeOfferPopup.declined')}`,
+					userId,
+					chatRoomId,
+				});
 			}
 		} catch (error) {
 			// console.error(error);

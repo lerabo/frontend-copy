@@ -47,7 +47,7 @@ const signIn = () => {
 			dispatch(saveUserId(res.userId));
 			dispatch(saveRole(res.role));
 			dispatch(saveEmail(values.email));
-			openNotificationWithIcon('success');
+			openNotificationWithIcon('success', `${t('SignIn.success')}`);
 			reset({ email: '', password: '' });
 			if (res.role === Role.Client) {
 				navigate(`${CreateJobPost}`);
@@ -56,7 +56,7 @@ const signIn = () => {
 			} else navigate(`${Welcome}`);
 		} catch (e) {
 			reset({ email: '', password: '' });
-			openNotificationWithIcon('error');
+			openNotificationWithIcon('error', `${t('SignIn.error')}`);
 		}
 	};
 

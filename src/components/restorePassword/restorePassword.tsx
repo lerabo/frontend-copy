@@ -57,7 +57,7 @@ const resetPassword = () => {
 	const onSubmit: SubmitHandler<FormPass> = async values => {
 		const { password } = values;
 		if (values.createPassword !== values.password) {
-			openNotificationWithIcon('success');
+			openNotificationWithIcon('success', `${t('ResetPassword.success')}`);
 		} else {
 			try {
 				await setPassword({ password, token: token || '' }).unwrap();
@@ -66,7 +66,7 @@ const resetPassword = () => {
 				navigate('/sign-in');
 			} catch (e) {
 				reset({ createPassword: '', password: '' });
-				openNotificationWithIcon('error');
+				openNotificationWithIcon('error', `${t('ResetPassword.error')}`);
 			}
 		}
 	};

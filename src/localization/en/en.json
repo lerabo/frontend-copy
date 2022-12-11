@@ -20,12 +20,13 @@
 		"sendButton": "Send",
 		"emailReq": "This field is required!",
 		"title": "Restore Password",
-		"instruction": "If your email is correct, we will send you an email with password recovery instructions!"
+		"instruction": "If your email is correct, we will send you an email with password recovery instructions!",
+		"success": "We successfully sent you an email with password recovery instructions!"
 	},
 	"ResetPassword": {
 		"newPassword": "New password",
 		"password": "Confirm password",
-		"success": "You have sucessfully logged in",
+		"success": "You have sucessfully signed in!",
 		"error": "Invalid password",
 		"title": "Recover Password"
 	},
@@ -36,7 +37,8 @@
 		"showPassword": "Show password",
 		"confirmPassword": "Confirm New Password",
 		"saveButton": "Save",
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"success": "You have sucessfully changed password!"
 	},
 	"SignUp": {
 		"quickSign": "Quick Sign Up",
@@ -48,7 +50,8 @@
 		"password": "Confirm password",
 		"register": "Register",
 		"errorPasswords": "Invalid password",
-		"errorEmail": "Invalid email or password"
+		"errorEmail": "Invalid email or password",
+		"success": "You have sucessfully signed up!"
 	},
 	"GoogleAuthButton": {
 		"googleAuth": "Sign up with Google"

@@ -64,7 +64,7 @@ const ChangePassword = () => {
 					email: user.email || '',
 				}).unwrap();
 				resetInput();
-				openNotificationWithIcon('success');
+				openNotificationWithIcon('success', `${t('ChangePassword.success')}`);
 			} catch (e) {
 				resetInput();
 				openNotificationWithIcon('error');

@@ -51,9 +51,9 @@ const signUp = () => {
 				dispatch(saveEmail(email));
 				dispatch(savePassword(password));
 				navigate(`${RoleSelection}`);
-				openNotificationWithIcon('success');
+				openNotificationWithIcon('success', `${t('SignUp.success')}`);
 			} catch (e) {
-				openNotificationWithIcon('error');
+				openNotificationWithIcon('error', `${t('SignUp.errorEmail')}`);
 			}
 		}
 	};

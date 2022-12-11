@@ -21,6 +21,7 @@ import { RootState } from 'redux/store';
 import { useForm } from 'react-hook-form';
 import { ModalProps, OfferForm, Schema } from './data';
 import { useSendData } from './dataSend';
+import { openNotificationWithIcon } from 'constants/links';
 
 export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 	isShown,
@@ -44,19 +45,24 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 	const { sendData, sendUpdatedData } = useSendData();
 
 	const handleForm = (data: OfferForm) => {
-		const NewData = {
-			...data,
-			freelancerId,
-			clientId,
-			jobPostId,
-		};
-		if (isError) {
-			sendUpdatedData(NewData);
-		} else {
-			sendData(NewData);
+		try {
+			const NewData = {
+				...data,
+				freelancerId,
+				clientId,
+				jobPostId,
+			};
+			if (isError) {
+				sendUpdatedData(NewData);
+			} else {
+				sendData(NewData);
+			}
+			setIsShown(false);
+			reset();
+			openNotificationWithIcon('success', `${t('SendOfferPopup.offerSent')}`);
+		} catch (error) {
+			openNotificationWithIcon('error');
 		}
-		setIsShown(false);
-		reset();
 	};
 
 	const modal = (

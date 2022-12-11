@@ -12,6 +12,7 @@ import { Button } from 'components/signIn/Signin.styles';
 import { Label } from 'components/Layout/Layout.styles';
 import { DivForm, Form, H1 } from 'components/restorePassword/restorePassword.style';
 import { Input } from 'components/clientSettings/clentSettings.styles';
+import { openNotificationWithIcon } from 'constants/links';
 
 export type FormEmail = {
 	email: string;
@@ -44,9 +45,11 @@ const forgotPassword = () => {
 		try {
 			await forgot(values).unwrap();
 			dispatch(saveUserId(user.id as number));
-			reset({ email: '' });
+			reset();
+			openNotificationWithIcon('success', `${t('ForgotPassword.success')}`);
 		} catch (e) {
-			reset({ email: '' });
+			reset();
+			openNotificationWithIcon('error');
 		}
 	};
 

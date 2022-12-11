@@ -6,12 +6,14 @@ export const defaultProfilePhoto =
 
 type NotificationType = 'success' | 'error';
 
-export const openNotificationWithIcon = (type: NotificationType) => {
+export const openNotificationWithIcon = (type: NotificationType, text?: string) => {
 	notification[type]({
 		message: type === 'success' ? `${t('JobPostPage.success')}` : `${t('JobPostPage.error')}`,
 		description:
 			type === 'success'
-				? `${t('JobPostPage.dataHasBeenSaved')}`
+				? text
+					? text
+					: `${t('JobPostPage.dataHasBeenSaved')}`
 				: `${t('JobPostPage.someErrorOccurred')}`,
 	});
 };
