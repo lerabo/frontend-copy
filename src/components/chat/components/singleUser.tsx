@@ -20,7 +20,7 @@ interface Props {
 }
 
 const User = (props: Props) => {
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const { item, changeRoom, active } = props;
 	const [updateDeletingStatus] = useUpdateDeletingStatusMutation();
 	const deleteHandler = () => {

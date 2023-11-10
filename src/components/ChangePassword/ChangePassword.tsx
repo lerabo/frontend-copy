@@ -28,7 +28,7 @@ export type FormPass = {
 const ChangePassword = () => {
 	const [passwordShown, setPasswordShown] = useState<boolean>(false);
 	const [setPassword] = usePasswordChangeMutation();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const {
 		handleSubmit,
 		control,
@@ -52,7 +52,7 @@ const ChangePassword = () => {
 		resetInput();
 	};
 
-	const onSubmit: SubmitHandler<FormPass> = async values => {
+	const onSubmit: SubmitHandler<FormPass> = async (values) => {
 		const { oldPassword, newPassword } = values;
 		if (values.newPassword !== values.confirmPassword) {
 			openNotificationWithIcon('error');

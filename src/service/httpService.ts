@@ -18,9 +18,9 @@ const BASE_URL = `${process.env.REACT_APP_API_URL}`;
 export const authApi = createApi({
 	reducerPath: 'auth',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-	endpoints: build => ({
+	endpoints: (build) => ({
 		signUp: build.mutation<ISignUpResponse, FormData>({
-			query: body => ({
+			query: (body) => ({
 				url: 'auth/sign-up',
 				method: 'post',
 				body,
@@ -30,7 +30,7 @@ export const authApi = createApi({
 			}),
 		}),
 		signUpUpdate: build.mutation<ISignUpResponseGoogle, FormDataGoogle>({
-			query: body => ({
+			query: (body) => ({
 				url: `auth/sign-up`,
 				method: 'put',
 				body,
@@ -40,7 +40,7 @@ export const authApi = createApi({
 			}),
 		}),
 		signIn: build.mutation<ISignInResponse, FormData>({
-			query: body => ({
+			query: (body) => ({
 				url: 'auth/sign-in',
 				method: 'post',
 				body,
@@ -50,7 +50,7 @@ export const authApi = createApi({
 			}),
 		}),
 		forgotPassword: build.mutation<{ email: string }, FormEmail>({
-			query: body => ({
+			query: (body) => ({
 				url: 'auth/forgot-password',
 				method: 'post',
 				body,
@@ -60,7 +60,7 @@ export const authApi = createApi({
 			}),
 		}),
 		resetPassword: build.mutation<{ password: string }, FormPass>({
-			query: body => ({
+			query: (body) => ({
 				url: 'auth/restore-password',
 				method: 'post',
 				body,
@@ -72,7 +72,7 @@ export const authApi = createApi({
 			}),
 		}),
 		passwordChange: build.mutation<{ message?: string }, FormChangePasswordPass>({
-			query: body => ({
+			query: (body) => ({
 				url: `auth/change-password`,
 				method: 'put',
 				body,
@@ -84,7 +84,7 @@ export const authApi = createApi({
 		getUser: build.query({
 			query: () => ({
 				url: `auth/user`,
-				responseHandler: response => response.json(),
+				responseHandler: (response) => response.json(),
 			}),
 		}),
 	}),
@@ -104,9 +104,9 @@ export const profileApi = createApi({
 	reducerPath: 'profile',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	tagTypes: ['Profile'],
-	endpoints: build => ({
+	endpoints: (build) => ({
 		postProfileInfo: build.mutation<IContactInfoForm, IContactInfoForm>({
-			query: body => ({
+			query: (body) => ({
 				url: `/contact-info/${body.userId}`,
 				method: 'post',
 				body,
@@ -116,7 +116,7 @@ export const profileApi = createApi({
 			}),
 		}),
 		postProfile: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: '/profile',
 				method: 'post',
 				body,
@@ -126,7 +126,7 @@ export const profileApi = createApi({
 			}),
 		}),
 		getFilterProfile: build.query({
-			query: filter => ({
+			query: (filter) => ({
 				url: `profile/filter?category=${filter.select ?? ''}&sort=asc&skills=${
 					filter.skills ?? ''
 				}&search=${filter.search ?? ''}&page=${filter.page}`,
@@ -134,7 +134,7 @@ export const profileApi = createApi({
 			}),
 		}),
 		getContactInfo: build.query({
-			query: id => `/contact-info/${id}`,
+			query: (id) => `/contact-info/${id}`,
 		}),
 		updateSingleProfile: build.mutation<{ saved?: boolean }, FormPassSingleProfile>({
 			query: ({ id, saved, clientId }) => ({
@@ -148,7 +148,7 @@ export const profileApi = createApi({
 			invalidatesTags: ['Profile'],
 		}),
 		updateProfile: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: `profile/${body.id}`,
 				method: 'put',
 				body,
@@ -159,15 +159,15 @@ export const profileApi = createApi({
 			invalidatesTags: ['Profile'],
 		}),
 		getTalentProfile: build.query({
-			query: savedProfile => `/profile/${savedProfile.id}/savedTalent?page=${savedProfile.page}`,
+			query: (savedProfile) => `/profile/${savedProfile.id}/savedTalent?page=${savedProfile.page}`,
 			providesTags: ['Profile'],
 		}),
 		getUserProfile: build.query({
-			query: profile => `/profile/${profile.id}/${profile.clientId}`,
+			query: (profile) => `/profile/${profile.id}/${profile.clientId}`,
 			providesTags: ['Profile'],
 		}),
 		getFreelancerInfo: build.query({
-			query: id => `/profile/${id}`,
+			query: (id) => `/profile/${id}`,
 			providesTags: ['Profile'],
 		}),
 	}),
@@ -188,7 +188,7 @@ export const jobPostApi = createApi({
 	reducerPath: 'jobPost',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	tagTypes: ['JobPost'],
-	endpoints: build => ({
+	endpoints: (build) => ({
 		getJobPosts: build.query({
 			query: () => ({
 				url: `/jobPost`,
@@ -196,15 +196,15 @@ export const jobPostApi = createApi({
 			providesTags: ['JobPost'],
 		}),
 		getJobsDetail: build.query({
-			query: id => `/jobPost/${id}`,
+			query: (id) => `/jobPost/${id}`,
 			providesTags: ['JobPost'],
 		}),
 		getPostJob: build.query({
-			query: id => `/jobPost/user/${id}`,
+			query: (id) => `/jobPost/user/${id}`,
 			providesTags: ['JobPost'],
 		}),
 		postJob: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: '/jobPost',
 				method: 'POST',
 				body,
@@ -223,7 +223,7 @@ export const jobPostApi = createApi({
 			invalidatesTags: ['JobPost'],
 		}),
 		deleteJobPost: build.mutation({
-			query: id => ({
+			query: (id) => ({
 				url: `/jobPost/${id}`,
 				method: 'DELETE',
 			}),
@@ -244,9 +244,9 @@ export const {
 export const proposalPostApi = createApi({
 	reducerPath: 'jobProposal',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-	endpoints: build => ({
+	endpoints: (build) => ({
 		postProposal: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: '/jobProposal',
 				method: 'POST',
 				body,
@@ -256,7 +256,7 @@ export const proposalPostApi = createApi({
 			}),
 		}),
 		getProposalDetail: build.query({
-			query: proposalId => `/jobProposal/proposal/${proposalId.userId}/${proposalId.jobId}`,
+			query: (proposalId) => `/jobProposal/proposal/${proposalId.userId}/${proposalId.jobId}`,
 		}),
 	}),
 });
@@ -267,9 +267,9 @@ export const clientSettingsApi = createApi({
 	reducerPath: 'clientInfo',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	tagTypes: ['ClientInfo'],
-	endpoints: build => ({
+	endpoints: (build) => ({
 		postClientInfo: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: '/clientInfo',
 				method: 'POST',
 				body,
@@ -279,7 +279,7 @@ export const clientSettingsApi = createApi({
 			}),
 		}),
 		getClientInfoByUser: build.query({
-			query: id => `/clientInfo/user/${id}`,
+			query: (id) => `/clientInfo/user/${id}`,
 		}),
 		updateClientInfo: build.mutation({
 			query: ({ ClientInfoId, newObj }) => ({
@@ -301,7 +301,7 @@ export const {
 export const invitationPostApi = createApi({
 	reducerPath: 'invite-talent',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-	endpoints: build => ({
+	endpoints: (build) => ({
 		postInvitation: build.mutation<
 			{
 				message: string;
@@ -331,9 +331,9 @@ export const messagesApi = createApi({
 	reducerPath: 'message',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	tagTypes: ['message'],
-	endpoints: build => ({
+	endpoints: (build) => ({
 		postMessage: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: '/message',
 				method: 'POST',
 				body,
@@ -343,7 +343,7 @@ export const messagesApi = createApi({
 			}),
 		}),
 		createRoom: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: '/chat-room',
 				method: 'POST',
 				body,
@@ -353,19 +353,19 @@ export const messagesApi = createApi({
 			}),
 		}),
 		getMessagesByRoom: build.query({
-			query: id => `/message/${id}`,
+			query: (id) => `/message/${id}`,
 		}),
 		getRoomsByUser: build.query({
-			query: id => ({
+			query: (id) => ({
 				url: `/chat-room/${id}`,
-				responseHandler: response => response.json(),
+				responseHandler: (response) => response.json(),
 			}),
 		}),
 		getRoomsByTwoUsers: build.query({
-			query: data => `/chat-room/${data.clientId}/${data.freelancerId}/${data.jobPostId}`,
+			query: (data) => `/chat-room/${data.clientId}/${data.freelancerId}/${data.jobPostId}`,
 		}),
 		updateChatRoom: build.mutation({
-			query: data => ({
+			query: (data) => ({
 				url: `/chat-room/${data.chatRoomId}`,
 				method: 'PATCH',
 				body: data,
@@ -373,7 +373,7 @@ export const messagesApi = createApi({
 			invalidatesTags: ['message'],
 		}),
 		updateDeletingStatus: build.mutation({
-			query: data => ({
+			query: (data) => ({
 				url: `/chat-room/delete/${data.id}`,
 				method: 'PATCH',
 				body: data,
@@ -397,9 +397,9 @@ export const JobOfferApi = createApi({
 	reducerPath: 'jobOffer',
 	baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
 	tagTypes: ['jobOffer', 'jobContract'],
-	endpoints: build => ({
+	endpoints: (build) => ({
 		postOffer: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: '/jobOffer/offer',
 				method: 'POST',
 				body,
@@ -410,7 +410,7 @@ export const JobOfferApi = createApi({
 			invalidatesTags: ['jobOffer'],
 		}),
 		updateOfferStatus: build.mutation({
-			query: body => ({
+			query: (body) => ({
 				url: `/jobOffer/offer`,
 				method: 'PUT',
 				body,
@@ -421,11 +421,11 @@ export const JobOfferApi = createApi({
 			invalidatesTags: ['jobOffer'],
 		}),
 		getJobOffer: build.query({
-			query: data => `/jobOffer/job/${data.jobPostId}/${data.freelancerId}/${data.clientId}`,
+			query: (data) => `/jobOffer/job/${data.jobPostId}/${data.freelancerId}/${data.clientId}`,
 			providesTags: ['jobOffer'],
 		}),
 		getAcceptedJobOffer: build.query({
-			query: sendData =>
+			query: (sendData) =>
 				`/jobOffer/offer/${sendData.userId}/${sendData.role}?date=${sendData.date ?? ''}&status=${
 					sendData.status ?? ''
 				}`,

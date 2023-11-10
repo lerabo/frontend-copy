@@ -51,13 +51,12 @@ export const StyledLink = styled(NavLink)`
 	text-decoration: none;
 	font-weight: bold;
 	display: block;
-	padding-bottom: 3px;
 	text-align: center;
+	border-bottom: 3px solid transparent;
+	transition: border, color 0.25s ease-in-out;
 	&:hover {
 		border-bottom: 3px solid ${VIOLET};
-		text-decoration: none;
 		color: ${VIOLET};
-		padding-bottom: 0px;
 	}
 	&:active,
 	&:focus {

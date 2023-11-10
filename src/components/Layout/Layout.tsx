@@ -34,7 +34,7 @@ import { Backdrop } from 'components/PostDetailsPage/components/Modal.styles';
 import { Role } from 'constants/links';
 
 const Layout: FC = () => {
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const navigate = useNavigate();
 	const [toggleMenu, setToggleMenu] = useState(false);
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);

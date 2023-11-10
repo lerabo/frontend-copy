@@ -44,7 +44,7 @@ import EnglishRadio from './components/radioEnglish';
 import { CenterDiv } from 'components/inviteTalent/inviteTalent.styles';
 
 const FreelancerSettings = () => {
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const userId = user.id;
 	const { data: freelancerSettings, isLoading, isSuccess } = useGetFreelancerInfoQuery(userId);
 	const { sendData } = useSendData();
@@ -117,7 +117,7 @@ const FreelancerSettings = () => {
 			setValue('experience', freelancerSettings.experience);
 			setFile(freelancerSettings.photo);
 			setSelected(freelancerSettings.englishLevel);
-			const skills = skillsMock.map(skill => ({
+			const skills = skillsMock.map((skill) => ({
 				...skill,
 				value: freelancerSettings.skills.some(
 					(jobSkill: { name: string }) => jobSkill.name === skill.name,

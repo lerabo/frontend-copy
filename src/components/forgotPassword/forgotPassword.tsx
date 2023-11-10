@@ -28,7 +28,7 @@ const forgotPassword = () => {
 	const [forgot] = useForgotPasswordMutation();
 	const dispatch = useAppDispatch();
 
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 
 	const {
 		handleSubmit,
@@ -41,7 +41,7 @@ const forgotPassword = () => {
 
 	const { t } = useTranslation();
 
-	const onSubmit: SubmitHandler<FormEmail> = async values => {
+	const onSubmit: SubmitHandler<FormEmail> = async (values) => {
 		try {
 			await forgot(values).unwrap();
 			dispatch(saveUserId(user.id as number));

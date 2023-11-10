@@ -45,7 +45,7 @@ const DescriptionPage: FC = () => {
 	const { t } = useTranslation();
 	const params = useParams();
 	const navigate = useNavigate();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const proposalId = {
 		userId: user.id,
 		jobId: Number(params.id),

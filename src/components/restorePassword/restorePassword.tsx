@@ -54,7 +54,7 @@ const resetPassword = () => {
 		}
 	}, []);
 
-	const onSubmit: SubmitHandler<FormPass> = async values => {
+	const onSubmit: SubmitHandler<FormPass> = async (values) => {
 		const { password } = values;
 		if (values.createPassword !== values.password) {
 			openNotificationWithIcon('success', `${t('ResetPassword.success')}`);

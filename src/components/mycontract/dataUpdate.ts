@@ -38,7 +38,7 @@ export const useSendData = (offerAccepted: IContract[]) => {
 	);
 	useEffect(() => {
 		if (filteredContract) {
-			const contract = filteredContract?.map(item => item.id);
+			const contract = filteredContract?.map((item) => item.id);
 			setIds(contract);
 		}
 	}, [filteredContract]);

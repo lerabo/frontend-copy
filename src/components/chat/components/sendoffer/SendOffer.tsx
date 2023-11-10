@@ -40,7 +40,7 @@ export const SendOfferPopup: FunctionComponent<ModalProps> = ({
 	} = useForm<OfferForm>({
 		resolver: yupResolver(Schema),
 	});
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const { data: clientInfo } = useGetClientInfoByUserQuery(user.id);
 	const { sendData, sendUpdatedData } = useSendData();
 

@@ -10,7 +10,7 @@ import { RoleSelection, Settings, SettingsJobOwner } from 'constants/routes';
 import { Role } from 'constants/links';
 
 const WelcomePageLayout: FC = () => {
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 

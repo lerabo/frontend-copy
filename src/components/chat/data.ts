@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 import profileImage from 'assets/profile.png';
 
 export const useOnDataChange = () => {
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const userId = user?.id;
 	const { data: rooms } = useGetRoomsByUserQuery(userId);
 	const {

@@ -40,7 +40,7 @@ export const Schema = Yup.object().shape({
 
 export const ContactInfo = () => {
 	const { t } = useTranslation();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const { data: contactInfo } = useGetContactInfoQuery(user.id);
 	const [sendForm] = usePostProfileInfoMutation();
 	const {
@@ -58,7 +58,7 @@ export const ContactInfo = () => {
 		}
 	}, [contactInfo]);
 
-	const onSubmit: SubmitHandler<IContactInfoForm> = async data => {
+	const onSubmit: SubmitHandler<IContactInfoForm> = async (data) => {
 		try {
 			const newObj: IContactInfoForm = {
 				firstName: data.firstName,

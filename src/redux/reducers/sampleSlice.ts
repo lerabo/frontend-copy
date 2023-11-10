@@ -12,10 +12,10 @@ export const sampleSlice = createSlice({
 	name: 'sample',
 	initialState,
 	reducers: {
-		increment: state => {
+		increment: (state) => {
 			state.value += 10;
 		},
-		decrement: state => {
+		decrement: (state) => {
 			state.value -= 10;
 		},
 	},

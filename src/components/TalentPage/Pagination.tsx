@@ -14,7 +14,7 @@ const Pagination: FC<Paginate> = ({ filterPerPage, total, paginate }: Paginate) 
 		<div>
 			<ul className="pagination destination">
 				{pageNumber.length > 1 &&
-					pageNumber.map(number => (
+					pageNumber.map((number) => (
 						<li className="page-item" key={number}>
 							<p className="page-link" onClick={() => paginate(number)}>
 								{number}

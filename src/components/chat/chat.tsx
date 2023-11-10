@@ -45,7 +45,7 @@ export const DECLINED = 'declined';
 export const PENDING = 'Pending';
 
 const Chat = () => {
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const userId = user?.id;
 
 	const [socket, setSocket] = useState<Socket>();
@@ -117,7 +117,7 @@ const Chat = () => {
 	}, []);
 
 	const messageListener = (message: any) => {
-		setSocketMessage(arr => [...arr, message]);
+		setSocketMessage((arr) => [...arr, message]);
 	};
 
 	useEffect(() => {
@@ -185,7 +185,7 @@ const Chat = () => {
 	}
 
 	return (
-		<Wrapper onSubmit={handleSubmit(data => onSubmit(data, chatRoomId))}>
+		<Wrapper onSubmit={handleSubmit((data) => onSubmit(data, chatRoomId))}>
 			<UsersList>
 				{userList?.map((item: UserList) => {
 					if (

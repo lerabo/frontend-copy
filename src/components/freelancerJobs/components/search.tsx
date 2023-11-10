@@ -13,7 +13,7 @@ const Search = (props: Props) => {
 			type="text"
 			placeholder={placeholder}
 			value={search}
-			onChange={e => setSearch(e.target.value)}
+			onChange={(e) => setSearch(e.target.value)}
 		/>
 	);
 };

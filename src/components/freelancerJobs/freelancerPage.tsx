@@ -38,7 +38,7 @@ import Spinner from 'assets/spinner.gif';
 
 const FreelancerPage: FC = () => {
 	const { t } = useTranslation();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 
 	const { data: userInfo, isLoading } = useGetFreelancerInfoQuery(user.id);
 	const { data: posts } = useGetJobPostsQuery(user.id);
@@ -63,7 +63,7 @@ const FreelancerPage: FC = () => {
 				value: userInfo.category.name,
 				label: userInfo.category.name,
 			};
-			const skills = skillsMock.map(skill => ({
+			const skills = skillsMock.map((skill) => ({
 				...skill,
 				value: userInfo.skills.some((jobSkill: { name: string }) => jobSkill.name === skill.name),
 			}));
@@ -73,7 +73,7 @@ const FreelancerPage: FC = () => {
 	}, [isLoading]);
 
 	const onSkillsChange = (index: number) => {
-		setSkillsOptions(prevState => {
+		setSkillsOptions((prevState) => {
 			return prevState.map((e, i) => {
 				if (index === i) {
 					return { ...e, value: !e.value };
@@ -97,8 +97,8 @@ const FreelancerPage: FC = () => {
 		));
 	}, [skillsOptions]);
 
-	const filteredSkills = useMemo(() => skillsOptions.filter(s => s.value), [skillsOptions]);
-	const userSkills = useMemo(() => filteredSkills.map(s => s.name), [filteredSkills]);
+	const filteredSkills = useMemo(() => skillsOptions.filter((s) => s.value), [skillsOptions]);
+	const userSkills = useMemo(() => filteredSkills.map((s) => s.name), [filteredSkills]);
 
 	const filteredList = useMemo(
 		() =>
@@ -113,7 +113,7 @@ const FreelancerPage: FC = () => {
 					}
 				})
 				?.filter((post: IPost) => {
-					const jobSkills = post.jobSkills.map(skill => {
+					const jobSkills = post.jobSkills.map((skill) => {
 						return skill.name;
 					});
 					if (
@@ -121,7 +121,7 @@ const FreelancerPage: FC = () => {
 						userPrice[1] >= post.fromHourRate &&
 						(durationValue.includes(post.jobDuration) || durationValue === '') &&
 						(categoryValue.label === post.jobCategory.name || categoryValue.value === '') &&
-						(jobSkills.some(value => userSkills.includes(value)) || userSkills.length === 0)
+						(jobSkills.some((value) => userSkills.includes(value)) || userSkills.length === 0)
 					) {
 						return post;
 					}
@@ -151,7 +151,7 @@ const FreelancerPage: FC = () => {
 							<CustomSelect
 								options={selection}
 								placeholder="Categories"
-								onChange={choice => setCategoryValue(choice as ICategory)}
+								onChange={(choice) => setCategoryValue(choice as ICategory)}
 								value={categoryValue}
 							/>
 						</CategoryDiv>

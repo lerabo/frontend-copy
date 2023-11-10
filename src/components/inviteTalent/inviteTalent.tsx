@@ -26,7 +26,7 @@ const InviteTalent: FC = () => {
 	const [open, setOpen] = useState<boolean>(false);
 	const {
 		user: { id },
-	} = useAppSelector<RootState>(state => state);
+	} = useAppSelector<RootState>((state) => state);
 	const { data: post } = useGetPostJobQuery(id);
 	const profile = {
 		id: params,

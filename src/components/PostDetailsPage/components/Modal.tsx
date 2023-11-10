@@ -62,7 +62,7 @@ export const HandleModal: FunctionComponent<ModalProps> = ({
 	const [sendForm] = usePostProposalMutation();
 	const [createRoom] = useCreateRoomMutation();
 	const [sendMessage] = usePostMessageMutation();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 
 	const handleForm = async (data: ProposalForm) => {
 		await sendForm({ ...data, jobPost: jobPostId, userId: user.id, userIdClient: clientId })

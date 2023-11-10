@@ -12,14 +12,14 @@ export const useSendData = () => {
 				category: { name: data.category.label },
 				price: data.price,
 				englishLevel: data.englishLevel,
-				education: data.education.map(e => {
+				education: data.education.map((e) => {
 					return {
 						description: e.description,
 						startDate: e.startDate,
 						endDate: e.endDate,
 					};
 				}),
-				experience: data.experience.map(e => {
+				experience: data.experience.map((e) => {
 					return {
 						description: e.description,
 						startDate: e.startDate,

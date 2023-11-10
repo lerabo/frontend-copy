@@ -31,4 +31,4 @@ export interface IMessage {
 	profileId?: number;
 	jobPostId?: number;
 	jobTitle: string;
-};
+}

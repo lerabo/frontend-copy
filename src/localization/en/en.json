@@ -1,351 +1,351 @@
 {
-	"Sample": {
-		"title": "Text for sample"
-	},
-	"SignIn": {
-		"title": "Get Job",
-		"upperText": "THE BEST WAY TO FIND YOUR JOB!",
-		"email": "Username or Email",
-		"password": "Password",
-		"forgotPassword": "Forgot your password?",
-		"buttonSignin": "Sign In",
-		"text": "Don`t have an account yet?",
-		"registerLink": "Register Now",
-		"passwordCheck": "Password must contain at least 8 characters",
-		"success": "You have sucessfully logged in",
-		"error": "Invalid email or username"
-	},
-	"ForgotPassword": {
-		"email": "Email",
-		"sendButton": "Send",
-		"emailReq": "This field is required!",
-		"title": "Restore Password",
-		"instruction": "If your email is correct, we will send you an email with password recovery instructions!",
-		"success": "We successfully sent you an email with password recovery instructions!"
-	},
-	"ResetPassword": {
-		"newPassword": "New password",
-		"password": "Confirm password",
-		"success": "You have sucessfully signed in!",
-		"error": "Invalid password",
-		"title": "Recover Password"
-	},
-	"ChangePassword": {
-		"changePassword": "Change Password",
-		"oldPassword": "Old Password",
-		"newPassword": "New Password",
-		"showPassword": "Show password",
-		"confirmPassword": "Confirm New Password",
-		"saveButton": "Save",
-		"cancel": "Cancel",
-		"success": "You have sucessfully changed password!"
-	},
-	"SignUp": {
-		"quickSign": "Quick Sign Up",
-		"buttonGoogle": "Sign Up With Google",
-		"or": "Or",
-		"textEmail": "Use your email",
-		"email": "Email",
-		"createPassword": "Create a password",
-		"password": "Confirm password",
-		"register": "Register",
-		"errorPasswords": "Invalid password",
-		"errorEmail": "Invalid email or password",
-		"success": "You have sucessfully signed up!"
-	},
-	"GoogleAuthButton": {
-		"googleAuth": "Sign up with Google"
-	},
-	"Registration": {
-		"title": "Complete your registration",
-		"selectRole": "Please select your role",
-		"text": "I want to",
-		"buttonText1": "Work as a freelancer",
-		"buttonText2": "Hire for a project",
-		"buttonAccount": "Create My Account"
-	},
-	"SettingsPage": {
-		"profileEdit": "Profile (Edit)",
-		"contactInfo": "Contact Info"
-	},
-	"ProfileEdit": {
-		"profilePhotoTitle": "Profile photo",
-		"profilePhotowarning": "The maximum photo size are 200 X 300 px",
-		"deletePhotoButton": "Delete photo",
-		"positionTitle": "Position",
-		"positionAlert": "Maximum length is 25 symbols",
-		"categoryTitle": "Category",
-		"priceTitle": "Price",
-		"priceAlert": "Wrong price",
-		"skillsTitle": "Skills",
-		"skillsSubTitle": "You must mark at least 3 skills",
-		"englishLevelTitle": "English level",
-		"englishLevelLabels": {
-			"Pre_Intermediate": "Pre-Intermediate",
-			"Intermediate": "Intermediate",
-			"Upper_Intermediate": "Upper-Intermediate"
-		},
-		"descriptionTitle": "Description",
-		"descriptionPlaceholder": "Maximum text length <200 characters",
-		"educationTitle": "Education",
-		"addEducationButton": "+ Add education",
-		"experienceTitle": "Experience",
-		"addExperienceButton": "+ Add experience",
-		"saveButton": "Save",
-		"startDate": "Start date",
-		"endDate": "End date",
-		"fieldIsRequired": "Field is required",
-		"wrongDate": "Wrong date"
-	},
-	"ContactInfo": {
-		"firstName": "First name",
-		"lastName": "Last name",
-		"email": "Email",
-		"phone": "Phone",
-		"wrongPhoneNumberPattern": "Wrong phone number pattern",
-		"error": "Error",
-		"success": "Success",
-		"someErrorOccurred": "Some error occurred",
-		"dataHasBeenSaved": "Your data has been saved"
-	},
-	"WelcomePage": {
-		"title": "Welcome",
-		"description": "This page will have information about your profile",
-		"pointerToLink": "please follow the link",
-		"linkDescription": "Create my profile"
-	},
-	"JobPostPage": {
-		"title": "Write a title for your job post",
-		"descriptionTitle": "Describe your job",
-		"categoryTitle": "Job Category",
-		"skillsTitle": "Skills",
-		"hourTitle": "Hourly Rate",
-		"durationTitle": "How long will your work take?",
-		"shortDuration": "Short",
-		"mediumDuration": "Medium",
-		"longDuration": "Long",
-		"shortMonthDuration": "0-1 month",
-		"mediumMonthDuration": "1-6 months",
-		"longMonthDuration": "6+ months",
-		"from": "From",
-		"to": "To",
-		"buttonTitle": "Create!",
-		"minLength": "Must be at least 6 characters",
-		"maxLength5000": "Maximum length is 5000 symbols",
-		"maxLength100": "Maximum length is 100 symbols",
-		"priceError": "This field must be a positive number!",
-		"descriptionPlaceholder": "Max. 5000 characters",
-		"skillsError": "You must mark at least 3 skills",
-		"fieldIsRequired": "This field is required!",
-		"error": "Error",
-		"success": "Success",
-		"someErrorOccurred": "Some error occurred",
-		"dataHasBeenSaved": "Your data has been saved"
-	},
-	"PostJobPage": {
-		"title": "Your Postings",
-		"description": "No active job posts",
-		"button": "Post a Job"
-	},
-	"PostDetailPage": {
-		"skills": "Skills",
-		"rate": "Hourly Rate",
-		"proposalSend": "Proposal already sent!",
-		"project": "Project length",
-		"skillsTechnik": "Technical Writing Services",
-		"category": "Category /",
-		"hourTitle": "Your Hourly Rate",
-		"CVTitle": "Cover letter",
-		"sendBtn": "Send",
-		"sendPrpBtn": "Send proposal",
-		"loading": "Loading...",
-		"fieldIsRequired": "This field is required!",
-		"error": "Error",
-		"success": "Success",
-		"someErrorOccurred": "Some error occurred.",
-		"proposalSent": "Your proposal has been sent successfully!",
-		"priceError": "This field must be a positive number!",
-		"minLength": "Must be at least 6 characters",
-		"maxLength": "Maximum length is 50 symbols",
-		"editButton": "Edit",
-		"removeButton": "Delete",
-		"clientInfo": "About the client",
-		"buttonOffer": "Send offer"
-	},
-	"SendOfferPopup": {
-		"fieldIsRequired": "This field is required!",
-		"error": "Error",
-		"success": "Success",
-		"someErrorOccurred": "Some error occurred.",
-		"offerSent": "Your offer has been sent successfully!",
-		"priceError": "This field must be a positive number!",
-		"companyName": "Company name",
-		"price": "Price",
-		"startDate": "Start Date",
-		"endDate": "End Date",
-		"minLength": "Must be at least 6 characters",
-		"maxLength100": "Maximum length is 100 symbols",
-		"saveButton": "Save",
-		"cancel": "Cancel",
-		"offer": "Offer",
-		"errorMessage": "This field is required!"
-	},
-	"EditPostDetailPage": {
-		"title": "Re-write a title for your job post",
-		"descriptionTitle": "Re-describe your job",
-		"updateButton": "Update"
-	},
-	"Layout": {
-		"clientTitle": "My Jobs",
-		"freelancerTitle": "Jobs",
-		"home": "Home",
-		"logo": "WorkUA",
-		"slogo": "Let's Find Job Together!",
-		"settings": "Settings",
-		"logout": "Log Out",
-		"login": "Sign In",
-		"signup": "Sign Up",
-		"create": "Create Job Post"
-	},
-	"TalentCompanyPage": {
-		"title": "Find a talent for your Job",
-		"discover": "Discover",
-		"hires": "My Hires",
-		"saved": "Saved Talents",
-		"filter": "Filters",
-		"results": "Results by Your Search",
-		"skill": "Skills",
-		"rate": "Hourly rate: "
-	},
-	"FreelancerPage": {
-		"filter": "Filter by",
-		"clear": "Clear filters",
-		"search": "Search for jobs...",
-		"skills": "Skills",
-		"price": "Price Range",
-		"hours": "Available hours/per day",
-		"min": "min",
-		"max": "max",
-		"engLevelTitle": "English level",
-		"engLevel": {
-			"pre": "Pre-Intermediate",
-			"inter": "Intermediate",
-			"upper": "Upper-Intermediate"
-		},
-		"noResult1": "Sorry! No result found :(",
-		"noResult2": "We're sorry what you are looking for. Please try another way"
-	},
-	"InvitePage": {
-		"button": "Invite",
-		"link": "more",
-		"description": "Description: ",
-		"price": "Price: ",
-		"skills": "Skills: "
-	},
-	"InvitePopup": {
-		"title": "Message to invite to a job",
-		"label": "Message",
-		"job": " Select a Job Post",
-		"button": "Send invitation message",
-		"message": "Hello! \n I'd like to invite you to take a look at the job I've posted. \n Please submit a proposal if you're available and interested.",
-		"noJobs": "First you need to create a job post",
-		"buttonPost": "Post a job",
-		"success": "Message sent",
-		"error": "Please, select a job",
-		"buttonOffer": "Send offer"
-	},
-	"ClientPage": {
-		"clientTitle": "My Jobs",
-		"clientTitleDrop": "Jobs",
-		"freelancerTitle": "Jobs",
-		"home": "Home",
-		"settings": "Settings",
-		"chat": "Messages",
-		"contracts": "My Contracts",
-		"talent": "Talent",
-		"logout": "Log Out",
-		"login": "Sign In",
-		"signup": "Sign Up",
-		"create": "Post a Job",
-		"menu": "Navigation Menu",
-		"work": "Work"
-	},
-	"TalentPage": {
-		"loading": "Loading...",
-		"data": "There are no saved talents yet!"
-	},
-	"MyContract": {
-		"status": "Status",
-		"date": "Date"
-	},
-	"FreelancerLayout": {
-		"chat": "Messages",
-		"contracts": "My Contracts",
-		"search": "Search a Job"
-	},
-	"DeleteModal": {
-		"warningText": "Are you sure, that you want to delete you post?",
-		"agree": "Yes",
-		"disagree": "No"
-	},
-	"ClientSettings": {
-		"title": "My Info",
-		"name": "Name",
-		"website": "Website",
-		"email": "Email address",
-		"industry": "Select your industry",
-		"country": "Select your country",
-		"quantity": "How many people are in your company?",
-		"description": "Description",
-		"save": "Save",
-		"cancel": "Cancel",
-		"people": {
-			"me": "It's just me",
-			"2-9": "2-9 employees",
-			"10-99": "10-99 employees",
-			"100-1000": "100-1000 employees",
-			"more": "More than 1000"
-		},
-		"settings": "My info",
-		"password": "Password"
-	},
-	"FreelancerSettings": {
-		"title": "My Info",
-		"profile": "My Profile",
-		"info": "Contact Info",
-		"position": "Position",
-		"category": "Category",
-		"price": "Price",
-		"skills": "Skills",
-		"level": "English level",
-		"description": "Description",
-		"experience": "Experience",
-		"education": "Education",
-		"save": "Save",
-		"cancel": "Cancel"
-	},
-	"FreeOfferPopup": {
-		"title": "Offer",
-		"company": "Company Name",
-		"price": "Price",
-		"start": "Start Date",
-		"end": "End Date",
-		"btnAccept": "Accept",
-		"btnDecline": "Decline",
-		"accepted": "Job offer has been accepted",
-		"declined": "Job offer has been declined"
-	},
-	"chat": {
-		"accepted": "Accept",
-		"declined": "Decline",
-		"delete": "Delete chat"
-	},
-	"ContractSummary": {
-		"title" : "Contract Summary",
-		"name" : "Contract name: ",
-		"price": "Price: $ ",
-		"start": "Start date: ",
-		"end": "End date: ",
-		"status": "Status: "
-	}
+  "Sample": {
+    "title": "Text for sample"
+  },
+  "SignIn": {
+    "title": "Get Job",
+    "upperText": "THE BEST WAY TO FIND YOUR JOB!",
+    "email": "Username or Email",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "buttonSignin": "Sign In",
+    "text": "Don`t have an account yet?",
+    "registerLink": "Register Now",
+    "passwordCheck": "Password must contain at least 8 characters",
+    "success": "You have sucessfully logged in",
+    "error": "Invalid email or username"
+  },
+  "ForgotPassword": {
+    "email": "Email",
+    "sendButton": "Send",
+    "emailReq": "This field is required!",
+    "title": "Restore Password",
+    "instruction": "If your email is correct, we will send you an email with password recovery instructions!",
+    "success": "We successfully sent you an email with password recovery instructions!"
+  },
+  "ResetPassword": {
+    "newPassword": "New password",
+    "password": "Confirm password",
+    "success": "You have sucessfully signed in!",
+    "error": "Invalid password",
+    "title": "Recover Password"
+  },
+  "ChangePassword": {
+    "changePassword": "Change Password",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "showPassword": "Show password",
+    "confirmPassword": "Confirm New Password",
+    "saveButton": "Save",
+    "cancel": "Cancel",
+    "success": "You have sucessfully changed password!"
+  },
+  "SignUp": {
+    "quickSign": "Quick Sign Up",
+    "buttonGoogle": "Sign Up With Google",
+    "or": "Or",
+    "textEmail": "Use your email",
+    "email": "Email",
+    "createPassword": "Create a password",
+    "password": "Confirm password",
+    "register": "Register",
+    "errorPasswords": "Invalid password",
+    "errorEmail": "Invalid email or password",
+    "success": "You have sucessfully signed up!"
+  },
+  "GoogleAuthButton": {
+    "googleAuth": "Sign up with Google"
+  },
+  "Registration": {
+    "title": "Complete your registration",
+    "selectRole": "Please select your role",
+    "text": "I want to",
+    "buttonText1": "Work as a freelancer",
+    "buttonText2": "Hire for a project",
+    "buttonAccount": "Create My Account"
+  },
+  "SettingsPage": {
+    "profileEdit": "Profile (Edit)",
+    "contactInfo": "Contact Info"
+  },
+  "ProfileEdit": {
+    "profilePhotoTitle": "Profile photo",
+    "profilePhotowarning": "The maximum photo size are 200 X 300 px",
+    "deletePhotoButton": "Delete photo",
+    "positionTitle": "Position",
+    "positionAlert": "Maximum length is 25 symbols",
+    "categoryTitle": "Category",
+    "priceTitle": "Price",
+    "priceAlert": "Wrong price",
+    "skillsTitle": "Skills",
+    "skillsSubTitle": "You must mark at least 3 skills",
+    "englishLevelTitle": "English level",
+    "englishLevelLabels": {
+      "Pre_Intermediate": "Pre-Intermediate",
+      "Intermediate": "Intermediate",
+      "Upper_Intermediate": "Upper-Intermediate"
+    },
+    "descriptionTitle": "Description",
+    "descriptionPlaceholder": "Maximum text length <200 characters",
+    "educationTitle": "Education",
+    "addEducationButton": "+ Add education",
+    "experienceTitle": "Experience",
+    "addExperienceButton": "+ Add experience",
+    "saveButton": "Save",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "fieldIsRequired": "Field is required",
+    "wrongDate": "Wrong date"
+  },
+  "ContactInfo": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "wrongPhoneNumberPattern": "Wrong phone number pattern",
+    "error": "Error",
+    "success": "Success",
+    "someErrorOccurred": "Some error occurred",
+    "dataHasBeenSaved": "Your data has been saved"
+  },
+  "WelcomePage": {
+    "title": "Welcome",
+    "description": "This page will have information about your profile",
+    "pointerToLink": "please follow the link",
+    "linkDescription": "Create my profile"
+  },
+  "JobPostPage": {
+    "title": "Write a title for your job post",
+    "descriptionTitle": "Describe your job",
+    "categoryTitle": "Job Category",
+    "skillsTitle": "Skills",
+    "hourTitle": "Hourly Rate",
+    "durationTitle": "How long will your work take?",
+    "shortDuration": "Short",
+    "mediumDuration": "Medium",
+    "longDuration": "Long",
+    "shortMonthDuration": "0-1 month",
+    "mediumMonthDuration": "1-6 months",
+    "longMonthDuration": "6+ months",
+    "from": "From",
+    "to": "To",
+    "buttonTitle": "Create!",
+    "minLength": "Must be at least 6 characters",
+    "maxLength5000": "Maximum length is 5000 symbols",
+    "maxLength100": "Maximum length is 100 symbols",
+    "priceError": "This field must be a positive number!",
+    "descriptionPlaceholder": "Max. 5000 characters",
+    "skillsError": "You must mark at least 3 skills",
+    "fieldIsRequired": "This field is required!",
+    "error": "Error",
+    "success": "Success",
+    "someErrorOccurred": "Some error occurred",
+    "dataHasBeenSaved": "Your data has been saved"
+  },
+  "PostJobPage": {
+    "title": "Your Postings",
+    "description": "No active job posts",
+    "button": "Post a Job"
+  },
+  "PostDetailPage": {
+    "skills": "Skills",
+    "rate": "Hourly Rate",
+    "proposalSend": "Proposal already sent!",
+    "project": "Project length",
+    "skillsTechnik": "Technical Writing Services",
+    "category": "Category /",
+    "hourTitle": "Your Hourly Rate",
+    "CVTitle": "Cover letter",
+    "sendBtn": "Send",
+    "sendPrpBtn": "Send proposal",
+    "loading": "Loading...",
+    "fieldIsRequired": "This field is required!",
+    "error": "Error",
+    "success": "Success",
+    "someErrorOccurred": "Some error occurred.",
+    "proposalSent": "Your proposal has been sent successfully!",
+    "priceError": "This field must be a positive number!",
+    "minLength": "Must be at least 6 characters",
+    "maxLength": "Maximum length is 50 symbols",
+    "editButton": "Edit",
+    "removeButton": "Delete",
+    "clientInfo": "About the client",
+    "buttonOffer": "Send offer"
+  },
+  "SendOfferPopup": {
+    "fieldIsRequired": "This field is required!",
+    "error": "Error",
+    "success": "Success",
+    "someErrorOccurred": "Some error occurred.",
+    "offerSent": "Your offer has been sent successfully!",
+    "priceError": "This field must be a positive number!",
+    "companyName": "Company name",
+    "price": "Price",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "minLength": "Must be at least 6 characters",
+    "maxLength100": "Maximum length is 100 symbols",
+    "saveButton": "Save",
+    "cancel": "Cancel",
+    "offer": "Offer",
+    "errorMessage": "This field is required!"
+  },
+  "EditPostDetailPage": {
+    "title": "Re-write a title for your job post",
+    "descriptionTitle": "Re-describe your job",
+    "updateButton": "Update"
+  },
+  "Layout": {
+    "clientTitle": "My Jobs",
+    "freelancerTitle": "Jobs",
+    "home": "Home",
+    "logo": "Work",
+    "slogo": "Let's Find Job Together!",
+    "settings": "Settings",
+    "logout": "Log Out",
+    "login": "Sign In",
+    "signup": "Sign Up",
+    "create": "Create Job Post"
+  },
+  "TalentCompanyPage": {
+    "title": "Find a talent for your Job",
+    "discover": "Discover",
+    "hires": "My Hires",
+    "saved": "Saved Talents",
+    "filter": "Filters",
+    "results": "Results by Your Search",
+    "skill": "Skills",
+    "rate": "Hourly rate: "
+  },
+  "FreelancerPage": {
+    "filter": "Filter by",
+    "clear": "Clear filters",
+    "search": "Search for jobs...",
+    "skills": "Skills",
+    "price": "Price Range",
+    "hours": "Available hours/per day",
+    "min": "min",
+    "max": "max",
+    "engLevelTitle": "English level",
+    "engLevel": {
+      "pre": "Pre-Intermediate",
+      "inter": "Intermediate",
+      "upper": "Upper-Intermediate"
+    },
+    "noResult1": "Sorry! No result found :(",
+    "noResult2": "We're sorry what you are looking for. Please try another way"
+  },
+  "InvitePage": {
+    "button": "Invite",
+    "link": "more",
+    "description": "Description: ",
+    "price": "Price: ",
+    "skills": "Skills: "
+  },
+  "InvitePopup": {
+    "title": "Message to invite to a job",
+    "label": "Message",
+    "job": " Select a Job Post",
+    "button": "Send invitation message",
+    "message": "Hello! \n I'd like to invite you to take a look at the job I've posted. \n Please submit a proposal if you're available and interested.",
+    "noJobs": "First you need to create a job post",
+    "buttonPost": "Post a job",
+    "success": "Message sent",
+    "error": "Please, select a job",
+    "buttonOffer": "Send offer"
+  },
+  "ClientPage": {
+    "clientTitle": "My Jobs",
+    "clientTitleDrop": "Jobs",
+    "freelancerTitle": "Jobs",
+    "home": "Home",
+    "settings": "Settings",
+    "chat": "Messages",
+    "contracts": "My Contracts",
+    "talent": "Talent",
+    "logout": "Log Out",
+    "login": "Sign In",
+    "signup": "Sign Up",
+    "create": "Post a Job",
+    "menu": "Navigation Menu",
+    "work": "Work"
+  },
+  "TalentPage": {
+    "loading": "Loading...",
+    "data": "There are no saved talents yet!"
+  },
+  "MyContract": {
+    "status": "Status",
+    "date": "Date"
+  },
+  "FreelancerLayout": {
+    "chat": "Messages",
+    "contracts": "My Contracts",
+    "search": "Search a Job"
+  },
+  "DeleteModal": {
+    "warningText": "Are you sure, that you want to delete you post?",
+    "agree": "Yes",
+    "disagree": "No"
+  },
+  "ClientSettings": {
+    "title": "My Info",
+    "name": "Name",
+    "website": "Website",
+    "email": "Email address",
+    "industry": "Select your industry",
+    "country": "Select your country",
+    "quantity": "How many people are in your company?",
+    "description": "Description",
+    "save": "Save",
+    "cancel": "Cancel",
+    "people": {
+      "me": "It's just me",
+      "2-9": "2-9 employees",
+      "10-99": "10-99 employees",
+      "100-1000": "100-1000 employees",
+      "more": "More than 1000"
+    },
+    "settings": "My info",
+    "password": "Password"
+  },
+  "FreelancerSettings": {
+    "title": "My Info",
+    "profile": "My Profile",
+    "info": "Contact Info",
+    "position": "Position",
+    "category": "Category",
+    "price": "Price",
+    "skills": "Skills",
+    "level": "English level",
+    "description": "Description",
+    "experience": "Experience",
+    "education": "Education",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "FreeOfferPopup": {
+    "title": "Offer",
+    "company": "Company Name",
+    "price": "Price",
+    "start": "Start Date",
+    "end": "End Date",
+    "btnAccept": "Accept",
+    "btnDecline": "Decline",
+    "accepted": "Job offer has been accepted",
+    "declined": "Job offer has been declined"
+  },
+  "chat": {
+    "accepted": "Accept",
+    "declined": "Decline",
+    "delete": "Delete chat"
+  },
+  "ContractSummary": {
+    "title": "Contract Summary",
+    "name": "Contract name: ",
+    "price": "Price: $ ",
+    "start": "Start date: ",
+    "end": "End date: ",
+    "status": "Status: "
+  }
 }

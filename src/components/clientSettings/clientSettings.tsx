@@ -47,7 +47,7 @@ import { Image } from 'antd';
 import { CenterDiv } from 'components/inviteTalent/inviteTalent.styles';
 
 const ClientSettings = () => {
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const userId = user.id;
 	const { data: clientInfo, isLoading } = useGetClientInfoByUserQuery(userId);
 	const { sendData, sendUpdatedData } = useSendData();
@@ -206,7 +206,7 @@ const ClientSettings = () => {
 							<Title>{`${t('ClientSettings.industry')}`}</Title>
 							<Select
 								options={selection}
-								onChange={choice => setIndustryValue(choice as ICountry)}
+								onChange={(choice) => setIndustryValue(choice as ICountry)}
 								value={industry}
 							/>
 						</Column>

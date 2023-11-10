@@ -18,8 +18,6 @@ module.exports = {
     jest: true,
   },
   rules: {
-    indent: ['error', 'tab'],
-    'prettier/prettier': [2, { useTabs: true, tabWidth: 2 }],
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

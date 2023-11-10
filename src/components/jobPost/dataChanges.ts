@@ -51,19 +51,19 @@ export const useOnDataChange = () => {
 
 	const navigate = useNavigate();
 
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const userId = user.id;
 
 	const [skillsOptions, setSkillsOptions] = useState<ISkill[]>(skillsMock);
 
-	const filteredSkills = skillsOptions.filter(s => s.value);
+	const filteredSkills = skillsOptions.filter((s) => s.value);
 
 	const skills = filteredSkills.map(({ value, ...rest }) => {
 		return rest;
 	});
 
 	const onSkillsChange = (index: number) => {
-		setSkillsOptions(prevState => {
+		setSkillsOptions((prevState) => {
 			return prevState.map((e, i) => {
 				if (index === i) {
 					return { ...e, value: !e.value };

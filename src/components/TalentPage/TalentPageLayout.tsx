@@ -57,8 +57,8 @@ const TalentPageLayout: FC = () => {
 	}
 	const matchesQuery = useMediaQuery('(min-width: 1017px)');
 
-	const filteredSkills = useMemo(() => skillsOption.filter(s => s.value), [skillsOption]);
-	const userSkills = useMemo(() => filteredSkills.map(s => s.name), [filteredSkills]);
+	const filteredSkills = useMemo(() => skillsOption.filter((s) => s.value), [skillsOption]);
+	const userSkills = useMemo(() => filteredSkills.map((s) => s.name), [filteredSkills]);
 
 	const optionButtons = useMemo(() => {
 		return skillsOption.map((e, i) => (
@@ -75,7 +75,7 @@ const TalentPageLayout: FC = () => {
 	}, [skillsOption]);
 
 	const onSkillsChange = (index: number) => {
-		setSkillsOptions(prevState => {
+		setSkillsOptions((prevState) => {
 			return prevState.map((e, i) => {
 				if (index === i) {
 					return { ...e, value: !e.value };
@@ -129,7 +129,7 @@ const TalentPageLayout: FC = () => {
 								<Select
 									options={selection}
 									placeholder="Categories"
-									onChange={select => select && setSelect({ name: select.label })}
+									onChange={(select) => select && setSelect({ name: select.label })}
 								/>
 								<Skills optionButtons={optionButtons} />
 							</>

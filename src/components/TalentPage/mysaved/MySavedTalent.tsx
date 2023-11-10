@@ -12,7 +12,7 @@ import { RootState } from 'redux/store';
 const MySavedTalent = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const paginate = (pageNumber: React.SetStateAction<number>) => setCurrentPage(pageNumber);
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const userData = {
 		page: currentPage,
 		id: user.id,

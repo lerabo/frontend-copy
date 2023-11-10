@@ -22,8 +22,8 @@ export const SkillButton = styled.button<{ selected: boolean }>`
 	border-radius: 10px;
 	margin: 5px;
 	height: 40px;
-	background-color: ${props => (props.selected ? VIOLET : DEFAULT_COLOR)};
-	color: ${props => (props.selected ? WHITE_COLOR : DEFAULT_COLOR)};
+	background-color: ${(props) => (props.selected ? VIOLET : DEFAULT_COLOR)};
+	color: ${(props) => (props.selected ? WHITE_COLOR : DEFAULT_COLOR)};
 `;
 
 export const Li = styled.li`
@@ -56,7 +56,7 @@ export const Label = styled.label`
 `;
 
 export const Span = styled.span<{ value: boolean }>`
-	color: ${props => (props.value ? RED_COLOR : BLACK_COLOR)};
+	color: ${(props) => (props.value ? RED_COLOR : BLACK_COLOR)};
 `;
 
 export const P = styled.p`

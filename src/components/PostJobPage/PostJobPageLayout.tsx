@@ -30,7 +30,7 @@ interface IPost {
 const PostJobPageLayout: FC = () => {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 
 	const { data: post = [], isLoading } = useGetPostJobQuery(user.id);
 	const sortedPosts = useMemo(() => {

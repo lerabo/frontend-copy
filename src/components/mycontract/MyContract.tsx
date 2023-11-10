@@ -38,7 +38,7 @@ import ImageNoFound from 'assets/no_result.png';
 
 function MyContract() {
 	const { t } = useTranslation();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const [selectDate, setSelectDate] = useState<ISelect>();
 	const [selectStatus, setSelectStatus] = useState<ISelect>();
 	const [contractItem, setItem] = useState<IContract>(initialContract);
@@ -104,7 +104,7 @@ function MyContract() {
 									<Select
 										{...field}
 										options={selectionStatus}
-										onChange={select => select && setSelectStatus({ name: select.value })}
+										onChange={(select) => select && setSelectStatus({ name: select.value })}
 										className={`${errors.status ? 'is-invalid' : ''}`}
 										value={getValues('status')}
 										placeholder={`${t('MyContract.status')}`}
@@ -122,7 +122,7 @@ function MyContract() {
 									<Select
 										{...field}
 										options={selectionDate}
-										onChange={select => select && setSelectDate({ name: select.value })}
+										onChange={(select) => select && setSelectDate({ name: select.value })}
 										className={`${errors.date ? 'is-invalid' : ''}`}
 										value={getValues('date')}
 										placeholder={`${t('MyContract.date')}`}

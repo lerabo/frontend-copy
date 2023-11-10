@@ -40,7 +40,7 @@ const signUp = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<FormData> = async values => {
+	const onSubmit: SubmitHandler<FormData> = async (values) => {
 		const { email, password } = values;
 		if (values.createPassword !== values.password) {
 			openNotificationWithIcon('error');

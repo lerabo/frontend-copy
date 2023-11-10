@@ -38,7 +38,7 @@ const signIn = () => {
 		resolver: yupResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<FormData> = async values => {
+	const onSubmit: SubmitHandler<FormData> = async (values) => {
 		const { email, password, role } = values;
 
 		try {

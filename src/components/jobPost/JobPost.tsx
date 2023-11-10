@@ -27,7 +27,7 @@ import { SaveButton } from 'components/clientSettings/clentSettings.styles';
 
 const JobPost = () => {
 	const { t } = useTranslation();
-	const { user } = useAppSelector<RootState>(state => state);
+	const { user } = useAppSelector<RootState>((state) => state);
 	const { data: clientInfo, isLoading } = useGetClientInfoByUserQuery(user.id);
 	const navigate = useNavigate();
 	const { skillsOptions, onSkillsChange, skills, onSubmit } = useOnDataChange();
